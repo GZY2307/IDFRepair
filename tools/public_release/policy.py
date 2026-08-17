@@ -18,6 +18,7 @@ FROZEN_GUARD = PurePosixPath("reports/post_final/frozen_evidence_guard.json")
 
 PUBLIC_EXACT = frozenset(
     {
+        PurePosixPath(".gitattributes"),
         PurePosixPath(".gitignore"),
         PurePosixPath("CITATION.cff"),
         PurePosixPath("LICENSE"),

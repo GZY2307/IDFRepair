@@ -19,8 +19,17 @@ eplusout.*
 *.mtr
 *.audit
 
-# Retired local research workspaces retained outside the canonical Git tree
-/datasets/
+# Retired local research workspaces retained outside the canonical Git tree.
+# Only reviewed compact manifests used by the public release are trackable.
+/datasets/*
+!/datasets/manifests/
+/datasets/manifests/*
+!/datasets/manifests/doe_prototype_inventory.csv
+!/datasets/manifests/doe_topology_clusters.csv
+!/datasets/manifests/doe_topology_profiles.json
+!/datasets/manifests/semantic_graph_final_membership.csv
+!/datasets/manifests/semantic_graph_final_operator_registry.json
+!/datasets/manifests/semantic_graph_final_source_qualification.csv
 /runs/
 /cloud_exchange/
 /reports/final_evaluation_r4b_preconstruction_pilot/

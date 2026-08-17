@@ -1,0 +1,2 @@
+# Frozen CSV evidence is byte-preserved and excluded from whitespace diff checks.
+datasets/manifests/*.csv -text -diff

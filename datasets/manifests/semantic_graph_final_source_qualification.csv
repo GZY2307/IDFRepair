@@ -1,0 +1,127 @@
+sealed_source_id,source_path,weather_path,weather_status,corpus,prototype,code_edition,city,source_version,topology_fingerprint,complexity_band,selection_rank,seal_status,qualification_status,file_status,weather_qualification_status,parse_status,transition_status,transition_step_count,schema_status,schema_issue_count,smoke_status,smoke_returncode,smoke_severe_count,smoke_fatal_count,smoke_warning_count,smoke_wall_seconds,qualified_artifact,qualified_sha256,error
+v22-sealed-source-01,datasets/source/ASHRAE901_all/ASHRAE901_Hospital_STD2019_SanDiego.idf,weather/ASHRAE901_epw/USA_CA_San.Deigo-Brown.Field.Muni.AP.722904_TMY3.epw,available,commercial_standard,Hospital,2019,SanDiego,22.1,1429eedf2be6400344a7ffc08b80cbeca7068e7f2a1a02ce5df8348737a9d597,high,1,SEALED_NOT_INSPECTED_BY_V22,FAILED_ENERGYPLUS,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,FAILED_ENERGYPLUS,0,8,0,146,19.825851375004277,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-01/qualified.idf,cc64194202d51f48eb00e1669c1f0c24431da16f4e70ea8a6674f8638e003fe0,"   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=14.472549  Min=14.077529
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR ""COOLSYS1 CHILLER2"": The cond outlet temp range in Electric Input to Cooling Output Ratio Function of PLR curve error continues.
+   *************  **   ~~~   **   This error occurred 1296 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=29.361327  Min=21.742130
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR ""COOLSYS1 CHILLER2"": The part-load ratio range in Electric Input to Cooling Output Ratio Function of PLRatio curve error continues.
+   *************  **   ~~~   **   This error occurred 32 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=0.150000  Min=0.150000
+   *************
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 39 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 190581 Warning; 8 Severe Errors; Elapsed Time=00hr 00min 19.54sec
+"
+v22-sealed-source-02,datasets/source/AppendixG_all/ASHRAE901_OfficeLarge_STD2022AppGBaseline_Albuquerque.idf,weather/All_epwWeather/USA_NM_Albuquerque.Intl.AP.723650_TMY3.epw,available,commercial_appendix_g,OfficeLarge,2022,Albuquerque,22.1,164e56310ab0f3c956a7ae534de715688d5b5f4c04ad28ac3277818ac42bb8cc,medium,2,SEALED_NOT_INSPECTED_BY_V22,FAILED_ENERGYPLUS,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,FAILED_ENERGYPLUS,0,5,0,75,10.000974833965302,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-02/qualified.idf,2a34c29e43e5ee60a134495560d70fd2aa9ccd4a7570c11d8473d09fa996331d,"al times;
+   *************  **   ~~~   **   during Warmup 6253 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-53922.375585  Min=-86744.203792
+   *************
+   *************  ** Warning ** AirLoopHVAC:UnitarySystem ""AIRLOOP DATACENTER BASEMENT_UNITARY_PACKAGE_DX"" - sensible part-load ratio out of range error continues. Sensible load statistics:
+   *************  **   ~~~   **   This error occurred 2328 total times;
+   *************  **   ~~~   **   during Warmup 2028 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-355880.631866  Min=-428994.896269
+   *************
+   *************  ** Warning ** CoolingTower:VariableSpeed ""TOWERWATERSYS COOLTOWER 2"" - Water flow rate ratio is out of range error continues...
+   *************  **   ~~~   **   This error occurred 44 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=1.915591  Min=1.914876
+   *************
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 12 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 1083594 Warning; 5 Severe Errors; Elapsed Time=00hr 00min  9.74sec
+"
+v22-sealed-source-03,datasets/source/IECC_all/IECC_HotelLarge_STD2021_Albuquerque.idf,weather/All_epwWeather/USA_NM_Albuquerque.Intl.AP.723650_TMY3.epw,available,commercial_iecc,HotelLarge,2021,Albuquerque,22.1,b7ed01f7f2c62c878fbbc5cc06501c0403320582863a09f00f183aebde0f0237,medium,3,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,39,8.256678333040327,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-03/qualified.idf,986259573b034bbba5e972f9ca618dc20ed35807f1f03563f6ca8077da842b51,
+v22-sealed-source-04,datasets/source/AppendixG_all/ASHRAE901_SchoolPrimary_STD2016AppGProposed_Tucson.idf,weather/ASHRAE901_epw/USA_AZ_Tucson-Davis-Monthan.AFB.722745_TMY3.epw,available,commercial_appendix_g,SchoolPrimary,2016,Tucson,22.1,1943608931bc6ccb8c5f6898a6a0c38d7b4fa831d12c1f6be0c8565b2f9cc60e,low,4,SEALED_NOT_INSPECTED_BY_V22,FAILED_ENERGYPLUS,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,FAILED_ENERGYPLUS,0,1,0,69,20.704188916133717,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-04/qualified.idf,16caf1919f358a7c1b1e5379bdaea9930a10a1a883f6119bd2151c9adc8c7a2b,"******  **   ~~~   **   This error occurred 103 total times;
+   *************  **   ~~~   **   during Warmup 93 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=9362.625330  Min=-13928.252235
+   *************
+   *************  ** Warning ** SimHVAC: Exceeding Maximum iterations for all HVAC loops, during TUCSON-DAVIS-MONTHAN.AFB_AZ_USA ANN HTG 99.6% CONDNS DB continues
+   *************  **   ~~~   **   This error occurred 199 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************
+   *************  ** Warning ** AirLoopHVAC:UnitarySystem ""PSZ-AC_2:5_UNITARY_PACKAGE_DX"" - Iteration limit exceeded in calculating sensible part-load ratio error continues. Sensible load statistics:
+   *************  **   ~~~   **   This error occurred 1 total times;
+   *************  **   ~~~   **   during Warmup 1 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-5838.773491  Min=-5838.773491
+   *************
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 23 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 370 Warning; 1 Severe Errors; Elapsed Time=00hr 00min 20.50sec
+"
+v22-sealed-source-05,datasets/source/ASHRAE901_all/ASHRAE901_SchoolSecondary_STD2004_Fairbanks.idf,weather/All_epwWeather/USA_AK_Fairbanks.Intl.AP.702610_TMY3.epw,available,commercial_standard,SchoolSecondary,2004,Fairbanks,22.1,5b8f64ecf2ba36e7fe823cad9408649fc3aa9617938304527a47d8f60e75a0a5,high,5,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,77,28.867447166936472,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-05/qualified.idf,0a7c4ee2f790dd81837903d2c6df0cb52fb0bd4da8231d2fb8b46a926e219ee2,
+v22-sealed-source-06,datasets/source/IECC_all/IECC_OfficeLarge_STD2015_Atlanta.idf,weather/All_epwWeather/USA_GA_Atlanta-Hartsfield-Jackson.Intl.AP.722190_TMY3.epw,available,commercial_iecc,OfficeLarge,2015,Atlanta,22.1,62033009646e6485c4d77b473e66d96745e851e6cb05f113b53f50e828898bf9,medium,6,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,58,9.173113625030965,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-06/qualified.idf,8f45aa7700c9827f50fcdde2217e3f6dd54ef48338f06793f0942d38af17c872,
+v22-sealed-source-07,datasets/source/ASHRAE901_all/ASHRAE901_RetailStandalone_STD2013_Atlanta.idf,weather/All_epwWeather/USA_GA_Atlanta-Hartsfield-Jackson.Intl.AP.722190_TMY3.epw,available,commercial_standard,RetailStandalone,2013,Atlanta,22.1,9e5d60051b1d4c7539fe9e59f5e6040fee0b256ef8549b88957f7afdd6b28b61,low,7,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,24,1.9918473751749843,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-07/qualified.idf,1b58ed461cc3080a44d9e4c4da05469bbb79f988d2cc510280c04ec80fa1bb62,
+v22-sealed-source-08,datasets/source/AppendixG_all/ASHRAE901_OfficeMedium_STD2016AppGProposed_Fairbanks.idf,weather/All_epwWeather/USA_AK_Fairbanks.Intl.AP.702610_TMY3.epw,available,commercial_appendix_g,OfficeMedium,2016,Fairbanks,22.1,e48df6624572158a1c781c7069cc5558065684e882995b33a9d600fa2cd641f9,low,8,SEALED_NOT_INSPECTED_BY_V22,FAILED_ENERGYPLUS,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,FAILED_ENERGYPLUS,0,1,0,31,4.928244999842718,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-08/qualified.idf,0d7e72b96d8e9fdb38b380332fc84940a477ba4d2383d5ae110c090bdfa0d4d3,"Beginning Simulation
+   ** Warning ** Output:Table:Monthly requested with SimulationControl Run Simulation for Weather File Run Periods set to No so Output:Table:Monthly will not be generated
+   ** Severe  ** Transformer Overloaded
+   **   ~~~   ** Entered in ElectricLoadCenter:Transformer =TRANSFORMER 1
+   ************* Simulation Error Summary *************
+   ************* There are 9 unused objects in input.
+   ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
+   ************* There are 36 unused schedules in input.
+   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Severe  ** Transformer Overloaded: Entered in ElectricLoadCenter:Transformer =TRANSFORMER 1
+   *************  **   ~~~   **   This error occurred 1917 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 13 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 31 Warning; 1918 Severe Errors; Elapsed Time=00hr 00min  4.64sec
+"
+v22-sealed-source-09,datasets/source/IECC_all/IECC_Hospital_STD2021_Albuquerque.idf,weather/All_epwWeather/USA_NM_Albuquerque.Intl.AP.723650_TMY3.epw,available,commercial_iecc,Hospital,2021,Albuquerque,22.1,cb27ce2c5e2c05186c577be65cd7f8bc5c346bdcfe27cce2399441252574e5e6,high,9,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,130,16.336165625136346,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-09/qualified.idf,70cb3176849558bb909a07dda6739f55206fc875a4b7fa0da8f614f2ab25b7b5,
+v22-sealed-source-10,datasets/source/AppendixG_all/ASHRAE901_OutPatientHealthCare_STD2022AppGBaseline_Atlanta.idf,weather/All_epwWeather/USA_GA_Atlanta-Hartsfield-Jackson.Intl.AP.722190_TMY3.epw,available,commercial_appendix_g,OutPatientHealthCare,2022,Atlanta,22.1,1da6c9df861952b91f74e4ecbf500e5d14b1936a00c36e2953ee40db3f9c4634,high,10,SEALED_NOT_INSPECTED_BY_V22,TIMEOUT,PASSED,PASSED,PASSED,TIMEOUT,,NOT_RUN,,NOT_RUN,,,,,,,,RuntimeProcessError: transition_process_timed_out
+v22-sealed-source-11,datasets/source/ASHRAE901_all/ASHRAE901_RetailStripmall_STD2004_Albuquerque.idf,weather/All_epwWeather/USA_NM_Albuquerque.Intl.AP.723650_TMY3.epw,available,commercial_standard,RetailStripmall,2004,Albuquerque,22.1,b933aa62266bfc6723dc2861b934eb84b7469cef2ae12a961e4ccc30a63d691c,low,11,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,26,3.347234583925456,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-11/qualified.idf,21f2d0b8f560587c44975cf212e81949defdc38c3efb2896b2281b1d4835a998,
+v22-sealed-source-12,datasets/source/IECC_all/IECC_OfficeLarge_STD2015_Fairbanks.idf,weather/All_epwWeather/USA_AK_Fairbanks.Intl.AP.702610_TMY3.epw,available,commercial_iecc,OfficeLarge,2015,Fairbanks,22.1,8a33fd8667b57d7e5867bcfc1a80d149bbd36aec9c8a6104f846de472ffa830a,medium,12,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,55,7.6922167090233415,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-12/qualified.idf,27359dcd9e779c173f54426c1f00a8e4b729c529f24a79d0bc775ea503fe5858,
+v22-sealed-source-13,datasets/source/AppendixG_all/ASHRAE901_OfficeSmall_STD2022AppGBaseline_Atlanta.idf,weather/All_epwWeather/USA_GA_Atlanta-Hartsfield-Jackson.Intl.AP.722190_TMY3.epw,available,commercial_appendix_g,OfficeSmall,2022,Atlanta,22.1,286f4a864a85d9ff9a087b2d2c26fd05d47b66fd6f69afa0fdf4e266c9577927,low,13,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,15,1.7902892078272998,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-13/qualified.idf,c8dca367b28c5e08833e5db1e262cfa1a8415057c9f18a8f0656b8fdfb72d5d8,
+v22-sealed-source-14,datasets/source/ASHRAE901_all/ASHRAE901_ApartmentHighRise_STD2016_Albuquerque.idf,weather/All_epwWeather/USA_NM_Albuquerque.Intl.AP.723650_TMY3.epw,available,commercial_standard,ApartmentHighRise,2016,Albuquerque,22.1,f406f58ca1f98efee7e16814220b5eb2eaa4651870ef825a47d9e00fc7cf8390,high,14,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,74,5.284458957845345,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-14/qualified.idf,641f17948119fbabc0faeab62ded02cffd7b2934fa455c8047c2c0aa8dd84e6e,
+v22-sealed-source-15,datasets/source/IECC_all/IECC_OfficeLarge_STD2021_Fairbanks.idf,weather/All_epwWeather/USA_AK_Fairbanks.Intl.AP.702610_TMY3.epw,available,commercial_iecc,OfficeLarge,2021,Fairbanks,22.1,b4a74088df8035a5bebce84ae8bbcb5634e0453325c0e17b25f4dafd8c0ee470,medium,15,SEALED_NOT_INSPECTED_BY_V22,PASSED,PASSED,PASSED,PASSED,PASSED,4,PASSED,0,PASSED,0,0,0,51,4.168754416052252,runs/semantic_graph_final/qualification24_1_retry_exact/v22-sealed-source-15/qualified.idf,a8336b3341d78eba030d24f870ab745082c5d7d94752090565e15f080ca5456a,

@@ -17,7 +17,7 @@ Candidate environment: macOS arm64, Python 3.12.1. Total recorded phase time was
 | Phase | Result | Return code | Duration (s) | Key evidence |
 |---|---:|---:|---:|---|
 | Frozen metric reproduction | PASS | 0 | 0.035 | Formal V2 Final100 `81/100`; method-modified flag false |
-| Selected public pytest | PASS | 0 | 6.261 | 189 passed |
+| Selected public pytest | PASS | 0 | 6.261 | 191 passed, including Git-ignore and byte-preservation distribution invariants |
 | Compile package/tools/scripts/tests | PASS | 0 | 0.358 | No compile error |
 | Build wheel without package dependencies | PASS | 0 | 2.662 | `idfrepair` wheel built |
 | Create clean smoke environment | PASS | 0 | 1.867 | Environment created with available system packages |

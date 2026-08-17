@@ -71,7 +71,7 @@ blocked, and model/weight suffixes remain blocked globally.
 
 ## Reproducibility gate
 
-The candidate passed frozen-metric reproduction, 189 selected public tests,
+The candidate passed frozen-metric reproduction, 191 selected public tests,
 bytecode compilation, wheel build, isolated wheel installation, installed-package
 imports, installed CLI help, and Git whitespace validation. See
 `reproducibility_smoke.md` for the phase record.

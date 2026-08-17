@@ -9,11 +9,13 @@ from __future__ import annotations
 
 import json
 from pathlib import Path, PurePosixPath
+import subprocess
 
 import pytest
 
 from scripts.public_reproduce_formal_v2 import build_summary
 from tools.public_release.policy import (
+    PUBLIC_EXACT,
     allowed_public_path,
     forbidden_reason,
     verify_frozen_guard,
@@ -42,6 +44,58 @@ def test_every_frozen_guard_member_is_publicly_allowlisted() -> None:
     )
 
     assert all(allowed_public_path(PurePosixPath(path)) for path in guarded)
+
+
+def test_frozen_guard_members_are_not_silently_git_ignored() -> None:
+    """构建树中的冻结文件必须能被普通 `git add --all` 纳入 fresh history。"""
+
+    guard = json.loads(
+        (PROJECT_ROOT / "reports/post_final/frozen_evidence_guard.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    guarded = (
+        set(guard["protected_source_sha256"])
+        | set(guard["protected_final_sha256"])
+    )
+    reviewed_manifests = {
+        path.as_posix() for path in PUBLIC_EXACT if path.parts[0] == "datasets"
+    }
+    guarded = sorted(guarded | reviewed_manifests)
+    ignored: list[str] = []
+    for path in guarded:
+        result = subprocess.run(
+            ("git", "check-ignore", "--quiet", "--no-index", path),
+            cwd=PROJECT_ROOT,
+            check=False,
+        )
+        if result.returncode == 0:
+            ignored.append(path)
+        elif result.returncode != 1:
+            raise AssertionError(f"git_check_ignore_failed:{path}:{result.returncode}")
+
+    assert ignored == []
+
+
+def test_reviewed_csv_manifests_are_byte_preserved_git_evidence() -> None:
+    """冻结 CSV 禁止文本转换，并从空白 diff 中排除以保留原始哈希。"""
+
+    assert allowed_public_path(PurePosixPath(".gitattributes"))
+    reviewed_csv = sorted(
+        path.as_posix()
+        for path in PUBLIC_EXACT
+        if path.parts[0] == "datasets" and path.suffix == ".csv"
+    )
+    for path in reviewed_csv:
+        result = subprocess.run(
+            ("git", "check-attr", "text", "diff", "--", path),
+            cwd=PROJECT_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert f"{path}: text: unset" in result.stdout
+        assert f"{path}: diff: unset" in result.stdout
 
 
 @pytest.mark.parametrize(
