@@ -470,22 +470,22 @@
       "sha256": "b39c918ad757de01099ec69adfd5cebd3a104116eff3cceede0a385f543cf0e0"
     },
     {
-      "bytes": 3893,
+      "bytes": 4023,
       "category": "compact_evidence",
       "path": "reports/public_release/github_release_audit.md",
-      "sha256": "b77a1548c75999b5788b8e3bf91e91e440836c7fd673096b8adc501cb28f03f2"
+      "sha256": "c0c0c734074df2010e1d261da2e8c3d20a086d02e0425dd710efd2163bbcb749"
     },
     {
-      "bytes": 2988,
+      "bytes": 2750,
       "category": "compact_evidence",
       "path": "reports/public_release/reproducibility_smoke.md",
-      "sha256": "03e571973bb8dece63fb6f5bd34389cfca1eac9f29db26d5dcf9783741c2f5bc"
+      "sha256": "9f5ebf0274a5f25138ba21d6e3a59ad096a63870bbe9357ed344a2a574023980"
     },
     {
-      "bytes": 1902,
+      "bytes": 1897,
       "category": "compact_evidence",
       "path": "reports/public_release/room_aware_fresh_clone_smoke.md",
-      "sha256": "323f8845499ca4884fddd0710d8e4d3840307ba5d64676f20c680a2bdc4d099d"
+      "sha256": "8b17d10973964fa0944fd113653b0fe6ab099420ca7b830e00a46cb4277fa596"
     },
     {
       "bytes": 1559,
@@ -2457,6 +2457,6 @@
     "runtime_binary_or_weather_included": false
   },
   "schema_version": "idfrepair.public-manifest.v1",
-  "snapshot_sha256": "f2190313a57dcf217fe8180b78b81342e76543db339c762aa54c494ddf6bdef2",
-  "total_bytes": 17593250
+  "snapshot_sha256": "4676e84ceba58335f635a7ea22e7f21eb7d3bcb5ef12034cdf4529eef58be76d",
+  "total_bytes": 17593137
 }

@@ -1,11 +1,11 @@
 # Room-aware Fresh-Clone Reproducibility Smoke
 
-Status: `PASSED_LOCAL_FRESH_CLONE`
+Status: `PASSED_GITHUB_FRESH_CLONE`
 
-The local fresh clone of the allowlist-built, single-root public candidate passed all
+The GitHub fresh clone of the allowlist-built, public-only candidate passed all
 nine smoke phases. No raw private terminal asset was supplied to or required by this
 smoke. The audited local root was
-`f7f90c020987d9afcefd26edd79709181e962ecf`.
+`7ae88ea87a1c2290891cfd28f55d47da04582535`.
 
 | Phase | Result | Evidence |
 |---|---:|---|

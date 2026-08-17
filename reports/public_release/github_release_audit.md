@@ -4,41 +4,41 @@ Status: `PUBLIC_RELEASED`
 
 ## Decision
 
-The allowlist-built release is public at
-`https://github.com/GZY2307/IDFRepair`. Its Git history began from a new root;
-no history or remote configuration was copied from the existing private
-development repository. The historical `GZY2307/Test1` repository remained out
-of scope and unchanged.
+The allowlist-built Room-aware release is public at
+`https://github.com/GZY2307/IDFRepair`. The repository retains only its prior
+public-release root and public-only follow-up commits; no history or remote
+configuration was copied from the private development repository. The historical
+`GZY2307/Test1` repository remained out of scope and unchanged.
 
-No secret, private-data, absolute-path, symlink, oversized-file, or oversized-tree
-blocker was found in the qualified candidate or its complete reachable history.
+The repository was unexpectedly `PRIVATE` before this update. Its existing complete
+reachable history was audited first with zero findings, the new candidate was pushed
+and independently fresh-cloned, and only then was visibility restored to `PUBLIC`.
 
 ## Target and identity checks
 
 | Check | Result |
 |---|---|
 | GitHub account | Authenticated as `GZY2307` |
-| Target repository before release | `GZY2307/IDFRepair` did not exist |
 | Published repository | `https://github.com/GZY2307/IDFRepair` |
-| Verified visibility | Public |
-| Source history reused | No |
+| Verified visibility | Public; anonymous HTTPS Git access succeeded |
+| Private development history reused | No |
+| Prior public-only history retained | Yes |
 | Private development remote modified | No |
 | Default branch | `main` |
-| Content-qualified commit | `480e68ba484fccd79ea92c68043b40251a8cb3b1` |
-| Distribution-qualified tag | `v1.0.1` |
+| Room-aware content-qualified commit | `7ae88ea87a1c2290891cfd28f55d47da04582535` |
+| Room-aware content-qualified tag | `v1.1.0` |
 
 ## Qualified candidate
 
-The final content qualification snapshot before this report-only closure contained
-338 allowlisted source members, 11,812,913 bytes, and had content digest
-`80fe15b4e7672c2afd2a5b625ba60e524525e4a5b8a5fae2af74e49700e7be16`.
-The generated `public_manifest.json` is the authoritative inventory for the final
-candidate, including these audit reports.
+The final content candidate before the report-only closure contained 408 allowlisted
+source members, 17,593,250 bytes, and content digest
+`f2190313a57dcf217fe8180b78b81342e76543db339c762aa54c494ddf6bdef2`.
+The generated `public_manifest.json` is the authoritative inventory.
 
 The public tree contains package source, selected tests, reproducibility tools,
-compact frozen evidence, occupancy analysis code, scenario summaries, and paper
-readiness documentation. It intentionally excludes the two user-authored terminal
-OSM source models.
+compact frozen evidence, room-aware occupancy analysis code, coordinate-free entrance
+mapping, scenario summaries, figures and paper-readiness documentation. It
+intentionally excludes both user-authored terminal OSM source models.
 
 ## Security and privacy gates
 
@@ -47,43 +47,40 @@ OSM source models.
 | Explicit path allowlist | PASS | Every staged member is accepted by `tools/public_release/policy.py` |
 | Frozen evidence guard | PASS | All protected source and Final evidence hashes match |
 | Tree secret scan | PASS | 0 findings |
-| Reachable-history secret scan | PASS | 0 findings |
+| Reachable-history secret scan | PASS | 0 findings across all four content commits |
 | Local absolute-path scan | PASS | 0 findings |
 | Symlink scan | PASS | 0 findings |
 | Maximum file size | PASS | No file exceeds 10 MiB |
 | Maximum tree size | PASS | Candidate remains below 50 MiB |
-| Fresh-history policy | PASS | New release-only root; no development history imported |
-| GitHub fresh-clone audit | PASS | 0 tree/history findings at `v1.0.1` |
+| Public-only history policy | PASS | Existing release-only root retained; no development history imported |
+| GitHub fresh-clone audit | PASS | 0 tree/history findings at `v1.1.0` |
 
-The credential scanner covers high-risk credential assignments, common provider
-token formats, and private-key material without echoing matched values. Domain
-identifiers such as zone lookup keys and parser tokens are not treated as
-credentials.
+Generated `*.egg-info` / `*.dist-info`, test caches and wheel build trees are blocked
+from staging. The credential scanner covers high-risk assignments, common provider
+token formats and private-key material without echoing matched values.
 
 ## Explicit exclusions
 
 - raw terminal OSM files and all unreviewed IDF inputs;
 - raw weather and EnergyPlus output files;
-- DOE raw models, private oracle/scorer material, server configuration, and
+- construction drawings, private oracle/scorer material, server configuration and
   credential files;
 - runtime binaries, model weights, caches, virtual environments, raw run trees,
-  literature PDFs, archives, and Git bundles.
+  literature PDFs, archives and Git bundles.
 
-The source-code package `src/idfrepair/models/` is included because it contains
-Python integration code, not model data. Repository-root `models/` remains
-blocked, and model/weight suffixes remain blocked globally.
+The source-code package `src/idfrepair/models/` is included because it contains Python
+integration code, not model data. Repository-root `models/` remains blocked.
 
 ## Reproducibility gate
 
-The GitHub fresh clone passed frozen-metric reproduction, 191 selected public tests,
+The GitHub fresh clone passed frozen-metric reproduction, 288 selected public tests,
 bytecode compilation, wheel build, isolated wheel installation, installed-package
-imports, installed CLI help, and Git whitespace validation. See
-`reproducibility_smoke.md` for the phase record.
+imports, installed CLI help and Git whitespace validation. Formal V2/Final100 was
+read and verified only; it was not regenerated or rescored.
 
 ## Release closure
 
-The content-qualified public distribution is commit `480e68b` / tag `v1.0.1`.
-This final report/manifest closure is released as `v1.0.2`; it changes no repair,
-occupancy, test, or frozen evidence content. Any later tree/history audit finding
-remains release-blocking. Force push, history mirroring, and publication of the
-raw terminal models are not authorized.
+The Room-aware content release is commit `7ae88ea` / tag `v1.1.0`. The subsequent
+`v1.1.1` tag adds only this closed audit report, the refreshed reproducibility record
+and regenerated public manifest. Force push, private-history mirroring and publication
+of the raw terminal models remain prohibited.

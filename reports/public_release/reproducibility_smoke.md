@@ -4,27 +4,28 @@ Status: `PASSED_GITHUB_FRESH_CLONE`
 
 ## Answer
 
-The clean public candidate is installable, its selected public test suite passes,
-and its compact Formal V2 headline metrics reproduce from the frozen evidence.
-This smoke reads and validates the frozen result artifacts; it does not generate
-new Final predictions, rescore Final100, or alter production repair semantics.
+The GitHub fresh clone at Room-aware content commit
+`7ae88ea87a1c2290891cfd28f55d47da04582535` is installable, its selected public test
+suite passes, and the compact Formal V2 headline metrics reproduce from frozen
+evidence. The smoke did not generate new Final predictions, rescore Final100, or alter
+production repair semantics.
 
-Fresh-clone environment: macOS arm64, Python 3.12.1. Total recorded phase time
-was 12.810 seconds. Durations are diagnostic rather than performance claims.
+Fresh-clone environment: macOS arm64, Python 3.12.1. Total recorded phase time was
+46.367 seconds. Durations are diagnostic rather than performance claims.
 
 ## Phase record
 
 | Phase | Result | Return code | Duration (s) | Key evidence |
 |---|---:|---:|---:|---|
-| Frozen metric reproduction | PASS | 0 | 0.032 | Formal V2 Final100 `81/100`; method-modified flag false |
-| Selected public pytest | PASS | 0 | 6.591 | 191 passed, including Git-ignore and byte-preservation distribution invariants |
-| Compile package/tools/scripts/tests | PASS | 0 | 0.365 | No compile error |
-| Build wheel without package dependencies | PASS | 0 | 2.679 | `idfrepair` wheel built |
-| Create clean smoke environment | PASS | 0 | 1.867 | Environment created with available system packages |
-| Install built wheel | PASS | 0 | 1.026 | Installed successfully |
-| Import installed package | PASS | 0 | 0.085 | Package and frozen semantic namespace import |
-| Run installed CLI help | PASS | 0 | 0.136 | CLI parser loads and lists commands |
-| Git whitespace check | PASS | 0 | 0.029 | No diff error |
+| Frozen metric reproduction | PASS | 0 | 0.074 | Formal V2 Final100 `81/100`; method-modified flag false |
+| Selected public pytest | PASS | 0 | 25.547 | 288 passed, including room-aware and distribution invariants |
+| Compile package/tools/scripts/tests | PASS | 0 | 0.620 | No compile error |
+| Build wheel without package dependencies | PASS | 0 | 14.142 | `idfrepair` wheel built |
+| Create clean smoke environment | PASS | 0 | 3.370 | Environment created outside the repository |
+| Install built wheel | PASS | 0 | 2.214 | Installed successfully from the built wheel |
+| Import installed package | PASS | 0 | 0.148 | Package and frozen semantic namespace import |
+| Run installed CLI help | PASS | 0 | 0.224 | CLI parser loads and lists commands |
+| Git whitespace check | PASS | 0 | 0.028 | No diff error |
 
 ## Frozen metric output
 
@@ -48,18 +49,14 @@ The reproduced method identity is
 
 ## Scope and limitations
 
-The public smoke covers the publishable software and compact evidence. Raw DOE
-models, private scoring material, raw terminal OSM files, weather, runtime
-binaries, and simulation run directories are deliberately absent. Accordingly,
-the repository publishes the controlled occupancy compiler, tests, protocol,
-figures, and compact scenario results, but not a redistributable terminal model
-or a claim that the airport case can be rerun without separately supplied model,
-weather, OpenStudio, and EnergyPlus assets.
+The public smoke covers publishable software and compact evidence. Raw terminal OSM,
+weather, construction drawings, runtime binaries and simulation run directories are
+deliberately absent. Re-running the private airport case therefore requires separately
+supplied model, weather, OpenStudio and EnergyPlus assets.
 
 ## Distribution-level check
 
-An HTTPS clone of public tag `v1.0.1` resolved to commit
-`480e68ba484fccd79ea92c68043b40251a8cb3b1`. The fresh clone contained both
-release commits, passed the full tree and reachable-history audit with zero
-findings, and passed all nine smoke phases listed above. The subsequent
-`v1.0.2` tag adds only this closed audit report and its regenerated manifest.
+A GitHub fresh clone resolved to `7ae88ea`; its complete reachable history and tree had
+zero findings and all nine smoke phases passed. Anonymous HTTPS Git access then
+resolved the same `HEAD` and the annotated `v1.1.0` tag. The subsequent `v1.1.1` tag
+adds only the closed audit record and regenerated manifest.
