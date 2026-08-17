@@ -1,0 +1,25 @@
+{
+  "annual_repaired_not_available": 0,
+  "annual_selected": 10,
+  "completed_at_utc": "2026-08-16T00:56:50.735467+00:00",
+  "dynamic_validation": {
+    "failed": 0,
+    "passed": 71
+  },
+  "failed_records_deleted": 0,
+  "failed_sources_replaced": 0,
+  "final_size": 100,
+  "method_modified_after_final": false,
+  "overall_contract": {
+    "denominator": 100,
+    "numerator": 81,
+    "rate": 0.81
+  },
+  "partial_as_full_count": 0,
+  "process_failure_count": 0,
+  "schema_version": "idfrepair.semantic-graph-formal-status.v1",
+  "second_tuned_final_generated": false,
+  "status": "FINAL_V2_COMPLETE_WITH_LIMITATIONS",
+  "wbr_count": 0,
+  "wrong_modification_count": 0
+}

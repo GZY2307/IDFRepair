@@ -1,0 +1,13 @@
+{
+  "frozen_at_utc": "2026-08-16T00:48:24.435625+00:00",
+  "greedy_predictions_sha256": "8a9a62532d5f17c302f2002dd97806b0db760be9e41ef134bf07430f5f6b8a7f",
+  "main_results_sha256": "29077635ffe9d279f3662dd83feae934cb08f0b87d9259a71b6503071d058dc1",
+  "method_modified_after_final": false,
+  "prediction_freeze_identity": "5e6a2a519ff4a96a22cf799d8af195b8733901b8694dee92b640c8486af868ae",
+  "record_count": 100,
+  "schema_version": "idfrepair.semantic-graph-formal-scoring-freeze.v1",
+  "scored_records_sha256": "90ad009a008abae5ca130bf989fe7d216f2b8cf60e9a788fe7d3766d28c0a8f6",
+  "scoring_freeze_identity": "5a58b142a94ff8be7dd50a23fdcf4bb7796592f4d248ae314a585078c1ab87d8",
+  "scoring_runs": 1,
+  "status": "FORMAL_SCORING_FROZEN"
+}

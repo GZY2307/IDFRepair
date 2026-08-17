@@ -1,0 +1,57 @@
+{
+  "schema_version": "idfrepair.post-final.frozen-evidence-guard.v1",
+  "audited_on": "2026-08-17",
+  "formal_final_status": "FINAL_V2_COMPLETE_WITH_LIMITATIONS",
+  "final_size": 100,
+  "method_identity": "3b9ad9447995f2b78313ca996a6a2ef2fa7711692054be184f470ea083f2928d",
+  "evaluation_harness_identity": "7708181d8a4ad363090cc74c28f4362c1cbc690c585edae13fbbdee5a289c0fb",
+  "final_freeze_identity": "b033bce9ecc0d61d94a730d0016bb0d943a45640a399de9fc7892206708c45c5",
+  "prediction_freeze_identity": "5e6a2a519ff4a96a22cf799d8af195b8733901b8694dee92b640c8486af868ae",
+  "scoring_freeze_identity": "5a58b142a94ff8be7dd50a23fdcf4bb7796592f4d248ae314a585078c1ab87d8",
+  "scoring_runs": 1,
+  "method_freeze_verification": "METHOD_FREEZE_VERIFIED",
+  "harness_freeze_verification": "EVALUATION_HARNESS_FROZEN",
+  "method_modified_after_final": false,
+  "second_tuned_final_generated": false,
+  "post_final_policy": {
+    "production_method_writable": false,
+    "formal_membership_writable": false,
+    "formal_predictions_writable": false,
+    "formal_scores_writable": false,
+    "rescore_allowed": false,
+    "new_final_allowed": false,
+    "allowed_work": [
+      "read-only evidence reconciliation",
+      "literature collision audit",
+      "IDF-only observability audit",
+      "existing EnergyPlus-output diagnostic baseline",
+      "separate public-artifact case study subject to a preregistered gate"
+    ]
+  },
+  "protected_source_sha256": {
+    "src/idfrepair/semantic_graph_v2/__init__.py": "b3bfd1fe78a5a801e1c1fd66528e65dc066799860d5ce1da90f2490fc83572b5",
+    "src/idfrepair/semantic_graph_v2/build_ir.py": "33bc035b1abaf7fc9df92bdc8412774716137e10a96a259b69282a7b9cc2c42d",
+    "src/idfrepair/semantic_graph_v2/candidates.py": "923d9c61964eb038ec2e2276e3b82f494b3f871e84a8dcc470cb5972dafa72ef",
+    "src/idfrepair/semantic_graph_v2/edits.py": "b5fb30e4a4e5bc674f33f7b93a3f0bf8af657225679a97a4fb0d5dc19fb05887",
+    "src/idfrepair/semantic_graph_v2/flow.py": "97643af6b89712cacefeaac988ff2c6d3cf6151a17eb449fda4500bcf0cf9f6f",
+    "src/idfrepair/semantic_graph_v2/ir.py": "900b5e1ce293e67af7158831ecc2fff82a050c3135b37dc50a24f41c948396e6",
+    "src/idfrepair/semantic_graph_v2/ports.py": "ce036d9ceb04bac09ad5f895c2a28cd6a880c4ca1be19eafac8d7b03efd6bf42",
+    "src/idfrepair/semantic_graph_v2/registry.py": "90a90dbc552305456d57ea9b189054bc9d59d115ec1c0d3f9286ff00e95116b6",
+    "src/idfrepair/semantic_graph_v2/runtime.py": "d83377315987aab6fd3e8f7a6f98864d728110cef2a9e442dcc9a44929a64ccf",
+    "src/idfrepair/semantic_graph_v2/scan.py": "5642646fc4f6111c1ca2deb1b885095e663e02f9de93175bac1a72679e18e06d",
+    "src/idfrepair/semantic_graph_v2/solver.py": "c871217deddc0fff2a92a5398a16682f86c3e5a8e2150336230a736d32f0e57f"
+  },
+  "protected_final_sha256": {
+    "datasets/manifests/semantic_graph_final_membership.csv": "d580bdf6f8d046b59d982d7a0867c5f13b441ee75f984cae717565e250b65677",
+    "datasets/manifests/semantic_graph_final_operator_registry.json": "41c6a522a06754a1a523f0d7fac7ae2f20814db39976ab3a21bfa8d058b50dea",
+    "datasets/manifests/semantic_graph_final_source_qualification.csv": "d6ac17ac2415ec73555ad83666a8cec0cc6c1bc9e6443a7c6cbc3345be09ee5d",
+    "reports/semantic_graph_final/final_freeze.json": "a25bb66d89854a9fd0914450a6236afd409aa53f2fe900526258c50a9bc26bc5",
+    "reports/semantic_graph_final/v2_predictions.jsonl": "ab5fbbb831ac96d36b4df2e472af28448ed30381a7bd52c9fedb0c46d784573c",
+    "reports/semantic_graph_final/v2_certificates.jsonl": "02c9ea3813acd64b1d6c4bef06424b7647fcb56d47ea36b06d2d1a29a8dac05d",
+    "reports/semantic_graph_final/scored_records.jsonl": "90ad009a008abae5ca130bf989fe7d216f2b8cf60e9a788fe7d3766d28c0a8f6",
+    "reports/semantic_graph_final/main_results.json": "29077635ffe9d279f3662dd83feae934cb08f0b87d9259a71b6503071d058dc1",
+    "reports/semantic_graph_final/final_status.json": "f3a1d10ec30a4a276084f5f180387d28c0d480ffbdc71abe329844aad9ee64ac",
+    "reports/semantic_graph_final/v2_prediction_freeze.json": "d20ca860ad2b3c239785bfc27991b77519ae2120d5a6515fd339111dcf96cefe",
+    "reports/semantic_graph_final/scoring_freeze.json": "467b56fd726bf4082f5602297a0782094a401ab6ed3077531a844a0f0e3d5cd7"
+  }
+}

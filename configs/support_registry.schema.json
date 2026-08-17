@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://idfrepair.local/schemas/support-registry-v1.json",
+  "title": "IDFRepair Support Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "disabled_provider_names",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {"const": "idfrepair.support_registry.v1"},
+    "registry_id": {"const": "idfrepair.support_registry.v1"},
+    "disabled_provider_names": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 20,
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "$defs": {
+    "metric": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["numerator", "denominator"],
+          "properties": {
+            "numerator": {"type": "integer", "minimum": 0},
+            "denominator": {"type": "integer", "minimum": 1}
+          }
+        }
+      ]
+    },
+    "string_array": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry_id",
+        "mechanism_id",
+        "provider_name",
+        "family",
+        "support_status",
+        "public_enabled",
+        "automatic_policy",
+        "requires_user_confirmation",
+        "supported_energyplus_versions",
+        "supported_error_signatures",
+        "supported_object_types",
+        "supported_field_roles",
+        "required_evidence",
+        "required_runtime_assets",
+        "rejection_conditions",
+        "user_input_conditions",
+        "candidate_limit",
+        "operation_allowlist",
+        "provenance_policy",
+        "evaluation_exposure",
+        "evidence_references",
+        "conditional_correct",
+        "exact_correct",
+        "control_correct",
+        "wrong_modification",
+        "wbr",
+        "partial_as_full",
+        "process_failure",
+        "notes_zh",
+        "notes_en"
+      ],
+      "properties": {
+        "entry_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_]*$"},
+        "mechanism_id": {"type": "string", "minLength": 1},
+        "provider_name": {"type": ["string", "null"]},
+        "family": {"type": "string", "minLength": 1},
+        "support_status": {
+          "enum": ["safe-auto", "assisted", "interactive", "evidence-only", "disabled", "unsupported"]
+        },
+        "public_enabled": {"type": "boolean"},
+        "automatic_policy": {"enum": ["allowed", "forbidden"]},
+        "requires_user_confirmation": {"type": "boolean"},
+        "supported_energyplus_versions": {"$ref": "#/$defs/string_array"},
+        "supported_error_signatures": {"$ref": "#/$defs/string_array"},
+        "supported_object_types": {"$ref": "#/$defs/string_array"},
+        "supported_field_roles": {"$ref": "#/$defs/string_array"},
+        "required_evidence": {"$ref": "#/$defs/string_array"},
+        "required_runtime_assets": {"$ref": "#/$defs/string_array"},
+        "rejection_conditions": {"$ref": "#/$defs/string_array"},
+        "user_input_conditions": {"$ref": "#/$defs/string_array"},
+        "candidate_limit": {"type": "integer", "minimum": 0, "maximum": 3},
+        "operation_allowlist": {"$ref": "#/$defs/string_array"},
+        "provenance_policy": {"type": "string", "minLength": 1},
+        "evaluation_exposure": {"type": "string", "minLength": 1},
+        "evidence_references": {"$ref": "#/$defs/string_array"},
+        "conditional_correct": {"$ref": "#/$defs/metric"},
+        "exact_correct": {"$ref": "#/$defs/metric"},
+        "control_correct": {"$ref": "#/$defs/metric"},
+        "wrong_modification": {"$ref": "#/$defs/metric"},
+        "wbr": {"$ref": "#/$defs/metric"},
+        "partial_as_full": {"$ref": "#/$defs/metric"},
+        "process_failure": {"$ref": "#/$defs/metric"},
+        "notes_zh": {"type": "string", "minLength": 1},
+        "notes_en": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

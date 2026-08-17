@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "idfrepair"
+version = "1.0.0"
+description = "Recoverability-aware semantic debugging and deterministic repair for EnergyPlus IDF models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "GZY2307"}]
+keywords = ["EnergyPlus", "building energy modeling", "semantic repair", "HVAC"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "fastapi>=0.115,<1",
+  "python-multipart>=0.0.9,<1",
+  "uvicorn>=0.30,<1",
+]
+
+[project.urls]
+Homepage = "https://github.com/GZY2307/IDFRepair"
+Repository = "https://github.com/GZY2307/IDFRepair"
+Issues = "https://github.com/GZY2307/IDFRepair/issues"
+
+[project.scripts]
+idfrepair = "idfrepair.cli:main"
+
+[project.optional-dependencies]
+test = [
+  "httpx>=0.27,<1",
+  "pytest>=8",
+  "safetensors>=0.5",
+]
+paper = [
+  "matplotlib>=3.8,<4",
+  "python-docx>=1.1,<2",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["idfrepair*"]
+
+[tool.setuptools.package-data]
+idfrepair = ["web/static/*", "web/locales/*.json"]
+
+[tool.setuptools.data-files]
+"idfrepair/configs" = [
+  "configs/release_profile.json",
+  "configs/support_registry.json",
+  "configs/support_registry.schema.json",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "--import-mode=importlib"
+markers = [
+  "integration: 跨模块工程集成检查",
+  "energyplus: 需要本机 EnergyPlus 可执行文件的检查",
+  "slow: 运行时间较长的离线检查",
+]

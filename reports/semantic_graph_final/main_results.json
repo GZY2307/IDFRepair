@@ -1,0 +1,129 @@
+{
+  "clean_false_positive_count": 0,
+  "cluster_bootstrap_95_ci": {
+    "overall_automatic_repair": {
+      "cluster_count": 10,
+      "estimate": 0.6947368421052632,
+      "lower_95": 0.5666666666666667,
+      "replicates": 10000,
+      "seed": 2202,
+      "upper_95": 0.819047619047619
+    },
+    "overall_contract": {
+      "cluster_count": 10,
+      "estimate": 0.81,
+      "lower_95": 0.6702127659574468,
+      "replicates": 10000,
+      "seed": 2201,
+      "upper_95": 0.9217391304347826
+    }
+  },
+  "component_proof_failure_count": 0,
+  "conditional_automatic_repair": {
+    "denominator": 66,
+    "numerator": 66,
+    "rate": 1.0
+  },
+  "final_size": 100,
+  "greedy": {
+    "ambiguity_contract_correct": 0,
+    "automatic_repair_correct": 50,
+    "connected_contract_correct": 7,
+    "contract_correct": 55,
+    "record_count": 100,
+    "unsafe_commit_count": 10,
+    "wrong_modification_count": 19
+  },
+  "method_modified_after_final": false,
+  "non_target_preservation_denominator": 95,
+  "non_target_preserved_count": 95,
+  "overall_automatic_repair": {
+    "denominator": 95,
+    "numerator": 66,
+    "rate": 0.6947368421052632
+  },
+  "overall_contract": {
+    "denominator": 100,
+    "numerator": 81,
+    "rate": 0.81
+  },
+  "partial_as_full_count": 0,
+  "process_failure_count": 0,
+  "prototype_macro_contract_rate": 0.7841475095785441,
+  "reconciled": true,
+  "record_count": 100,
+  "relation_class_macro_automatic_repair_rate": 0.838034188034188,
+  "schema_version": "idfrepair.semantic-graph-formal-score.v1",
+  "scored_at_utc": "2026-08-16T00:48:24.429786+00:00",
+  "single_by_relation": {
+    "air_path": {
+      "denominator": 10,
+      "numerator": 9,
+      "rate": 0.9
+    },
+    "branch_path": {
+      "denominator": 10,
+      "numerator": 10,
+      "rate": 1.0
+    },
+    "loop_connector": {
+      "denominator": 10,
+      "numerator": 7,
+      "rate": 0.7
+    },
+    "outdoor_air_path": {
+      "denominator": 10,
+      "numerator": 10,
+      "rate": 1.0
+    },
+    "zone_equipment": {
+      "denominator": 10,
+      "numerator": 10,
+      "rate": 1.0
+    }
+  },
+  "source_topology_macro_automatic_repair_rate": 0.6777777777777778,
+  "source_topology_macro_contract_rate": 0.7977777777777778,
+  "status_counts": {
+    "NEEDS_INPUT": 11,
+    "REPAIRED_COMPLETE": 66,
+    "SEARCH_EXHAUSTED": 1,
+    "VALID": 22
+  },
+  "strata": {
+    "ambiguity": {
+      "denominator": 10,
+      "numerator": 10,
+      "rate": 1.0
+    },
+    "clean": {
+      "denominator": 5,
+      "numerator": 5,
+      "rate": 1.0
+    },
+    "connected": {
+      "denominator": 10,
+      "numerator": 10,
+      "rate": 1.0
+    },
+    "independent": {
+      "denominator": 10,
+      "numerator": 10,
+      "rate": 1.0
+    },
+    "insufficient": {
+      "denominator": 15,
+      "numerator": 0,
+      "rate": 0.0
+    }
+  },
+  "support_coverage": {
+    "denominator": 95,
+    "numerator": 78,
+    "rate": 0.8210526315789474
+  },
+  "unsafe_commit_count": 0,
+  "wbr_count": null,
+  "wbr_status": "PENDING_POST_SCORE_DYNAMIC_VALIDATION",
+  "wrong_modification_count": 0
+}

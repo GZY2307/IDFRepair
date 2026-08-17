@@ -1,0 +1,108 @@
+{
+  "schema_version": "idfrepair.post-final.formal-reconciliation.v1",
+  "audited_on": "2026-08-17",
+  "status": "RECONCILED_READ_ONLY",
+  "formal_status": "FINAL_V2_COMPLETE_WITH_LIMITATIONS",
+  "selected_size": 100,
+  "selected_size_basis": {
+    "final200_gate": "failed before V2 inference because the preregistered clean-control quota was unavailable (9 available versus 10 required)",
+    "final100_gate": "passed",
+    "failed_sources_replaced": 0,
+    "repair_outcomes_used_for_selection": false
+  },
+  "identity": {
+    "method": "3b9ad9447995f2b78313ca996a6a2ef2fa7711692054be184f470ea083f2928d",
+    "evaluation_harness": "7708181d8a4ad363090cc74c28f4362c1cbc690c585edae13fbbdee5a289c0fb",
+    "final_freeze": "b033bce9ecc0d61d94a730d0016bb0d943a45640a399de9fc7892206708c45c5",
+    "prediction_freeze": "5e6a2a519ff4a96a22cf799d8af195b8733901b8694dee92b640c8486af868ae",
+    "scoring_freeze": "5a58b142a94ff8be7dd50a23fdcf4bb7796592f4d248ae314a585078c1ab87d8"
+  },
+  "record_set_reconciliation": {
+    "membership": 100,
+    "prediction": 100,
+    "certificate": 100,
+    "score": 100,
+    "oracle": 100,
+    "runtime": 100,
+    "all_record_id_sets_equal": true,
+    "identity_order_mismatches": {},
+    "process_failures_retained_in_denominator": true
+  },
+  "headline": {
+    "overall_contract": {"numerator": 81, "denominator": 100, "rate": 0.81},
+    "support_coverage": {"numerator": 78, "denominator": 95, "rate": 0.8210526315789474},
+    "conditional_automatic_repair": {"numerator": 66, "denominator": 66, "rate": 1.0},
+    "overall_automatic_repair": {"numerator": 66, "denominator": 95, "rate": 0.6947368421052632},
+    "wrong_modification_count": 0,
+    "unsafe_commit_count": 0,
+    "partial_as_full_count": 0,
+    "process_failure_count": 0,
+    "non_target_preservation": {"numerator": 95, "denominator": 95, "rate": 1.0}
+  },
+  "single_relation_contract": {
+    "branch_path": {"numerator": 10, "denominator": 10},
+    "loop_connector": {"numerator": 7, "denominator": 10},
+    "zone_equipment": {"numerator": 10, "denominator": 10},
+    "air_path": {"numerator": 9, "denominator": 10},
+    "outdoor_air_path": {"numerator": 10, "denominator": 10}
+  },
+  "strata_contract": {
+    "connected": {"numerator": 10, "denominator": 10},
+    "independent": {"numerator": 10, "denominator": 10},
+    "ambiguity": {"numerator": 10, "denominator": 10, "meaning": "correct abstention"},
+    "insufficient": {"numerator": 0, "denominator": 15, "meaning": "preregistered ABSTAIN contract"},
+    "clean": {"numerator": 5, "denominator": 5}
+  },
+  "status_counts": {
+    "REPAIRED_COMPLETE": 66,
+    "NEEDS_INPUT": 11,
+    "SEARCH_EXHAUSTED": 1,
+    "VALID": 22
+  },
+  "insufficient_record_ids": [
+    "fv2-0081", "fv2-0082", "fv2-0083", "fv2-0084", "fv2-0085",
+    "fv2-0086", "fv2-0087", "fv2-0088", "fv2-0089", "fv2-0090",
+    "fv2-0091", "fv2-0092", "fv2-0093", "fv2-0094", "fv2-0095"
+  ],
+  "non_insufficient_contract_failures": [
+    {"record_id": "fv2-0016", "operator_id": "loop_side_connectorlist_mismatch", "relation_class": "loop_connector", "status": "SEARCH_EXHAUSTED", "reason": "no_component_has_a_unique_complete_minimum"},
+    {"record_id": "fv2-0018", "operator_id": "branchlist_wrong_member", "relation_class": "loop_connector", "status": "VALID", "reason": "no_active_hard_violations"},
+    {"record_id": "fv2-0020", "operator_id": "branchlist_wrong_member", "relation_class": "loop_connector", "status": "VALID", "reason": "no_active_hard_violations"},
+    {"record_id": "fv2-0040", "operator_id": "v22_returnpath_type_name_mismatch", "relation_class": "air_path", "status": "NEEDS_INPUT", "reason": "no_component_has_a_unique_complete_minimum"}
+  ],
+  "frozen_greedy_comparator": {
+    "contract_correct": 55,
+    "automatic_repair_correct": 50,
+    "connected_contract_correct": 7,
+    "ambiguity_contract_correct": 0,
+    "wrong_modification_count": 19,
+    "unsafe_commit_count": 10
+  },
+  "energyplus_evidence": {
+    "dynamic_record_cases": 71,
+    "dynamic_passed": 71,
+    "dynamic_failed": 0,
+    "fatal_count": 0,
+    "severe_count": 0,
+    "faulty_design_day_runnable": 9,
+    "faulty_design_day_failed": 91,
+    "annual_selected": 10,
+    "annual_repaired_available": 10,
+    "annual_clean_repaired_comparable": 7
+  },
+  "source_qualification": {
+    "sealed_sources": 15,
+    "passed": 10,
+    "failed_energyplus": 4,
+    "timeout": 1,
+    "qualified_topology_fingerprints": 10,
+    "qualified_prototypes": 8,
+    "qualified_corpora": 3
+  },
+  "freeze_invariants": {
+    "scoring_runs": 1,
+    "method_modified_after_final": false,
+    "second_tuned_final_generated": false,
+    "formal_results_changed_by_this_audit": false
+  }
+}

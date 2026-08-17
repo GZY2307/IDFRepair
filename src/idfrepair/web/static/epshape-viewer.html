@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>IDFRepair EPShape 查看器</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/epshape-viewer.css?v=20260811v5">
+</head>
+<body>
+  <main class="viewer-shell">
+    <header class="viewer-toolbar">
+      <div class="file-identity">
+        <strong id="viewer-file">IDF 几何</strong>
+        <span id="viewer-status" role="status">等待本地 IDF</span>
+      </div>
+      <div id="viewer-actions" class="viewer-actions" aria-label="模型查看控件">
+        <label id="color-mode-control" class="color-mode-control" title="模型配色方式">
+          <span id="color-mode-label">配色</span>
+          <select id="color-mode" aria-label="模型配色方式">
+            <option value="surfaceType">SurfaceType</option>
+            <option value="normal">Normal</option>
+            <option value="boundary">Boundary</option>
+            <option value="construction">Construction</option>
+            <option value="thermalZone">ThermalZone</option>
+            <option value="spaceType">SpaceType</option>
+            <option value="buildingStory">BuildingStory</option>
+          </select>
+        </label>
+        <button id="toggle-rooms" type="button" title="显示或隐藏房间" aria-label="显示或隐藏房间" aria-expanded="false">▦</button>
+        <button id="fit-model" type="button" title="适配模型" aria-label="适配模型">⌂</button>
+        <button id="focus-error" type="button" title="聚焦当前错误" aria-label="聚焦当前错误">◎</button>
+      </div>
+    </header>
+    <div id="canvas-container" class="canvas-container" tabindex="0" aria-label="交互式 IDF 三维模型">
+      <div id="viewer-empty" class="viewer-empty">
+        <span aria-hidden="true">◇</span>
+        <strong>只读 IDF 几何</strong>
+        <small>请在修复工作台选择一个 IDF。</small>
+      </div>
+      <div id="error-caption" class="error-caption" hidden></div>
+      <aside id="issue-mode-legend" class="issue-mode-legend" aria-label="问题定位图例" hidden>
+        <div class="issue-mode-heading">
+          <div>
+            <strong id="issue-mode-title">当前问题</strong>
+            <small id="issue-mode-scope">—</small>
+          </div>
+          <button id="exit-issue-mode" type="button">退出问题定位</button>
+        </div>
+        <div class="issue-mode-keys">
+          <span id="issue-key-target" class="issue-key-target"><i></i><b>当前问题表面</b></span>
+          <span id="issue-key-paired" class="issue-key-paired"><i></i><b>配对表面</b></span>
+          <span id="issue-key-group" class="issue-key-group"><i></i><b>同组问题</b></span>
+          <span id="issue-key-neutral" class="issue-key-neutral"><i></i><b>其他表面</b></span>
+          <span id="issue-key-before" class="issue-key-before"><i></i><b>修复前轮廓</b></span>
+          <span id="issue-key-after" class="issue-key-after"><i></i><b>修复后轮廓</b></span>
+        </div>
+      </aside>
+      <aside id="room-panel" class="room-panel" aria-label="房间显隐" hidden>
+        <div class="room-panel-heading">
+          <strong id="room-panel-title">房间</strong>
+          <button id="close-rooms" type="button" aria-label="关闭房间面板">×</button>
+        </div>
+        <input id="room-search" type="search" placeholder="搜索房间" aria-label="搜索房间">
+        <div class="room-panel-actions">
+          <button id="show-all-rooms" type="button">全部显示</button>
+          <button id="hide-all-rooms" type="button">全部不选</button>
+          <button id="clear-isolation" type="button">退出单间</button>
+        </div>
+        <div id="room-list" class="room-list"></div>
+      </aside>
+    </div>
+    <footer class="viewer-legend">
+      <div id="legend-browser" class="legend-browser">
+        <button id="legend-scroll-previous" class="legend-scroll previous" type="button" aria-label="向左浏览图例" aria-controls="legend-items" title="向左浏览图例" hidden>‹</button>
+        <div id="legend-items" class="legend-items" role="region" tabindex="0" aria-label="配色图例"></div>
+        <button id="legend-scroll-next" class="legend-scroll next" type="button" aria-label="向右浏览图例" aria-controls="legend-items" title="向右浏览图例" hidden>›</button>
+      </div>
+      <span id="error-key" class="error-key"><i class="legend-error"></i><span id="error-key-label">当前错误</span></span>
+      <span id="viewer-hint" class="viewer-hint">拖动旋转 · 滚轮缩放 · 单击查看 · 双击隔离/退出 · R 适配</span>
+    </footer>
+  </main>
+  <script src="/static/epshape-three.js"></script>
+  <script src="/static/viewer-issue-state.js?v=20260811v5"></script>
+  <script src="/static/epshape-viewer.js?v=20260812v4"></script>
+</body>
+</html>

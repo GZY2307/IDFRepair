@@ -1,0 +1,14 @@
+{
+  "automatic_repair_release_authorized": false,
+  "max_backtracks": 1,
+  "max_candidates_per_root": 3,
+  "max_model_tool_calls": 12,
+  "max_rounds": 6,
+  "max_total_energyplus_runs": 20,
+  "max_wall_time": 600.0,
+  "minimum_automatic_confidence": 0.85,
+  "mode": "safe-auto",
+  "model": "none",
+  "production_enabled": false,
+  "timeout_seconds": 120
+}

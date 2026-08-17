@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use IDFRepair, please cite the software and its associated paper."
+title: "IDFRepair: Recoverability-aware semantic repair for EnergyPlus IDF models"
+type: software
+authors:
+  - name: GZY2307
+version: 1.0.0
+date-released: 2026-08-17
+repository-code: "https://github.com/GZY2307/IDFRepair"
+license: MIT
+keywords:
+  - EnergyPlus
+  - building energy modeling
+  - semantic debugging
+  - deterministic repair
+  - HVAC topology

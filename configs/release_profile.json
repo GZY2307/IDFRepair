@@ -1,0 +1,32 @@
+{
+  "schema_version": "idfrepair.release_profile.v1",
+  "release_profile_id": "idfrepair.research_release.v1",
+  "support_registry_id": "idfrepair.support_registry.v1",
+  "support_registry_sha256": "b5b2fec3cef6a580fca9735ce360dc0ae88713967c2b5e61e8c2a6445bc03c3f",
+  "core_confirmation_commit": "ae890dfb9b615ffec6a33fd05e6d3b190517047c",
+  "core_method_commit": "efa952a49aad9e8f69f27f9cc5fddeed45e5593d",
+  "core_method_tree": "a769fef96d6ab5204429545c043e2f8b6944e565",
+  "core_method_freeze_sha256": "f3e73999fa2b1001c8697969e7b67f01508a2a1329ece312db24581be00888af",
+  "core_method_output_sha256": "0caec9e387b31eb4a6b0dffd35bc2e1e9fc0e008d5f9d1b438e0093fafa291b0",
+  "single_membership_sha256": "e68c7d2fec0a41645c592abcd9314a016f65a57d3abd50c8bafb414bc03fabae",
+  "multi_membership_sha256": "05dfe53c65bca2856e1e5a3b6e339a448008f4b98b52cfe2650f719d6545fd64",
+  "mode_support_statuses": {
+    "analyze-only": [],
+    "safe-auto": ["safe-auto"],
+    "assisted": ["safe-auto", "assisted"],
+    "interactive": ["safe-auto", "assisted", "interactive"]
+  },
+  "production_enabled": false,
+  "automatic_repair_release_authorized": false,
+  "model_enabled": false,
+  "model_retraining_authorized": false,
+  "model_product_integration_authorized": false,
+  "repair_memory_candidate_generation_enabled": false,
+  "repair_memory_release_authorized": false,
+  "case_retrieval_candidate_generation_enabled": false,
+  "assisted_geometry_enabled": true,
+  "paired_geometry_enabled": false,
+  "geometry_snap_enabled": false,
+  "geometry_four_point_enabled": false,
+  "final_external_evaluation_authorized": false
+}

@@ -1,0 +1,62 @@
+# Python and test artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+.venv/
+.worktrees/
+.public-release-staging/
+
+# Local EnergyPlus workspaces and outputs
+.local/
+workspaces/
+eplusout.*
+*.eso
+*.mtr
+*.audit
+
+# Retired local research workspaces retained outside the canonical Git tree
+/datasets/
+/runs/
+/cloud_exchange/
+/reports/final_evaluation_r4b_preconstruction_pilot/
+/reports/p11_hardening/
+/reports/p14/
+/reports/p8_1_completion/
+/reports/service_acceptance/
+/reports/v6_executable_bridge/
+
+# Local model material and credentials
+/models/
+checkpoints/
+*.safetensors
+*.ckpt
+*.gguf
+.env
+/deepseek.env
+/SERVER_TRAINING.md
+*.pem
+*.key
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Generated delivery artifacts
+IDFRepair-Unified-*.zip
+IDFRepair-Unified-*.tar.zst
+IDFRepair-Unified-*.bundle
+IDFRepair-Unified-*-SHA256SUMS
+
+# Final R2 private method payloads and generated delivery artifacts
+reports/final_r2/**/method_outputs.jsonl
+IDFRepair-final-r2-*.zip
+IDFRepair-final-r2-*.tar.zst
+IDFRepair-final-r2-*.bundle
+IDFRepair-final-r2-*-SHA256SUMS

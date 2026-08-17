@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>IDFRepair · EnergyPlus IDF 修复工作台</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/style.css?v=20260812v4">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="common.skip">跳到主要内容</a>
+
+  <header class="utility-header">
+    <div class="brand-lockup">
+      <div class="brand-mark" aria-hidden="true">IR</div>
+      <div>
+        <h1>IDFRepair</h1>
+        <p data-i18n="brand.subtitle">EnergyPlus IDF 修复工作台</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="prototype-status" data-i18n="brand.prototype">研究原型 · 生产发布未启用</span>
+      <button id="open-capabilities" class="quiet-button" type="button" data-i18n="common.capabilities">能力边界</button>
+      <label class="language-control" for="language">
+        <span class="sr-only" data-i18n="common.language">语言</span>
+        <select id="language" aria-label="语言" data-i18n-aria-label="common.language">
+          <option value="zh-CN">中文</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="工作区" data-i18n-aria-label="common.workspace">
+    <button class="tab active" type="button" data-panel="repair-panel" data-i18n="tabs.repair">修复工作台</button>
+    <button class="tab" type="button" data-panel="batch-panel" data-i18n="tabs.batch">批量文件</button>
+    <button class="tab" type="button" data-panel="sessions-panel" data-i18n="tabs.sessions">历史会话</button>
+    <button class="tab" type="button" data-panel="rules-panel" data-i18n="tabs.rules">规则库</button>
+  </nav>
+
+  <main id="main" class="app-shell">
+    <div id="notice" class="notice hidden" role="status" aria-live="polite"></div>
+
+    <section id="repair-panel" class="tab-panel active no-input workbench-empty" aria-labelledby="repair-tab-title">
+      <h2 id="repair-tab-title" class="sr-only" data-i18n="tabs.repair">修复工作台</h2>
+
+      <ol id="workflow-steps" class="workflow-steps" aria-label="修复流程" data-i18n-aria-label="common.workflow">
+        <li class="active" data-step="upload"><span>1</span><strong data-i18n="steps.upload">上传模型</strong></li>
+        <li data-step="diagnose"><span>2</span><strong data-i18n="steps.diagnose">诊断</strong></li>
+        <li data-step="repair"><span>3</span><strong data-i18n="steps.repair">修复 / 请求输入</strong></li>
+        <li data-step="validate"><span>4</span><strong data-i18n="steps.validate">验证</strong></li>
+        <li data-step="result"><span>5</span><strong data-i18n="steps.result">结果与下载</strong></li>
+      </ol>
+
+      <section id="session-bar" class="session-bar hidden" aria-label="当前模型会话" data-i18n-aria-label="workbench.session_bar">
+        <div class="session-identity">
+          <strong id="session-file-name" data-i18n="workbench.no_file">尚未选择 IDF</strong>
+          <span id="session-idf-version">IDF —</span>
+          <span id="session-runtime-version">EnergyPlus —</span>
+          <span id="session-mode-label" data-i18n="tokens.modes.safe-auto">安全自动</span>
+          <span id="session-status-label" class="session-status" data-i18n="workbench.not_started">尚未开始检查</span>
+        </div>
+        <div class="session-bar-actions">
+          <button type="button" data-new-input data-i18n="actions.new_input">打开新文件</button>
+          <button id="session-primary-action" class="primary primary-workflow-action" type="button" data-action="choose-file" data-i18n="actions.choose_file">选择 IDF 文件</button>
+          <button id="open-session-settings" type="button" data-i18n="workbench.settings">设置与所需文件</button>
+          <button id="session-download" type="button" data-i18n="workbench.download">下载</button>
+          <button id="session-more" type="button" aria-haspopup="menu" data-i18n="workbench.more">更多</button>
+        </div>
+      </section>
+
+      <section id="readiness-blocker" class="readiness-blocker hidden" aria-labelledby="readiness-title">
+        <div>
+          <strong id="readiness-title" data-i18n="readiness.title">运行前还需要天气文件</strong>
+          <p id="readiness-status" role="status" aria-live="polite" data-i18n="readiness.weather_missing">此模型没有设计日，运行 EnergyPlus 前请添加项目使用的 EPW 天气文件。</p>
+        </div>
+        <label class="readiness-epw-drop" for="session-epw-file">
+          <span data-i18n="readiness.drop_epw">选择或拖入 EPW</span>
+          <small id="session-epw-name" data-i18n="readiness.no_epw">尚未选择 EPW</small>
+          <input id="session-epw-file" type="file" accept=".epw">
+        </label>
+        <button id="attach-session-weather" class="primary" type="button" disabled data-i18n="readiness.attach">添加天气文件</button>
+        <small data-i18n="readiness.explicit_diagnose">上传只会刷新就绪状态；仍需您明确点击“诊断”。</small>
+      </section>
+
+      <div class="workbench-grid session-workbench">
+        <section class="workbench-rail upload-rail" aria-labelledby="upload-title">
+          <div class="section-heading compact-heading">
+            <div>
+              <span class="section-index">01</span>
+              <h3 id="upload-title" data-i18n="repair.upload">上传模型</h3>
+            </div>
+            <p data-i18n="repair.upload_help">先选择 IDF；天气与外部依赖按模型需要提供。</p>
+            <button id="session-settings-close" class="icon-button settings-close" type="button" data-i18n-aria-label="common.close" aria-label="关闭设置">×</button>
+          </div>
+
+          <form id="session-form">
+            <div id="active-session-source" class="active-session-source hidden" role="status"></div>
+            <label class="file-drop primary-drop" for="idf-file">
+              <span class="file-icon" aria-hidden="true">IDF</span>
+              <strong data-i18n="form.idf">EnergyPlus IDF 模型</strong>
+              <small data-i18n="form.idf_help">选择或拖入一个 .idf 文件</small>
+              <span id="idf-file-name" class="selected-file-name" data-i18n="form.idf_none">尚未选择文件</span>
+              <input id="idf-file" name="input_file" type="file" accept=".idf" required>
+            </label>
+
+            <div class="project-entry-actions" aria-label="其他导入方式" data-i18n-aria-label="workbench.other_inputs">
+              <label class="secondary-file-action" for="project-folder">
+                <strong data-i18n="workbench.choose_project">选择项目文件夹</strong>
+                <small data-i18n="workbench.project_help">一起检查 IDF、EPW 和模型引用的 CSV</small>
+                <input id="project-folder" type="file" webkitdirectory multiple>
+              </label>
+              <label class="secondary-file-action experimental-import" for="osm-file">
+                <strong data-i18n="workbench.osm_import">OpenStudio OSM 导入</strong>
+                <small data-i18n="workbench.osm_help">先生成检查用 IDF；应用安全修复后，只为精确映射且独立验证通过的对象生成新的修复 OSM，原文件始终不变</small>
+                <span id="osm-file-name" class="selected-secondary-name" data-i18n="workbench.osm_none">尚未选择 OSM</span>
+                <input id="osm-file" type="file" accept=".osm">
+              </label>
+            </div>
+
+            <details id="osm-bridge" class="osm-bridge osm-bridge-primary hidden" aria-labelledby="osm-title">
+              <summary class="osm-heading">
+                <span>
+                  <span class="experimental-status evidence" data-i18n="osm.badge">导入工具</span>
+                  <strong id="osm-title" data-i18n="osm.title">OpenStudio OSM 检查</strong>
+                </span>
+                <span id="osm-capability" class="osm-capability" role="status" aria-live="polite" data-i18n="osm.checking">正在检查本机 OpenStudio…</span>
+              </summary>
+              <p data-i18n="osm.help">先检查源 OSM 能否读取，再生成一份仅供 IDFRepair 检查的 IDF 副本。原 OSM 不会修改。</p>
+              <div class="osm-boundary" role="note">
+                <strong data-i18n="osm.no_writeback">原 OSM 不会被覆盖</strong>
+                <span data-i18n="osm.boundary">导入只创建派生 IDF；应用模型修复后，系统只会为精确对应且通过独立验证的对象生成新的修复 OSM 副本，原 OSM 始终不变。</span>
+              </div>
+              <p class="osm-runtime-note" data-i18n="osm.runtime_auto">生成的 IDF 副本会自动使用同版本 EnergyPlus，避免因版本不匹配得到误导结果。</p>
+              <ol id="osm-timeline" class="osm-timeline" aria-label="OSM 到 IDFRepair 的四个步骤" data-i18n-aria-label="osm.timeline_label">
+                <li class="osm-timeline-step" data-osm-step="validity">
+                  <span>1</span><div><strong data-i18n="osm.timeline.validity.title">检查源 OSM 是否完整</strong><small data-i18n="osm.timeline.validity.help">OpenStudio 会列出缺失设置或对象关系，源文件保持不变。</small></div><em data-i18n="osm.timeline.waiting">等待开始</em>
+                </li>
+                <li class="osm-timeline-step" data-osm-step="forward">
+                  <span>2</span><div><strong data-i18n="osm.timeline.forward.title">生成供检查的 IDF 副本</strong><small data-i18n="osm.timeline.forward.help">这是 OpenStudio 前向转换；后续仅对精确映射并验证通过的修改生成新的 OSM 副本。</small></div><em data-i18n="osm.timeline.waiting">等待开始</em>
+                </li>
+                <li class="osm-timeline-step" data-osm-step="preflight">
+                  <span>3</span><div><strong data-i18n="osm.timeline.preflight.title">检查并修复模型关系</strong><small data-i18n="osm.timeline.preflight.help">先处理相邻面、重叠分段、空气边界（AirBoundary）和几何间隙，并更新派生 IDF。</small></div><em data-i18n="osm.timeline.waiting">等待开始</em>
+                </li>
+                <li class="osm-timeline-step" data-osm-step="diagnosis">
+                  <span>4</span><div><strong data-i18n="osm.timeline.diagnosis.title">手动开始 IDFRepair 诊断</strong><small data-i18n="osm.timeline.diagnosis.help">前置检查完成后再运行 EnergyPlus 和 IDFRepair；不会在 OSM 上传后自动开始。</small></div><em data-i18n="osm.timeline.waiting">等待开始</em>
+                </li>
+              </ol>
+              <div class="osm-output-column">
+                <div id="osm-status" class="osm-status" role="status" aria-live="polite" data-i18n="osm.ready">选择 OSM 后可开始。</div>
+                <div id="osm-summary" class="osm-summary"></div>
+                <div id="osm-adaptation-facts" class="osm-adaptation-facts hidden" role="note"></div>
+                <section id="osm-validity-section" class="osm-validity-section hidden" aria-labelledby="osm-validity-title">
+                  <h5 id="osm-validity-title" data-i18n="osm.validity_details">源 OSM 完整性问题</h5>
+                  <div id="osm-validity-errors" class="osm-validity-errors"></div>
+                  <button id="osm-validity-more" class="quiet-button osm-list-more hidden" type="button" data-i18n="osm.show_more">继续显示</button>
+                </section>
+                <section id="osm-mapping-section" class="osm-mapping-section hidden" aria-labelledby="osm-mapping-title">
+                  <div class="osm-mapping-heading">
+                    <div><h5 id="osm-mapping-title" data-i18n="osm.mapping_preview">对象来源关系</h5><p id="osm-mapping-summary"></p></div>
+                    <label><span data-i18n="osm.mapping_search">搜索对象</span><input id="osm-mapping-search" type="search" data-i18n-placeholder="osm.mapping_search_hint" placeholder="OSM 或 IDF 对象名"></label>
+                  </div>
+                  <div class="osm-mapping-table" role="region" tabindex="0" aria-label="OSM 与 IDF 对象来源对照表" data-i18n-aria-label="osm.mapping_table_label">
+                    <table>
+                      <thead><tr><th data-i18n="osm.mapping_status">状态</th><th data-i18n="osm.osm_object">OSM 源对象</th><th data-i18n="osm.derived_object">IDF 副本对象</th></tr></thead>
+                      <tbody id="osm-mappings" aria-live="polite"></tbody>
+                    </table>
+                  </div>
+                  <button id="osm-mapping-more" class="quiet-button osm-list-more hidden" type="button" data-i18n="osm.show_more">继续显示</button>
+                  <small data-i18n="osm.mapping_limit">列表在本区域内滚动；可继续显示全部匹配对象，完整证据也保留在 JSON 报告中。</small>
+                </section>
+                <div id="osm-downloads" class="osm-downloads hidden"></div>
+                <details id="osm-technical" class="osm-technical hidden">
+                  <summary data-i18n="osm.raw_details">查看完整 OSM 转换桥报告</summary>
+                  <pre id="osm-report"></pre>
+                </details>
+              </div>
+            </details>
+
+            <fieldset class="mode-fieldset">
+              <legend data-i18n="form.mode">模式</legend>
+              <div class="mode-options">
+                <label class="mode-option">
+                  <input name="mode" type="radio" value="safe-auto" checked>
+                  <span><strong data-i18n="tokens.modes.safe-auto">安全自动</strong><small data-i18n="form.mode_safe">只提交满足公开安全合同并通过全部验证的候选。</small></span>
+                </label>
+                <label class="mode-option">
+                  <input name="mode" type="radio" value="assisted">
+                  <span><strong data-i18n="tokens.modes.assisted">辅助确认</strong><small data-i18n="form.mode_assisted">展示需确认的受限候选；确认仍不能绕过验证。</small></span>
+                </label>
+                <label class="mode-option">
+                  <input name="mode" type="radio" value="interactive">
+                  <span><strong data-i18n="tokens.modes.interactive">交互</strong><small data-i18n="form.mode_interactive">证据不足时暂停并请求有限输入。</small></span>
+                </label>
+                <label class="mode-option">
+                  <input name="mode" type="radio" value="analyze-only">
+                  <span><strong data-i18n="tokens.modes.analyze-only">仅分析</strong><small data-i18n="form.mode_analyze">只诊断，不写入修改。</small></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="supporting-files">
+              <label class="compact-drop" for="epw-file">
+                <strong data-i18n="form.epw">天气文件（可选）</strong>
+                <small id="epw-file-name" class="compact-file-name" data-i18n="form.epw_none">尚未选择天气文件</small>
+                <input id="epw-file" name="epw" type="file" accept=".epw">
+              </label>
+              <label class="compact-drop" for="dependency-files">
+                <strong data-i18n="form.dependencies">外部依赖（可多选）</strong>
+                <small id="dependency-file-name" class="compact-file-name" data-i18n="form.dependencies_none">尚未选择外部依赖</small>
+                <input id="dependency-files" name="dependencies" type="file" multiple>
+              </label>
+            </div>
+
+            <div class="runtime-control">
+              <label for="runtime-select">
+                <span data-i18n="form.runtime">EnergyPlus 运行时</span>
+                <select id="runtime-select" name="runtime_id" required aria-describedby="runtime-status">
+                  <option value="" data-i18n="form.runtime_loading">正在发现本机运行时…</option>
+                </select>
+              </label>
+              <button id="rescan-runtimes" class="quiet-button" type="button" data-i18n="actions.rescan">重新扫描</button>
+            </div>
+            <div id="runtime-status" class="runtime-status" role="status" aria-live="polite" data-i18n="form.runtime_loading">正在发现本机运行时…</div>
+
+            <section id="migration-assistant" class="migration-assistant" aria-labelledby="migration-title">
+              <div class="migration-heading">
+                <div>
+                  <span class="section-index" data-i18n="migration.eyebrow">版本工具</span>
+                  <h4 id="migration-title" data-i18n="migration.title">EnergyPlus 版本升级副本</h4>
+                </div>
+                <span id="migration-source-version" class="migration-source-version">—</span>
+              </div>
+              <p data-i18n="migration.official_chain_help">只有本机具备完整的官方 Transition 升级链时才可用；它会逐版更新对象和字段，不是只改版本号。</p>
+              <p class="migration-boundary" data-i18n="migration.copy_boundary">只生成新副本，不会修改原文件。当前会话仍使用原文件。</p>
+              <label for="migration-target-runtime">
+                <span data-i18n="migration.target">副本目标版本</span>
+                <select id="migration-target-runtime" disabled></select>
+              </label>
+              <div id="migration-capability" class="migration-capability" role="status" aria-live="polite" data-i18n="migration.no_session">打开一个 IDF 后，这里会检查可用的官方升级路径。</div>
+              <details id="migration-path" class="migration-path hidden">
+                <summary data-i18n="migration.path_details">查看逐版升级顺序</summary>
+                <ol id="migration-steps"></ol>
+              </details>
+              <label class="migration-simulation-option" for="migration-run-energyplus">
+                <input id="migration-run-energyplus" type="checkbox">
+                <span><strong data-i18n="migration.run_energyplus">升级后再运行一次目标版 EnergyPlus</strong><small data-i18n="migration.run_energyplus_help">可选，会更慢；用于确认副本能否在目标版本完成仿真。</small></span>
+              </label>
+              <button id="migration-run" class="quiet-button" type="button" disabled data-i18n="migration.action">生成升级副本</button>
+              <progress id="migration-progress" class="migration-progress" hidden data-i18n-aria-label="migration.progress_label" aria-label="版本升级进度"></progress>
+              <section id="migration-result" class="migration-result hidden" aria-labelledby="migration-result-title">
+                <h5 id="migration-result-title" data-i18n="migration.result_title">升级副本检查结果</h5>
+                <div id="migration-result-summary"></div>
+                <details id="migration-warnings" class="migration-warnings hidden">
+                  <summary data-i18n="migration.warnings">查看 Transition 提示</summary>
+                  <ul id="migration-warning-list"></ul>
+                </details>
+                <a id="migration-download" class="button-link hidden" data-i18n="migration.download">下载升级后的 IDF 副本</a>
+              </section>
+            </section>
+
+            <details id="advanced-settings">
+              <summary data-i18n="form.advanced">高级设置</summary>
+              <div class="advanced-grid">
+                <label><span data-i18n="form.rule_set">规则集</span><select id="session-rule-set" name="rule_set_id"><option value="default">默认规则集</option></select></label>
+                <label><span data-i18n="form.project_id">项目标识</span><input name="project_id" data-i18n-placeholder="form.project_hint" placeholder="留空时使用规则集标识"></label>
+                <label><span data-i18n="form.batch_id">批次标识（可选）</span><input name="batch_id" data-i18n-placeholder="form.batch_hint" placeholder="同一批次使用相同标识"></label>
+                <label><span data-i18n="form.rounds">最大修复轮数</span><input name="max_rounds" type="number" min="1" value="6"></label>
+                <label><span data-i18n="form.candidates">每根候选数</span><input name="max_candidates_per_root" type="number" min="1" value="3"></label>
+                <label><span data-i18n="form.runs">EnergyPlus 次数</span><input name="max_energyplus_runs" type="number" min="1" value="20"></label>
+                <label><span data-i18n="form.backtracks">最大回溯数</span><input name="max_backtracks" type="number" min="0" value="1"></label>
+                <input name="max_wall_time" type="hidden" value="600">
+              </div>
+            </details>
+
+            <div class="actions session-actions">
+              <button id="primary-action" class="primary primary-workflow-action" type="button" data-action="choose-file" data-i18n="actions.choose_file">选择 IDF 文件</button>
+            </div>
+            <div id="run-progress" class="run-progress" role="status" aria-live="polite" hidden>
+              <div><strong id="run-progress-label" data-i18n="progress.preparing">准备运行…</strong><time id="run-elapsed">00:00</time></div>
+              <progress id="run-progress-bar" aria-label="EnergyPlus 进度" data-i18n-aria-label="common.energyplus_progress"></progress>
+              <small data-i18n="progress.truthful">EnergyPlus 在隔离工作区执行；服务端返回前不估算虚假百分比。</small>
+            </div>
+          </form>
+        </section>
+
+        <nav id="issue-navigator" class="issue-navigator hidden" aria-labelledby="issue-navigator-title">
+          <div class="workbench-pane-heading issue-navigator-heading">
+            <div>
+              <h3 id="issue-navigator-title" data-i18n="workbench.issues_title">模型检查结果</h3>
+              <p><span data-i18n="workbench.issues">问题</span> <strong id="issue-count">0</strong><span data-i18n="workbench.issues_help"> · 先从这里选择要查看的位置</span></p>
+            </div>
+          </div>
+          <label class="issue-search" for="issue-search">
+            <span class="sr-only" data-i18n="workbench.issue_search">搜索对象、字段或问题</span>
+            <input id="issue-search" type="search" data-i18n-placeholder="workbench.issue_search" placeholder="搜索对象、字段或问题">
+          </label>
+          <div id="issue-categories" class="issue-categories" role="listbox" aria-label="问题分类" data-i18n-aria-label="workbench.issue_categories">
+            <button type="button" class="active" data-issue-category="all"><span data-i18n="workbench.issue_all">全部</span><strong>0</strong></button>
+            <button type="button" data-issue-category="energyplus"><span data-i18n="workbench.issue_energyplus">EnergyPlus 错误</span><strong>0</strong></button>
+            <button type="button" data-issue-category="safe"><span data-i18n="workbench.issue_safe">可安全修复</span><strong>0</strong></button>
+            <button type="button" data-issue-category="review"><span data-i18n="workbench.issue_review">几何建议待复核</span><strong>0</strong></button>
+            <button type="button" data-issue-category="evidence"><span data-i18n="workbench.issue_evidence">已排除的几何候选</span><strong>0</strong></button>
+            <button type="button" data-issue-category="input"><span data-i18n="workbench.issue_input">需要您选择</span><strong>0</strong></button>
+            <button type="button" data-issue-category="unsupported"><span data-i18n="workbench.issue_unsupported">需要人工处理</span><strong>0</strong></button>
+            <button type="button" data-issue-category="audit"><span data-i18n="workbench.issue_audit">模型关系与几何检查</span><strong>0</strong></button>
+          </div>
+          <p class="issue-audit-boundary" role="note" data-i18n="workbench.audit_boundary">模型关系与几何检查不是 EnergyPlus 错误日志（ERR）；它用于在诊断前整理相邻面、重叠分段和边界关系。</p>
+          <details class="workbench-terminology">
+            <summary data-i18n="workbench.terminology_title">本页术语说明</summary>
+            <ul>
+              <li data-i18n="workbench.terminology.boundary_condition">边界条件（表面与室外、地面或相邻表面的热交换关系）</li>
+              <li data-i18n="workbench.terminology.vertex_snapping">顶点吸附（把轻微偏移的顶点对齐到已有可信坐标）</li>
+              <li data-i18n="workbench.terminology.surface_resegmentation">表面重分段（按已证明的重叠边界拆成可一一配对的面）</li>
+              <li data-i18n="workbench.terminology.airboundary">AirBoundary（允许相邻空间空气连通的构造）</li>
+              <li data-i18n="workbench.terminology.err">EnergyPlus 错误日志（ERR）：运行产生的错误与警告</li>
+              <li data-i18n="workbench.terminology.idf">IDF（EnergyPlus 输入数据文件）</li>
+              <li data-i18n="workbench.terminology.osm">OSM（OpenStudio 模型文件）</li>
+            </ul>
+          </details>
+          <div id="issue-groups" class="issue-groups" aria-live="polite">
+            <p class="empty-copy" data-i18n="workbench.issue_empty">运行检查后，问题会按原因分组显示在这里。</p>
+          </div>
+        </nav>
+
+        <section id="main-workbench-view" class="main-workbench-view hidden" aria-labelledby="model-title">
+          <div class="main-view-toolbar">
+            <div>
+              <h3 id="model-title" data-i18n="repair.model">IDF 模型与错误定位</h3>
+              <span class="viewer-credit" data-i18n="repair.viewer_credit">EPShape 内核 · 只读</span>
+            </div>
+            <div id="main-view-tabs" class="main-view-tabs" role="tablist" aria-label="模型视图" data-i18n-aria-label="workbench.main_views">
+              <button id="main-tab-3d" class="active" type="button" role="tab" aria-selected="true" aria-controls="main-view-3d" data-i18n="workbench.view_3d">三维模型</button>
+              <button id="main-tab-source" type="button" role="tab" aria-selected="false" aria-controls="main-view-source" data-i18n="workbench.view_source">IDF 源码定位</button>
+              <button id="main-tab-graph" type="button" role="tab" aria-selected="false" aria-controls="main-view-graph" data-i18n="workbench.view_graph">对象关系</button>
+            </div>
+          </div>
+          <div id="main-view-3d" class="main-view-panel active" role="tabpanel" aria-labelledby="main-tab-3d">
+        <section class="model-stage" aria-labelledby="model-title">
+          <div class="model-frame">
+            <iframe id="model-viewer" title="IDF 三维模型与错误查看器" data-i18n-title="common.model_viewer" src="/static/epshape-viewer.html?v=20260812v4"></iframe>
+          </div>
+        </section>
+
+          </div>
+          <section id="main-view-source" class="main-view-panel hidden" role="tabpanel" aria-labelledby="main-tab-source">
+            <div class="source-view-toolbar" aria-label="IDF 原文定位工具" data-i18n-aria-label="workbench.source_tools">
+              <button id="source-previous-issue" type="button" data-i18n="workbench.previous_issue">上一个问题</button>
+              <button id="source-next-issue" type="button" data-i18n="workbench.next_issue">下一个问题</button>
+              <button id="copy-source-context" type="button" disabled data-i18n="workbench.copy_source">复制这段原文</button>
+              <span id="source-location" aria-live="polite"></span>
+            </div>
+            <div id="source-view-empty" class="source-view-empty">
+              <strong data-i18n="workbench.source_empty_title">选择一个问题以定位 IDF 片段</strong>
+              <p data-i18n="workbench.source_empty_help">这里只显示相关对象附近的几行，不会把整个大型文件一次载入页面。</p>
+            </div>
+            <div id="source-context-view" class="source-context-view"></div>
+          </section>
+          <section id="main-view-graph" class="main-view-panel hidden" role="tabpanel" aria-labelledby="main-tab-graph">
+            <div class="graph-state-legend" role="note">
+              <span data-state="selected" data-i18n="workbench.graph_states.selected">当前对象</span>
+              <span data-state="valid_reference" data-i18n="workbench.graph_states.valid_reference">有效引用</span>
+              <span data-state="missing_reference" data-i18n="workbench.graph_states.missing_reference">缺失引用</span>
+              <span data-state="candidate" data-i18n="workbench.graph_states.candidate">建议修改涉及</span>
+              <span data-state="blocked" data-i18n="workbench.graph_states.blocked">被安全规则阻止</span>
+            </div>
+            <div id="graph-view-empty" class="graph-view-empty">
+              <strong data-i18n="workbench.graph_empty_title">选择带引用关系的问题</strong>
+              <p data-i18n="workbench.graph_empty_help">这里只展示当前对象附近的关系，避免画出难以阅读的整栋建筑关系图。</p>
+            </div>
+            <div id="object-graph-view" class="object-graph-view"></div>
+          </section>
+        </section>
+
+        <aside id="context-inspector" class="context-inspector hidden" aria-labelledby="model-inspector-title">
+        <div id="model-inspector" class="workbench-rail model-inspector-rail">
+          <div class="workbench-pane-heading compact-heading">
+            <div>
+              <span class="section-index" data-i18n="repair.model_info_index">模型</span>
+              <h3 id="model-inspector-title" data-i18n="repair.model_info">模型信息与选择详情</h3>
+            </div>
+            <p data-i18n="repair.model_info_help">单击空白、房间或表面切换对应信息。</p>
+          </div>
+          <section id="viewer-selection-details" class="viewer-selection-details" aria-live="polite">
+            <p class="empty-copy" data-i18n="viewer.details_empty">单击表面查看属性；双击表面隔离所属房间。</p>
+          </section>
+          <section id="issue-inspector" class="issue-inspector" aria-live="polite">
+            <h4 data-i18n="workbench.inspector_title">问题说明与下一步</h4>
+            <div id="issue-inspector-copy">
+              <p class="empty-copy" data-i18n="workbench.inspector_empty">从左侧选择问题后，这里会说明发生了什么、位置、影响和可执行的下一步。</p>
+            </div>
+            <div id="questions" class="questions" aria-live="polite"></div>
+            <details class="inspector-candidate-details">
+              <summary data-i18n="workbench.repair_details">查看建议修改与验证依据</summary>
+              <div id="candidate-inspector" class="candidate-inspector">
+                <p class="empty-copy" data-i18n="repair.no_candidate">选择问题后查看建议修改、依据和局部差异。</p>
+              </div>
+              <div id="validation-gates" class="validation-gates"></div>
+            </details>
+            <form id="rule-save" class="question hidden">
+              <strong data-i18n="rule_save.title">是否保存为修复规则？</strong>
+              <p data-i18n="rule_save.help">只保存已由用户参与并通过全部检查的有限修改。</p>
+              <label><span data-i18n="rule_save.candidate">建议修改</span><select id="rule-save-candidate"></select></label>
+              <label><span data-i18n="rule_save.scope">适用范围</span><select id="rule-save-scope"></select></label>
+              <label><span data-i18n="rule_save.name_zh">中文名称</span><input id="rule-save-name-zh" required></label>
+              <label><span data-i18n="rule_save.name_en">英文名称</span><input id="rule-save-name-en" required></label>
+              <label id="rule-save-global-row" class="inline hidden"><input id="rule-save-global" type="checkbox"><span data-i18n="rule_save.global_confirm">我明确授权创建全局规则</span></label>
+              <div class="actions"><button class="primary" type="submit" data-i18n="rule_save.save">保存规则</button><button id="rule-save-decline" type="button" data-i18n="rule_save.decline">本次不保存</button></div>
+            </form>
+            <div class="actions inspector-actions">
+              <button id="cancel-current" type="button" disabled data-i18n="actions.cancel">取消并恢复原文件</button>
+            </div>
+          </section>
+          <section id="idd-field-inspector" class="idd-field-inspector hidden" aria-live="polite"></section>
+        </div>
+        </aside>
+      </div>
+
+      <div class="mobile-primary-bar" aria-label="当前主要操作" data-i18n-aria-label="common.primary_action">
+        <button id="mobile-primary-action" class="primary primary-workflow-action" type="button" data-action="choose-file" data-i18n="actions.choose_file">选择 IDF 文件</button>
+      </div>
+
+      <div class="workbench-followups">
+      <details id="run-console" class="run-console">
+        <summary data-i18n="workbench.run_console">运行详情（技术信息）</summary>
+        <p data-i18n="workbench.run_console_help">需要排查运行失败时再查看 EnergyPlus 错误日志（ERR）、命令、耗时和技术报告。</p>
+        <div id="run-console-output" class="run-console-output">
+          <div id="status" class="status" role="status" data-i18n="session.none">尚未创建会话。</div>
+          <div class="technical-details">
+            <details id="raw-errors">
+              <summary data-i18n="report.raw_err">查看 EnergyPlus 原始英文错误日志（ERR）</summary>
+              <pre id="raw-err" data-i18n="report.no_raw_err">尚无原始错误日志（ERR）。</pre>
+            </details>
+            <details>
+              <summary data-i18n="report.full">查看完整 JSON 报告</summary>
+              <pre id="report" data-i18n="report.empty">运行检查或修复后显示报告。</pre>
+            </details>
+          </div>
+        </div>
+      </details>
+
+      <details id="model-tools-drawer" class="model-tools-drawer">
+        <summary>
+          <span>
+            <strong data-i18n="model_tools.title">诊断前：模型关系与几何修复</strong>
+            <small data-i18n="model_tools.help">先检查相邻面、重叠分段、空气边界（AirBoundary）和几何间隙，再手动开始 IDFRepair。</small>
+          </span>
+        </summary>
+        <div class="model-tools-boundary" role="note">
+          <strong data-i18n="model_tools.audit_distinction">这是 IDFRepair 诊断前的模型整理，不是 EnergyPlus 错误日志（ERR）。</strong>
+          <span data-i18n="model_tools.boundary">检查不会改原文件；点击应用后会新建派生 IDF 副本并立即更新三维模型，随时可回到应用前副本。</span>
+        </div>
+
+      <section id="model-preflight-panel" class="model-preflight-panel" aria-labelledby="model-preflight-title">
+        <div class="section-heading model-preflight-heading">
+          <div><span class="section-index" data-i18n="preflight.index">诊断前</span><h3 id="model-preflight-title" data-i18n="preflight.title">一次完成关系检查与几何修复</h3></div>
+          <p data-i18n="preflight.help">系统先说明发现了什么；只有证据唯一的修改才会进入“可应用”，其余位置保留给您复核。</p>
+        </div>
+        <div class="preflight-layout">
+          <fieldset class="preflight-controls">
+            <legend data-i18n="preflight.checks_title">本次检查内容（默认全选）</legend>
+            <label><input name="preflight_check" type="checkbox" value="topology" checked><span data-i18n="audit.checks.topology">表面形状是否有效</span></label>
+            <label><input name="preflight_check" type="checkbox" value="pairing" checked><span data-i18n="audit.checks.pairing">相邻表面是否互相对应</span></label>
+            <label><input name="preflight_check" type="checkbox" value="boundary" checked><span data-i18n="audit.checks.boundary">房间内外边界是否合理</span></label>
+            <label><input name="preflight_check" type="checkbox" value="construction" checked><span data-i18n="audit.checks.construction">材料构造是否用在合适位置</span></label>
+            <label><input name="preflight_check" type="checkbox" value="orphan_reference" checked><span data-i18n="audit.checks.orphan_reference">相邻表面指向是否丢失</span></label>
+            <label><input name="preflight_check" type="checkbox" value="airboundary" checked><span data-i18n="audit.checks.airboundary">空气边界使用是否合理</span></label>
+            <label class="preflight-tolerance"><span data-i18n="preflight.tolerance">最大几何间隙（m）</span><input id="preflight-tolerance" type="number" min="0.00000001" max="0.05" step="0.001" value="0.05"><small data-i18n="preflight.tolerance_help">初始值 0.05 m；只在距离不超过此值且关系唯一时提出修复。</small></label>
+            <button id="run-model-preflight" class="primary" type="button" disabled data-i18n="preflight.run">开始检查模型关系与几何</button>
+          </fieldset>
+          <div class="preflight-output">
+            <div id="model-preflight-status" class="preflight-status" role="status" aria-live="polite" data-i18n="preflight.empty">打开 IDF 后可开始；OSM 派生 IDF 需要先完成这里再诊断。</div>
+            <div id="model-preflight-summary" class="preflight-summary"></div>
+            <div id="model-preflight-groups" class="preflight-groups"></div>
+            <div class="actions preflight-actions">
+              <button id="apply-model-preflight" class="primary hidden" type="button" data-i18n="preflight.apply">应用安全修复并更新三维模型</button>
+              <button id="rollback-model-preflight" class="hidden" type="button" data-i18n="preflight.rollback">回到应用前副本</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="audit-panel" class="audit-panel legacy-model-tool" aria-labelledby="audit-title" data-collapsible>
+        <div class="section-heading audit-heading" data-collapse-heading>
+          <div>
+            <span class="section-index" data-i18n="audit.index">关系</span>
+            <h3 id="audit-title" data-i18n="audit.title">模型关系检查</h3>
+          </div>
+          <p data-i18n="audit.help">检查可运行但可能语义可疑的模型；结果与错误修复分离。</p>
+        </div>
+        <div class="audit-boundary" role="note">
+          <strong data-i18n="audit.read_only">只读检查</strong>
+          <span data-i18n="audit.read_only_boundary">只生成证据记录，不创建候选、不修改 IDF，也不改变修复规则资格。</span>
+        </div>
+        <div class="audit-layout">
+          <fieldset class="audit-checks">
+            <legend data-i18n="audit.checks_title">选择要核对的关系</legend>
+            <label data-i18n-title="audit.check_help.topology"><input name="audit_check" type="checkbox" value="topology" checked><span data-i18n="audit.checks.topology">表面形状是否有效</span></label>
+            <label data-i18n-title="audit.check_help.pairing"><input name="audit_check" type="checkbox" value="pairing" checked><span data-i18n="audit.checks.pairing">相邻表面是否互相对应</span></label>
+            <label data-i18n-title="audit.check_help.boundary"><input name="audit_check" type="checkbox" value="boundary" checked><span data-i18n="audit.checks.boundary">房间内外边界是否合理</span></label>
+            <label data-i18n-title="audit.check_help.construction"><input name="audit_check" type="checkbox" value="construction" checked><span data-i18n="audit.checks.construction">材料构造是否用在合适位置</span></label>
+            <label data-i18n-title="audit.check_help.orphan_reference"><input name="audit_check" type="checkbox" value="orphan_reference" checked><span data-i18n="audit.checks.orphan_reference">相邻表面指向是否丢失</span></label>
+            <label data-i18n-title="audit.check_help.airboundary"><input name="audit_check" type="checkbox" value="airboundary" checked><span data-i18n="audit.checks.airboundary">空气边界使用是否合理</span></label>
+            <button id="run-audit" class="primary" type="button" disabled data-i18n="audit.run">开始模型关系检查</button>
+          </fieldset>
+          <div class="audit-results">
+            <div id="audit-status" class="audit-status" role="status" aria-live="polite" data-i18n="audit.empty">选择 IDF 后可运行独立建模检查。</div>
+            <div id="audit-summary" class="audit-summary"></div>
+            <div id="audit-detail" class="audit-detail hidden"></div>
+            <div class="audit-filter-row">
+              <label><span data-i18n="audit.search">搜索</span><input id="audit-search" type="search" data-i18n-placeholder="audit.search_hint" placeholder="表面、房间、规则"></label>
+              <label><span data-i18n="audit.severity_filter">分级</span><select id="audit-severity"><option value="all" data-i18n="audit.severities.all">全部</option><option value="error" data-i18n="audit.severities.error">错误</option><option value="warning" data-i18n="audit.severities.warning">警告</option><option value="review" data-i18n="audit.severities.review">建议复核</option></select></label>
+              <button id="audit-clear-surface" type="button" class="hidden" data-i18n="audit.clear_surface">显示全部表面</button>
+            </div>
+            <div id="audit-findings" class="audit-findings" aria-live="polite"></div>
+            <button id="audit-load-more" class="quiet-button hidden" type="button" data-i18n="audit.load_more">加载更多</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="experimental-panel" class="experimental-panel legacy-model-tool" aria-labelledby="experimental-title" data-collapsible>
+        <div class="section-heading experimental-heading" data-collapse-heading>
+          <div>
+            <span class="section-index" data-i18n="experimental.index">实验</span>
+            <h3 id="experimental-title" data-i18n="experimental.title">实验性几何工具</h3>
+          </div>
+          <p data-i18n="experimental.help">在正式修复流程之外检查候选证据；所有结果默认只预览。</p>
+        </div>
+        <div class="experimental-boundary" role="note">
+          <strong data-i18n="experimental.preview_only">仅预览</strong>
+          <span data-i18n="experimental.preview_only_boundary">勾选不会改变发布配置、修复规则资格或自动修复范围；不会写入 IDF。</span>
+        </div>
+        <div class="experimental-layout">
+          <fieldset class="experimental-options">
+            <legend data-i18n="experimental.choose">选择实验机制</legend>
+            <div class="experimental-option">
+              <label><input name="experimental_mechanism" type="checkbox" value="geometry_snap" checked><span><strong data-i18n="experimental.mechanisms.geometry_snap.name">顶点吸附</strong><small class="experimental-status disabled" data-i18n="experimental.mechanisms.geometry_snap.status">未通过资格验证</small></span></label>
+              <p data-i18n="experimental.mechanisms.geometry_snap.short">把异常顶点与已有可信共享顶点证据进行对照。</p>
+              <details><summary data-i18n="experimental.boundary_detail">查看安全边界</summary><p data-i18n="experimental.mechanisms.geometry_snap.long">只复用已观察坐标，不生成任意坐标；当前公共候选池仍禁用。</p></details>
+            </div>
+            <div class="experimental-option">
+              <label><input name="experimental_mechanism" type="checkbox" value="geometry_pair" checked><span><strong data-i18n="experimental.mechanisms.geometry_pair.name">配对表面弱侧重建</strong><small class="experimental-status disabled" data-i18n="experimental.mechanisms.geometry_pair.status">未通过资格验证</small></span></label>
+              <p data-i18n="experimental.mechanisms.geometry_pair.short">比较双向引用、面积、顶点、边与法向证据。</p>
+              <details><summary data-i18n="experimental.boundary_detail">查看安全边界</summary><p data-i18n="experimental.mechanisms.geometry_pair.long">历史资格验证存在错误修改风险，用户勾选也不能绕过禁用状态。</p></details>
+            </div>
+            <div class="experimental-option">
+              <label><input name="experimental_mechanism" type="checkbox" value="geometry_four_point" checked><span><strong data-i18n="experimental.mechanisms.geometry_four_point.name">四点构面</strong><small class="experimental-status disabled" data-i18n="experimental.mechanisms.geometry_four_point.status">未通过资格验证</small></span></label>
+              <p data-i18n="experimental.mechanisms.geometry_four_point.short">只展示能被独立几何证据支持的第四点。</p>
+              <details><summary data-i18n="experimental.boundary_detail">查看安全边界</summary><p data-i18n="experimental.mechanisms.geometry_four_point.long">平行四边形推算本身不够；缺少独立证据时不生成预览。</p></details>
+            </div>
+            <div class="experimental-option compact">
+              <label><input name="experimental_mechanism" type="checkbox" value="kg623_reference" checked><span><strong data-i18n="experimental.mechanisms.kg623_reference.name">kg623 参考证据</strong><small class="experimental-status evidence" data-i18n="experimental.mechanisms.kg623_reference.status">仅证据</small></span></label>
+              <p data-i18n="experimental.mechanisms.kg623_reference.short">只展示可追溯参考，不生成候选。</p>
+            </div>
+            <div class="experimental-option compact">
+              <label><input name="experimental_mechanism" type="checkbox" value="osm_reference" checked><span><strong data-i18n="experimental.mechanisms.osm_reference.name">OSM 参考证据</strong><small class="experimental-status evidence" data-i18n="experimental.mechanisms.osm_reference.status">仅证据</small></span></label>
+              <p data-i18n="experimental.mechanisms.osm_reference.short">没有明确对象来源映射时不生成候选。</p>
+            </div>
+            <div class="experimental-option compact">
+              <label><input name="experimental_mechanism" type="checkbox" value="airboundary" checked><span><strong data-i18n="experimental.mechanisms.airboundary.name">空气边界证据</strong><small class="experimental-status evidence" data-i18n="experimental.mechanisms.airboundary.status">仅证据</small></span></label>
+              <p data-i18n="experimental.mechanisms.airboundary.short">显示构造与边界条件证据，不自动修改。</p>
+            </div>
+            <details class="experimental-thresholds-advanced">
+              <summary data-i18n="model_tools.advanced_thresholds">高级检测范围</summary>
+              <div class="experimental-thresholds">
+                <strong data-i18n="experimental.thresholds">检测边界值</strong>
+                <label><span data-i18n="experimental.snap_absolute">顶点最大吸附距离（m）</span><input id="snap-absolute-m" type="number" min="0.00000001" max="0.05" step="0.00001" value="0.05"></label>
+                <label><span data-i18n="experimental.snap_relative">相对距离上限</span><input id="snap-relative" type="number" min="0.0000000001" max="0.001" step="0.000001" value="0.001"></label>
+                <small data-i18n="experimental.threshold_help">只改变本次预览检出范围，不改变修复资格或写入权限。</small>
+              </div>
+            </details>
+            <button id="run-experimental-preview" class="primary" type="button" disabled data-i18n="experimental.run">生成实验预览</button>
+          </fieldset>
+          <div class="experimental-output">
+            <div id="experimental-status" class="experimental-output-status" role="status" aria-live="polite" data-i18n="experimental.empty">选择 IDF 和至少一个机制后可生成预览。</div>
+            <div id="experimental-summary" class="experimental-summary"></div>
+            <div class="experimental-filter-row">
+              <label><span data-i18n="experimental.search">搜索预览</span><input id="experimental-search" type="search" data-i18n-placeholder="experimental.search_hint" placeholder="表面或机制"></label>
+              <button id="experimental-clear-surface" class="hidden" type="button" data-i18n="experimental.clear_surface">显示全部表面</button>
+              <button id="experimental-toggle-results" type="button" aria-expanded="true" data-i18n="experimental.hide_results">收起全部具体问题</button>
+            </div>
+            <div id="experimental-results" class="experimental-results" aria-live="polite"></div>
+            <button id="experimental-load-more" class="quiet-button hidden" type="button" data-i18n="experimental.load_more">加载更多</button>
+            <div id="experimental-preview-detail" class="experimental-preview-detail hidden"></div>
+          </div>
+        </div>
+      </section>
+      </details>
+
+      <section id="diagnosis-panel" class="diagnosis-panel legacy-workflow-panel" aria-labelledby="diagnosis-title" data-collapsible>
+        <div class="section-heading diagnosis-heading" data-collapse-heading>
+          <div>
+            <span class="section-index">03</span>
+            <h3 id="diagnosis-title" data-i18n="repair.diagnosis">诊断与证据</h3>
+          </div>
+          <p data-i18n="repair.diagnosis_help">先解释问题，再显示内部标识与技术证据。</p>
+        </div>
+
+        <div class="diagnosis-grid">
+          <div class="diagnosis-root-column">
+            <div id="diagnosis-summary" class="diagnosis-summary" aria-live="polite">
+              <p class="empty-copy" data-i18n="repair.no_diagnosis">诊断后显示本文件的问题根与安全边界。</p>
+            </div>
+            <div id="support-summary" class="support-summary"></div>
+            <div id="root-support" class="root-list"></div>
+          </div>
+          <div class="diagnosis-candidate-column">
+            <p class="empty-copy" data-i18n="workbench.legacy_moved">问题说明和建议修改已移到右侧详情栏。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="trace-panel" class="trace-panel legacy-workflow-panel" aria-labelledby="trace-title" data-collapsible>
+        <div class="section-heading trace-heading" data-collapse-heading>
+          <div>
+            <span class="section-index">04</span>
+            <h3 id="trace-title" data-i18n="repair.trace">验证轨迹</h3>
+          </div>
+          <p data-i18n="repair.trace_help">每次尝试分别显示静态、语义、EnergyPlus 与版本迁移（Transition）结果。</p>
+        </div>
+        <div id="rounds" class="round-list"></div>
+        <div id="attempts" class="attempt-list"></div>
+      </section>
+
+      <section id="result-panel" class="result-panel legacy-workflow-panel" aria-labelledby="result-title" data-collapsible>
+        <div data-collapse-heading>
+          <span class="section-index">05</span>
+          <h3 id="result-title" data-i18n="repair.result">结果与下载</h3>
+          <p data-i18n="repair.result_help">最终状态、剩余问题和文件身份决定下载文案。</p>
+        </div>
+        <div id="result-summary" class="result-summary">
+          <p class="empty-copy" data-i18n="repair.no_result">完成诊断或修复后显示结果。</p>
+        </div>
+        <div id="preprocessing-summary" class="preprocessing-summary hidden" aria-live="polite"></div>
+        <div class="result-downloads">
+          <div class="result-downloads-heading">
+            <strong data-i18n="result.downloads_title">下载本次文件</strong>
+            <small data-i18n="result.downloads_help">按钮会明确区分已修复副本和未修改原文件。</small>
+          </div>
+          <button id="result-new-input" type="button" data-new-input data-i18n="actions.new_input">打开新文件</button>
+          <a id="download" class="button-link primary hidden" data-i18n="actions.download">下载结果 IDF</a>
+          <a id="download-expanded" class="button-link hidden" data-i18n="actions.download_expanded">下载展开仿真 IDF</a>
+        </div>
+      </section>
+      </div>
+    </section>
+
+    <section id="batch-panel" class="tab-panel" aria-labelledby="batch-title">
+      <section class="page-panel batch-workbench">
+        <div class="toolbar batch-heading">
+          <div>
+            <span class="section-index" data-i18n="batch.eyebrow">批量</span>
+            <h2 id="batch-title" data-i18n="batch.title">批量处理</h2>
+            <p data-i18n="batch.help">确认文件列表后，系统会按顺序逐个处理；某个文件需要补充信息时，不会耽误后面的文件。</p>
+          </div>
+          <span class="prototype-status" data-i18n="batch.sequential">一次处理 1 个文件</span>
+        </div>
+
+        <section id="batch-preparation" class="batch-preparation" aria-labelledby="batch-preparation-toggle">
+          <button id="batch-preparation-toggle" class="batch-preparation-toggle" type="button" aria-expanded="true" aria-controls="batch-preparation-body">
+            <span><strong data-i18n="batch.preparation_title">文件与运行设置</strong><small data-i18n="batch.preparation_help">选择文件、EnergyPlus 版本和处理方式。</small></span>
+            <span class="batch-preparation-toggle-label" data-i18n="batch.hide_preparation">收起设置</span>
+          </button>
+          <div id="batch-preparation-body" class="batch-input-grid">
+          <section class="batch-input-panel" aria-labelledby="batch-input-title">
+            <div class="section-heading compact-heading">
+              <div><span class="section-index">01</span><h3 id="batch-input-title" data-i18n="batch.input_title">选择要处理的文件</h3></div>
+              <p data-i18n="batch.input_help">可一次选择多个 IDF、包含 IDF/EPW/CSV 的项目文件夹，或一个 ZIP。</p>
+            </div>
+            <div class="batch-source-options">
+              <label class="batch-source-card" for="batch-files">
+                <strong data-i18n="batch.choose_files">选择多个 IDF</strong>
+                <small data-i18n="batch.choose_files_help">支持一次多选，追加到当前清单</small>
+                <input id="batch-files" type="file" accept=".idf" multiple>
+              </label>
+              <label class="batch-source-card" for="batch-folder">
+                <strong data-i18n="batch.choose_folder">选择文件夹</strong>
+                <small data-i18n="batch.choose_folder_help">也会读取其中的子文件夹，并保留文件位置</small>
+                <input id="batch-folder" type="file" webkitdirectory directory multiple>
+              </label>
+              <label class="batch-source-card" for="batch-zip">
+                <strong data-i18n="batch.choose_zip">选择 ZIP（可选）</strong>
+                <small data-i18n="batch.choose_zip_help">系统会在开始后读取其中的 IDF</small>
+                <input id="batch-zip" type="file" accept=".zip,application/zip">
+              </label>
+            </div>
+            <div class="batch-config-row">
+              <label><span data-i18n="batch.energyplus_version">EnergyPlus 版本</span><select id="batch-runtime-select" required></select></label>
+              <label><span data-i18n="batch.processing_mode">处理方式</span><select id="batch-mode"><option value="safe-auto" data-i18n="tokens.modes.safe-auto">安全自动</option><option value="assisted" data-i18n="tokens.modes.assisted">辅助确认</option><option value="interactive" data-i18n="tokens.modes.interactive">交互</option><option value="analyze-only" data-i18n="tokens.modes.analyze-only">仅分析</option></select></label>
+            </div>
+          </section>
+
+          <section class="batch-preview-panel" aria-labelledby="batch-preview-title">
+            <div class="section-heading compact-heading">
+              <div><span class="section-index">02</span><h3 id="batch-preview-title" data-i18n="batch.preview_title">开始前检查</h3></div>
+              <p data-i18n="batch.preview_help">这里先提示明显问题；开始后系统还会重新检查每个文件。</p>
+            </div>
+            <div id="batch-preview-summary" class="batch-preview-summary" aria-live="polite"></div>
+            <div class="batch-preview-table" role="table" aria-label="批量输入预览" data-i18n-aria-label="batch.preview_title">
+              <div class="batch-preview-header" role="row">
+                <span role="columnheader" data-i18n="batch.relative_path">相对路径</span>
+                <span role="columnheader" data-i18n="batch.file_size">文件大小</span>
+                <span role="columnheader" data-i18n="batch.idf_version">IDF 版本</span>
+                <span role="columnheader" data-i18n="batch.precheck">开始前状态</span>
+                <span role="columnheader" data-i18n="batch.operation">操作</span>
+              </div>
+              <div id="batch-preview-rows" class="batch-preview-rows"></div>
+            </div>
+            <div class="actions batch-preview-actions">
+              <button id="batch-clear" type="button" data-i18n="batch.clear">清空列表</button>
+              <button id="batch-start" class="primary" type="button" disabled data-i18n="batch.start">开始批量处理</button>
+            </div>
+          </section>
+          </div>
+        </section>
+
+        <section id="batch-dashboard" class="batch-dashboard hidden" aria-labelledby="batch-dashboard-title">
+          <div class="batch-dashboard-header">
+            <div>
+              <span class="section-index">03</span>
+              <h3 id="batch-dashboard-title" data-i18n="batch.dashboard_title">处理进度</h3>
+              <p id="batch-current" data-i18n="batch.current_none">当前没有正在处理的文件。</p>
+              <p id="batch-eta" class="batch-eta" data-i18n="batch.eta_pending">完成 3 个文件后显示预计剩余时间。</p>
+            </div>
+            <strong id="batch-progress-label">0 / 0</strong>
+          </div>
+          <progress id="batch-progress" value="0" max="1" aria-label="批量修复进度" data-i18n-aria-label="batch.dashboard_title"></progress>
+          <div id="batch-action-required" class="batch-action-required hidden" role="status"></div>
+          <div id="batch-counts" class="batch-counts"></div>
+          <div class="batch-table-toolbar">
+            <div class="batch-record-controls">
+              <label><span data-i18n="batch.search">搜索文件</span><input id="batch-record-search" type="search" data-i18n-placeholder="batch.search_hint" placeholder="输入文件夹或文件名"></label>
+              <label><span data-i18n="batch.filter">筛选结果</span><select id="batch-filter"><option value="all" data-i18n="batch.filters.all">全部</option><option value="processing" data-i18n="batch.filters.processing">处理中</option><option value="repaired" data-i18n="batch.filters.repaired">已修复</option><option value="valid" data-i18n="batch.filters.valid">无需修改</option><option value="action-required" data-i18n="batch.filters.action_required">需要补充信息</option><option value="unsupported" data-i18n="batch.filters.unsupported">暂不能处理</option><option value="failed" data-i18n="batch.filters.failed">运行失败</option></select></label>
+              <label><span data-i18n="batch.sort">排序</span><select id="batch-record-sort"><option value="path" data-i18n="batch.sort_options.path">文件路径</option><option value="status" data-i18n="batch.sort_options.status">处理状态</option><option value="issues" data-i18n="batch.sort_options.issues">问题数量</option><option value="duration" data-i18n="batch.sort_options.duration">处理耗时</option></select></label>
+              <button id="batch-sort-direction" type="button" data-direction="asc" data-i18n-aria-label="batch.sort_direction" aria-label="切换排序方向">↑</button>
+            </div>
+            <div class="actions">
+              <span id="batch-selected-summary" class="batch-selected-summary" data-i18n="batch.none_selected">尚未选择可重新处理的文件</span>
+              <button id="batch-retry-selected" type="button" disabled data-i18n="batch.retry_selected">重新处理所选文件</button>
+              <button id="batch-cancel" type="button" data-i18n="batch.cancel">取消批次</button>
+              <a id="batch-download" class="button-link primary hidden" data-i18n="batch.download">下载批量结果 ZIP</a>
+              <a id="batch-export-csv" class="button-link hidden" data-i18n="batch.export_csv">下载结果表格 CSV</a>
+              <a id="batch-export-json" class="button-link hidden" data-i18n="batch.export_json">下载完整记录 JSON</a>
+            </div>
+          </div>
+          <p class="batch-retry-boundary" data-i18n="batch.retry_boundary">只有运行失败、需要补充信息或当前规则暂不能处理的文件可以重新处理；已修复和无需修改的文件不会重复运行。</p>
+          <label id="batch-retry-support" class="batch-retry-support hidden" for="batch-retry-support-folder">
+            <span><strong data-i18n="batch.retry_support">补充项目文件（可选）</strong><small data-i18n="batch.retry_support_help">如果缺少 EPW 或 CSV，请选择包含这些文件的项目文件夹；系统不会替换 IDF。</small></span>
+            <span id="batch-retry-support-name" data-i18n="batch.retry_support_none">尚未补充文件</span>
+            <input id="batch-retry-support-folder" type="file" webkitdirectory directory multiple>
+          </label>
+          <div class="batch-record-table" role="table" aria-label="批量修复记录" data-i18n-aria-label="batch.records">
+            <div class="batch-record-header" role="row">
+              <span class="batch-selection-header" role="columnheader" data-i18n="batch.retry_selection">重试</span>
+              <span role="columnheader" data-i18n="batch.status">状态</span>
+              <span role="columnheader" data-i18n="batch.relative_path">相对路径</span>
+              <span role="columnheader" data-i18n="batch.idf_runtime">IDF / 运行时</span>
+              <span role="columnheader" data-i18n="batch.issues">问题数</span>
+              <span role="columnheader" data-i18n="batch.committed">完成的修复</span>
+              <span role="columnheader">EnergyPlus</span>
+              <span role="columnheader" data-i18n="batch.duration">耗时</span>
+              <span role="columnheader" data-i18n="batch.operation">操作</span>
+            </div>
+            <div id="batch-records" class="batch-record-rows"></div>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section id="sessions-panel" class="tab-panel" aria-labelledby="sessions-title">
+      <section class="page-panel">
+        <div class="toolbar">
+          <div><h2 id="sessions-title" data-i18n="sessions.title">持久会话</h2><p data-i18n="sessions.help">恢复、取消、归档或移入可恢复回收区。</p></div>
+          <label class="inline"><input id="include-archived" type="checkbox"><span data-i18n="sessions.archived">显示已归档</span></label>
+          <button id="refresh-sessions" type="button" data-i18n="actions.refresh">刷新</button>
+        </div>
+        <div id="session-list" class="data-list"></div>
+      </section>
+    </section>
+
+    <section id="rules-panel" class="tab-panel" aria-labelledby="rules-title">
+      <section class="page-panel">
+        <div class="toolbar">
+          <div><h2 id="rules-title" data-i18n="rules.title">修复记忆规则库</h2><p data-i18n="rules.help">规则只能生成有限候选，不能绕过任何验证门禁。</p></div>
+          <button id="new-rule" type="button" data-i18n="rules.new">新建规则</button>
+        </div>
+        <div id="rules-component-boundary" class="component-boundary" aria-label="修复记忆组件边界" data-i18n-aria-label="common.rules_boundary">
+          <article class="component-status available">
+            <strong data-i18n="rules.management_available">管理功能：可用</strong>
+            <span data-i18n="rules.management_help">可以浏览、编辑、导入和导出有限规则。</span>
+          </article>
+          <article class="component-status disabled">
+            <strong data-i18n="rules.generation_disabled">候选生成：未启用</strong>
+            <span data-i18n="rules.generation_help">规则不会自动进入当前修复候选池。</span>
+          </article>
+          <p data-i18n="rules.boundary_help">保存或启用规则不代表它已获得 safe-auto 资格，也不能绕过任何验证门禁。</p>
+        </div>
+        <div class="rule-tools">
+          <label><span data-i18n="rules.rule_set">规则集</span><select id="rule-set-filter"><option value="">全部规则集</option></select></label>
+          <label><span data-i18n="rules.search">搜索</span><input id="rule-search" type="search" data-i18n-placeholder="rules.search_hint" placeholder="名称、错误签名或标签"></label>
+          <button id="search-rules" type="button" data-i18n="actions.search">搜索</button>
+          <button id="create-rule-set" type="button" data-i18n="rules.new_set">新建规则集</button>
+          <label class="button-file"><span data-i18n="rules.import">导入</span><input id="rule-import" type="file" accept=".json,.yaml,.yml"></label>
+          <a id="rule-export" class="button-link" href="/api/rules/export" data-i18n="rules.export">导出</a>
+        </div>
+        <div class="rules-layout">
+          <div id="rule-list" class="data-list rule-list"></div>
+          <form id="rule-editor" class="rule-editor hidden">
+            <div class="toolbar"><h3 data-i18n="rules.editor">规则编辑器</h3><button id="close-editor" type="button" data-i18n="actions.close">关闭</button></div>
+            <div id="rule-editor-summary" class="rule-editor-summary"></div>
+            <details id="rule-definition-details">
+              <summary data-i18n="rules.definition">高级 JSON 定义</summary>
+              <p data-i18n="rules.editor_help">JSON 只允许声明有限操作；导入规则默认禁用。</p>
+              <textarea id="rule-json" spellcheck="false" aria-label="规则 JSON" data-i18n-aria-label="common.rule_json"></textarea>
+            </details>
+            <div class="actions"><button class="primary" type="submit" data-i18n="actions.save">保存</button><button id="rule-history" type="button" data-i18n="rules.history">版本与应用历史</button></div>
+            <pre id="rule-history-output" class="hidden"></pre>
+          </form>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="capability-dialog" aria-labelledby="capability-title">
+    <div class="dialog-header">
+      <div>
+        <span class="section-index" data-i18n="capability.eyebrow">边界</span>
+        <h2 id="capability-title" data-i18n="capability.title">能力边界</h2>
+      </div>
+      <button id="close-capabilities" class="icon-button" type="button" aria-label="关闭" data-i18n-aria-label="common.close">×</button>
+    </div>
+    <p data-i18n="capability.intro">当前页面展示研究发布能力档案的真实公开能力，不代表生产授权。</p>
+    <dl class="boundary-list">
+      <div><dt data-i18n="capability.release_profile">发布配置</dt><dd id="release-profile">idfrepair.research_release.v1</dd></div>
+      <div><dt data-i18n="capability.registry">支持注册表</dt><dd id="capability-counts">26 条</dd></div>
+      <div><dt data-i18n="capability.production">生产启用</dt><dd><code>false</code></dd></div>
+      <div><dt data-i18n="capability.automatic_release">自动修复发布授权</dt><dd><code>false</code></dd></div>
+      <div><dt data-i18n="capability.model">模型组件</dt><dd data-i18n="capability.model_disabled">未启用</dd></div>
+      <div><dt data-i18n="capability.memory_generation">修复记忆候选生成</dt><dd data-i18n="capability.memory_disabled">未启用</dd></div>
+      <div><dt data-i18n="capability.runtimes">本机 EnergyPlus 运行时</dt><dd id="capability-runtimes">—</dd></div>
+      <div><dt data-i18n="capability.osm_bridge">OSM 诊断桥</dt><dd id="capability-osm">—</dd></div>
+    </dl>
+    <div class="version-policy">
+      <strong data-i18n="capability.version_title">版本匹配</strong>
+      <p data-i18n="capability.version_help">safe-auto 由绑定的 EnergyPlus 运行时、IDD 与必要 RDD 做精确自检；支持注册表版本列表不单独决定当前支持。</p>
+    </div>
+  </dialog>
+
+  <script type="module" src="/static/app.js?v=20260812v4"></script>
+</body>
+</html>

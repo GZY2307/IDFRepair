@@ -1,0 +1,1688 @@
+{
+  "admission_decisions": {
+    "AirPath": "PROMOTE_SAFE_AUTO",
+    "OA EquipmentList": "PROMOTE_SAFE_AUTO"
+  },
+  "benchmark_builder": {
+    "enumerated_opportunities": 1329,
+    "holdout_fault_records": 0,
+    "independent_package": "idfrepair.semantic_graph_v22_benchmark",
+    "production_v22_imports": false,
+    "schema_version": "idfrepair.semantic-graph-v22-extension-build.v1",
+    "selected_records": 120
+  },
+  "canonical_ir_schema_version": "idfrepair.semantic-graph-v2.ir.v2",
+  "clean_gate": {
+    "air_path_relation_count": 440,
+    "complete_projection_count": 2881,
+    "hard_false_positive_count": 0,
+    "oa_equipment_path_relation_count": 220,
+    "process_failure_count": 0,
+    "projection_count": 2881,
+    "qualified_scan_count": 30
+  },
+  "compound_flow_registry_identity": {
+    "rule_count": 14,
+    "rules": [
+      {
+        "object_type": "AirLoopHVAC:ZoneSplitter",
+        "rule_id": "flow.airpath.zonesplitter.e22_1.v1",
+        "topology_form": "SPLIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.splitter.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": null,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.splitter.outlets.e22_1.v1"
+            ],
+            "stream": "distribution",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "22.1"
+      },
+      {
+        "object_type": "AirLoopHVAC:SupplyPlenum",
+        "rule_id": "flow.airpath.supplyplenum.e22_1.v1",
+        "topology_form": "SPLIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.supplyplenum.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": null,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.supplyplenum.outlets.e22_1.v1"
+            ],
+            "stream": "distribution",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "22.1"
+      },
+      {
+        "object_type": "AirLoopHVAC:ZoneMixer",
+        "rule_id": "flow.airpath.zonemixer.e22_1.v1",
+        "topology_form": "MERGE",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.zonemixer.inlets.e22_1.v1"
+            ],
+            "maximum_inlets": null,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.zonemixer.outlet.e22_1.v1"
+            ],
+            "stream": "return",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "22.1"
+      },
+      {
+        "object_type": "AirLoopHVAC:ReturnPlenum",
+        "rule_id": "flow.airpath.returnplenum.e22_1.v1",
+        "topology_form": "MERGE",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.returnplenum.inlets.e22_1.v1"
+            ],
+            "maximum_inlets": null,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.returnplenum.outlet.e22_1.v1"
+            ],
+            "stream": "return",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "22.1"
+      },
+      {
+        "object_type": "OutdoorAir:Mixer",
+        "rule_id": "flow.oa.mixer.e22_1.v1",
+        "topology_form": "COUPLED_MULTI_STREAM",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "oa.mixer.outdoor.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.mixer.mixed.outlet.e22_1.v1"
+            ],
+            "stream": "outdoor_to_mixed",
+            "traversal_role": "PRIMARY"
+          },
+          {
+            "inlet_rule_ids": [
+              "oa.mixer.return.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.mixer.relief.outlet.e22_1.v1"
+            ],
+            "stream": "return_to_relief",
+            "traversal_role": "AUXILIARY"
+          }
+        ],
+        "version": "22.1"
+      },
+      {
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "rule_id": "flow.oa.hx.sensiblelatent.e22_1.v1",
+        "topology_form": "MULTI_CIRCUIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "oa.hx.supply.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.supply.outlet.e22_1.v1"
+            ],
+            "stream": "supply",
+            "traversal_role": "PRIMARY"
+          },
+          {
+            "inlet_rule_ids": [
+              "oa.hx.exhaust.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.exhaust.outlet.e22_1.v1"
+            ],
+            "stream": "exhaust",
+            "traversal_role": "AUXILIARY"
+          }
+        ],
+        "version": "22.1"
+      },
+      {
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "rule_id": "flow.oa.hx.flatplate.e22_1.v1",
+        "topology_form": "MULTI_CIRCUIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "oa.hx.flatplate.supply.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.flatplate.supply.outlet.e22_1.v1"
+            ],
+            "stream": "supply",
+            "traversal_role": "PRIMARY"
+          },
+          {
+            "inlet_rule_ids": [
+              "oa.hx.flatplate.secondary.inlet.e22_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.flatplate.secondary.outlet.e22_1.v1"
+            ],
+            "stream": "secondary",
+            "traversal_role": "AUXILIARY"
+          }
+        ],
+        "version": "22.1"
+      },
+      {
+        "object_type": "AirLoopHVAC:ZoneSplitter",
+        "rule_id": "flow.airpath.zonesplitter.e24_1.v1",
+        "topology_form": "SPLIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.splitter.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": null,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.splitter.outlets.e24_1.v1"
+            ],
+            "stream": "distribution",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "24.1"
+      },
+      {
+        "object_type": "AirLoopHVAC:SupplyPlenum",
+        "rule_id": "flow.airpath.supplyplenum.e24_1.v1",
+        "topology_form": "SPLIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.supplyplenum.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": null,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.supplyplenum.outlets.e24_1.v1"
+            ],
+            "stream": "distribution",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "24.1"
+      },
+      {
+        "object_type": "AirLoopHVAC:ZoneMixer",
+        "rule_id": "flow.airpath.zonemixer.e24_1.v1",
+        "topology_form": "MERGE",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.zonemixer.inlets.e24_1.v1"
+            ],
+            "maximum_inlets": null,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.zonemixer.outlet.e24_1.v1"
+            ],
+            "stream": "return",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "24.1"
+      },
+      {
+        "object_type": "AirLoopHVAC:ReturnPlenum",
+        "rule_id": "flow.airpath.returnplenum.e24_1.v1",
+        "topology_form": "MERGE",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "airpath.returnplenum.inlets.e24_1.v1"
+            ],
+            "maximum_inlets": null,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "airpath.returnplenum.outlet.e24_1.v1"
+            ],
+            "stream": "return",
+            "traversal_role": "PRIMARY"
+          }
+        ],
+        "version": "24.1"
+      },
+      {
+        "object_type": "OutdoorAir:Mixer",
+        "rule_id": "flow.oa.mixer.e24_1.v1",
+        "topology_form": "COUPLED_MULTI_STREAM",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "oa.mixer.outdoor.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.mixer.mixed.outlet.e24_1.v1"
+            ],
+            "stream": "outdoor_to_mixed",
+            "traversal_role": "PRIMARY"
+          },
+          {
+            "inlet_rule_ids": [
+              "oa.mixer.return.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.mixer.relief.outlet.e24_1.v1"
+            ],
+            "stream": "return_to_relief",
+            "traversal_role": "AUXILIARY"
+          }
+        ],
+        "version": "24.1"
+      },
+      {
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "rule_id": "flow.oa.hx.sensiblelatent.e24_1.v1",
+        "topology_form": "MULTI_CIRCUIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "oa.hx.supply.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.supply.outlet.e24_1.v1"
+            ],
+            "stream": "supply",
+            "traversal_role": "PRIMARY"
+          },
+          {
+            "inlet_rule_ids": [
+              "oa.hx.exhaust.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.exhaust.outlet.e24_1.v1"
+            ],
+            "stream": "exhaust",
+            "traversal_role": "AUXILIARY"
+          }
+        ],
+        "version": "24.1"
+      },
+      {
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "rule_id": "flow.oa.hx.flatplate.e24_1.v1",
+        "topology_form": "MULTI_CIRCUIT",
+        "transitions": [
+          {
+            "inlet_rule_ids": [
+              "oa.hx.flatplate.supply.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.flatplate.supply.outlet.e24_1.v1"
+            ],
+            "stream": "supply",
+            "traversal_role": "PRIMARY"
+          },
+          {
+            "inlet_rule_ids": [
+              "oa.hx.flatplate.secondary.inlet.e24_1.v1"
+            ],
+            "maximum_inlets": 1,
+            "maximum_outlets": 1,
+            "medium": "AIR",
+            "minimum_inlets": 1,
+            "minimum_outlets": 1,
+            "outlet_rule_ids": [
+              "oa.hx.flatplate.secondary.outlet.e24_1.v1"
+            ],
+            "stream": "secondary",
+            "traversal_role": "AUXILIARY"
+          }
+        ],
+        "version": "24.1"
+      }
+    ]
+  },
+  "constraint_registry": [
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "branch_typed_identity",
+      "constraint_id": "V2-BRANCH-TYPED-IDENTITY-001",
+      "evaluator_key": "branch_typed_identity",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "branch-member",
+      "relation_class": "BRANCH_PATH",
+      "scope_type": "branch_member",
+      "semantic_equivalence_key": "typed_reference"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "branch_endpoint",
+      "constraint_id": "V2-BRANCH-ENDPOINT-002",
+      "evaluator_key": "branch_endpoint",
+      "evidence_class": "INTERNAL_HARD_REDUNDANT",
+      "latent_factor_kind": "branch-member",
+      "relation_class": "BRANCH_PATH",
+      "scope_type": "branch_member",
+      "semantic_equivalence_key": "field_value"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "branch_reorder",
+      "constraint_id": "V2-BRANCH-CONTINUITY-003",
+      "evaluator_key": "branch_continuity",
+      "evidence_class": "INTERNAL_HARD",
+      "latent_factor_kind": "branch-path",
+      "relation_class": "BRANCH_PATH",
+      "scope_type": "branch_path",
+      "semantic_equivalence_key": "ordered_path"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "loop_parallel_set",
+      "constraint_id": "V2-LOOP-PARALLEL-SET-004",
+      "evaluator_key": "loop_parallel_set",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "connector-pair",
+      "relation_class": "LOOP_CONNECTOR",
+      "scope_type": "connector_pair",
+      "semantic_equivalence_key": "unordered_set"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "loop_branchlist_set",
+      "constraint_id": "V2-LOOP-BRANCHLIST-SET-005",
+      "evaluator_key": "loop_branchlist_set",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "loop-topology",
+      "relation_class": "LOOP_CONNECTOR",
+      "scope_type": "loop_side",
+      "semantic_equivalence_key": "unordered_set"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "loop_branchlist_boundary",
+      "constraint_id": "V2-LOOP-BRANCHLIST-BOUNDARY-006",
+      "evaluator_key": "loop_branchlist_boundary",
+      "evidence_class": "INTERNAL_HARD_REDUNDANT",
+      "latent_factor_kind": "loop-topology",
+      "relation_class": "LOOP_CONNECTOR",
+      "scope_type": "loop_side",
+      "semantic_equivalence_key": "ordered_boundary"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "loop_side_ownership",
+      "constraint_id": "V2-LOOP-SIDE-OWNERSHIP-007",
+      "evaluator_key": "loop_side_ownership",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "loop-side",
+      "relation_class": "LOOP_CONNECTOR",
+      "scope_type": "loop_side",
+      "semantic_equivalence_key": "structural_ownership"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "connector_typed_member",
+      "constraint_id": "V2-CONNECTOR-TYPED-MEMBER-008",
+      "evaluator_key": "connector_typed_member",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "connector-pair",
+      "relation_class": "LOOP_CONNECTOR",
+      "scope_type": "connector_pair",
+      "semantic_equivalence_key": "typed_reference"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "airpath_typed_member",
+      "constraint_id": "V2-AIRPATH-TYPED-MEMBER-009",
+      "evaluator_key": "airpath_typed_member",
+      "evidence_class": "INTERNAL_HARD_REDUNDANT",
+      "latent_factor_kind": "air-path",
+      "relation_class": "AIR_PATH",
+      "scope_type": "air_path",
+      "semantic_equivalence_key": "directed_path"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "oa_equipment_path",
+      "constraint_id": "V2-OA-EQUIPMENT-PATH-010",
+      "evaluator_key": "oa_equipment_path",
+      "evidence_class": "INTERNAL_HARD_REDUNDANT",
+      "latent_factor_kind": "oa-equipment-path",
+      "relation_class": "OUTDOOR_AIR_PATH",
+      "scope_type": "equipment_path",
+      "semantic_equivalence_key": "directed_path"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "zone_list_ownership",
+      "constraint_id": "V2-ZONE-LIST-OWNERSHIP-011",
+      "evaluator_key": "zone_list_ownership",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "zone-equipment-factor",
+      "relation_class": "ZONE_EQUIPMENT",
+      "scope_type": "zone_equipment",
+      "semantic_equivalence_key": "zone_ownership"
+    },
+    {
+      "admission_status": "ADMIT_SAFE_AUTO",
+      "candidate_generator_key": "zone_typed_member",
+      "constraint_id": "V2-ZONE-TYPED-MEMBER-012",
+      "evaluator_key": "zone_typed_member",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "zone-equipment-factor",
+      "relation_class": "ZONE_EQUIPMENT",
+      "scope_type": "zone_equipment_member",
+      "semantic_equivalence_key": "typed_reference"
+    },
+    {
+      "admission_status": "ADMIT_NEEDS_INPUT",
+      "candidate_generator_key": "",
+      "constraint_id": "V2-BRANCH-MISSING-MEMBER-101",
+      "evaluator_key": "branch_missing_member",
+      "evidence_class": "INTERNAL_UNDERDETERMINED",
+      "latent_factor_kind": "branch-path",
+      "relation_class": "BRANCH_PATH",
+      "scope_type": "branch_path",
+      "semantic_equivalence_key": "none"
+    },
+    {
+      "admission_status": "ADMIT_DETECT_ONLY",
+      "candidate_generator_key": "",
+      "constraint_id": "V2-BRANCH-DUPLICATE-MEMBER-102",
+      "evaluator_key": "branch_duplicate_member",
+      "evidence_class": "INTERNAL_UNDERDETERMINED",
+      "latent_factor_kind": "branch-path",
+      "relation_class": "BRANCH_PATH",
+      "scope_type": "branch_path",
+      "semantic_equivalence_key": "none"
+    },
+    {
+      "admission_status": "ADMIT_DETECT_ONLY",
+      "candidate_generator_key": "",
+      "constraint_id": "V2-CONTROLLER-OWNERSHIP-103",
+      "evaluator_key": "controller_ownership",
+      "evidence_class": "INTERNAL_REDUNDANT",
+      "latent_factor_kind": "controller-ownership",
+      "relation_class": "CONTROL_TOPOLOGY",
+      "scope_type": "controller_ownership",
+      "semantic_equivalence_key": "none"
+    },
+    {
+      "admission_status": "REJECT_NOT_ENOUGH_SUPPORT",
+      "candidate_generator_key": "",
+      "constraint_id": "V2-CONTROLLER-ACTUATOR-104",
+      "evaluator_key": "",
+      "evidence_class": "INTERNAL_UNDERDETERMINED",
+      "latent_factor_kind": "controller-actuator",
+      "relation_class": "CONTROL_TOPOLOGY",
+      "scope_type": "controller_actuator",
+      "semantic_equivalence_key": "none"
+    },
+    {
+      "admission_status": "REJECT_EXTERNAL_INTENT",
+      "candidate_generator_key": "",
+      "constraint_id": "V2-ZONE-PRIORITY-EQUALITY-901",
+      "evaluator_key": "",
+      "evidence_class": "EXTERNAL_INTENT",
+      "latent_factor_kind": "zone-priority",
+      "relation_class": "ZONE_PRIORITY",
+      "scope_type": "zone_equipment_list",
+      "semantic_equivalence_key": "none"
+    },
+    {
+      "admission_status": "REJECT_NOT_SEMANTIC",
+      "candidate_generator_key": "",
+      "constraint_id": "V2-CONTROLLER-SENSOR-EQUALITY-902",
+      "evaluator_key": "",
+      "evidence_class": "NOT_SEMANTIC",
+      "latent_factor_kind": "controller-sensor",
+      "relation_class": "CONTROL_TOPOLOGY",
+      "scope_type": "controller_sensor",
+      "semantic_equivalence_key": "none"
+    },
+    {
+      "admission_status": "REJECT_EXTERNAL_INTENT",
+      "candidate_generator_key": "",
+      "constraint_id": "V2-PARALLEL-MIDDLE-ORDER-903",
+      "evaluator_key": "",
+      "evidence_class": "EXTERNAL_INTENT",
+      "latent_factor_kind": "loop-topology",
+      "relation_class": "LOOP_CONNECTOR",
+      "scope_type": "branch_list",
+      "semantic_equivalence_key": "none"
+    }
+  ],
+  "equivalence_policy": {
+    "global_commit": "reparse_ir_rebuild_exact_hard_closure",
+    "nonunique_equal_optimum": "NEEDS_INPUT",
+    "solver_identity": "semantic_signature_after_exact_field_effect_deduplication"
+  },
+  "extension_development": {
+    "conditional_automatic_repair": 1.0,
+    "control_count": 30,
+    "correct_abstentions": 2,
+    "correct_automatic_repairs": 88,
+    "dynamic_validation": {
+      "attempted": 12,
+      "failed": 0,
+      "fatal_count": 0,
+      "passed": 12,
+      "severe_count": 0,
+      "warning_count": 578
+    },
+    "overall_automatic_repair": 0.9777777777777777,
+    "partial_as_full_count": 0,
+    "process_failure_count": 0,
+    "record_count": 120,
+    "repair_target_count": 90,
+    "support_coverage": 1.0,
+    "wrong_modification_count": 0
+  },
+  "formal_final": {
+    "executed_in_this_task": false,
+    "method_changes_after_final": "forbidden",
+    "next_action": "verify_freeze_then_run_one_shot_formal_v2_final"
+  },
+  "frozen_v21_regression": {
+    "delta": 29,
+    "process_failure_count": 0,
+    "record_count": 312,
+    "regression_count": 0,
+    "single_denominator": 147,
+    "single_v21_full_correct": 79,
+    "single_v22_full_correct": 108,
+    "v21_full_correct": 224,
+    "v22_full_correct": 253,
+    "wrong_modification_count": 0
+  },
+  "port_registry_identity": {
+    "extensible_rule_count": 8,
+    "extensible_rules": [
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Outlet 1 Node Name",
+        "begin_field_token": "A3",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneSplitter",
+        "port_group": "distribution",
+        "role": "OUTLET",
+        "rule_id": "airpath.splitter.outlets.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Outlet 1 Node Name",
+        "begin_field_token": "A5",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:SupplyPlenum",
+        "port_group": "distribution",
+        "role": "OUTLET",
+        "rule_id": "airpath.supplyplenum.outlets.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Inlet 1 Node Name",
+        "begin_field_token": "A3",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneMixer",
+        "port_group": "return",
+        "role": "INLET",
+        "rule_id": "airpath.zonemixer.inlets.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Inlet 1 Node Name",
+        "begin_field_token": "A6",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ReturnPlenum",
+        "port_group": "return",
+        "role": "INLET",
+        "rule_id": "airpath.returnplenum.inlets.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Outlet 1 Node Name",
+        "begin_field_token": "A3",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneSplitter",
+        "port_group": "distribution",
+        "role": "OUTLET",
+        "rule_id": "airpath.splitter.outlets.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Outlet 1 Node Name",
+        "begin_field_token": "A5",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:SupplyPlenum",
+        "port_group": "distribution",
+        "role": "OUTLET",
+        "rule_id": "airpath.supplyplenum.outlets.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Inlet 1 Node Name",
+        "begin_field_token": "A3",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneMixer",
+        "port_group": "return",
+        "role": "INLET",
+        "rule_id": "airpath.zonemixer.inlets.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_MULTI_PORT",
+        "begin_field_name": "Inlet 1 Node Name",
+        "begin_field_token": "A6",
+        "group_width": 1,
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ReturnPlenum",
+        "port_group": "return",
+        "role": "INLET",
+        "rule_id": "airpath.returnplenum.inlets.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      }
+    ],
+    "fixed_rule_count": 57,
+    "fixed_rules": [
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "Fan:ConstantVolume",
+        "port_group": "air",
+        "role": "INLET",
+        "rule_id": "fan.constantvolume.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "Fan:ConstantVolume",
+        "port_group": "air",
+        "role": "OUTLET",
+        "rule_id": "fan.constantvolume.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "Fan:VariableVolume",
+        "port_group": "air",
+        "role": "INLET",
+        "rule_id": "fan.variablevolume.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "Fan:VariableVolume",
+        "port_group": "air",
+        "role": "OUTLET",
+        "rule_id": "fan.variablevolume.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "Fan:SystemModel",
+        "port_group": "air",
+        "role": "INLET",
+        "rule_id": "fan.systemmodel.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "Fan:SystemModel",
+        "port_group": "air",
+        "role": "OUTLET",
+        "rule_id": "fan.systemmodel.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Water Inlet Node Name",
+        "field_token": "A3",
+        "medium": "WATER",
+        "object_type": "Coil:Heating:Water",
+        "port_group": "water",
+        "role": "INLET",
+        "rule_id": "coil.heating.water.water.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Water Outlet Node Name",
+        "field_token": "A4",
+        "medium": "WATER",
+        "object_type": "Coil:Heating:Water",
+        "port_group": "water",
+        "role": "OUTLET",
+        "rule_id": "coil.heating.water.water.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "Coil:Heating:Water",
+        "port_group": "air",
+        "role": "INLET",
+        "rule_id": "coil.heating.water.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A6",
+        "medium": "AIR",
+        "object_type": "Coil:Heating:Water",
+        "port_group": "air",
+        "role": "OUTLET",
+        "rule_id": "coil.heating.water.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Water Inlet Node Name",
+        "field_token": "A3",
+        "medium": "WATER",
+        "object_type": "Coil:Cooling:Water",
+        "port_group": "water",
+        "role": "INLET",
+        "rule_id": "coil.cooling.water.water.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Water Outlet Node Name",
+        "field_token": "A4",
+        "medium": "WATER",
+        "object_type": "Coil:Cooling:Water",
+        "port_group": "water",
+        "role": "OUTLET",
+        "rule_id": "coil.cooling.water.water.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "Coil:Cooling:Water",
+        "port_group": "air",
+        "role": "INLET",
+        "rule_id": "coil.cooling.water.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A6",
+        "medium": "AIR",
+        "object_type": "Coil:Cooling:Water",
+        "port_group": "air",
+        "role": "OUTLET",
+        "rule_id": "coil.cooling.water.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Inlet Node Name",
+        "field_token": "A2",
+        "medium": "WATER",
+        "object_type": "Pipe:Adiabatic",
+        "port_group": "water",
+        "role": "INLET",
+        "rule_id": "pipe.adiabatic.water.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Outlet Node Name",
+        "field_token": "A3",
+        "medium": "WATER",
+        "object_type": "Pipe:Adiabatic",
+        "port_group": "water",
+        "role": "OUTLET",
+        "rule_id": "pipe.adiabatic.water.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "ZoneHVAC:PackagedTerminalHeatPump",
+        "port_group": "zone_air",
+        "role": "INLET",
+        "rule_id": "zone.pthp.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_RETURN"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "ZoneHVAC:PackagedTerminalHeatPump",
+        "port_group": "zone_air",
+        "role": "OUTLET",
+        "rule_id": "zone.pthp.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_INLET"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "ZoneHVAC:PackagedTerminalAirConditioner",
+        "port_group": "zone_air",
+        "role": "INLET",
+        "rule_id": "zone.ptac.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_RETURN"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "ZoneHVAC:PackagedTerminalAirConditioner",
+        "port_group": "zone_air",
+        "role": "OUTLET",
+        "rule_id": "zone.ptac.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_INLET"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "ZoneHVAC:FourPipeFanCoil",
+        "port_group": "zone_air",
+        "role": "INLET",
+        "rule_id": "zone.fourpipefancoil.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_RETURN"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A6",
+        "medium": "AIR",
+        "object_type": "ZoneHVAC:FourPipeFanCoil",
+        "port_group": "zone_air",
+        "role": "OUTLET",
+        "rule_id": "zone.fourpipefancoil.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_INLET"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Distribution Unit Outlet Node Name",
+        "field_token": "A2",
+        "medium": "AIR",
+        "object_type": "ZoneHVAC:AirDistributionUnit",
+        "port_group": "zone_air",
+        "role": "OUTLET",
+        "rule_id": "zone.adu.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_INLET"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Inlet Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "Fan:ZoneExhaust",
+        "port_group": "zone_exhaust",
+        "role": "INLET",
+        "rule_id": "zone.exhaustfan.air.inlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "ZONE_EXHAUST"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Air Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "Fan:ZoneExhaust",
+        "port_group": "zone_exhaust",
+        "role": "OUTLET",
+        "rule_id": "zone.exhaustfan.air.outlet.v1",
+        "versions": [
+          "22.1",
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Inlet Node Name",
+        "field_token": "A2",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneSplitter",
+        "port_group": "distribution",
+        "role": "INLET",
+        "rule_id": "airpath.splitter.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Inlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:SupplyPlenum",
+        "port_group": "distribution",
+        "role": "INLET",
+        "rule_id": "airpath.supplyplenum.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Outlet Node Name",
+        "field_token": "A2",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneMixer",
+        "port_group": "return",
+        "role": "OUTLET",
+        "rule_id": "airpath.zonemixer.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ReturnPlenum",
+        "port_group": "return",
+        "role": "OUTLET",
+        "rule_id": "airpath.returnplenum.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Mixed Air Node Name",
+        "field_token": "A2",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "mixed_air",
+        "role": "OUTLET",
+        "rule_id": "oa.mixer.mixed.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Outdoor Air Stream Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "mixed_air",
+        "role": "INLET",
+        "rule_id": "oa.mixer.outdoor.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Relief Air Stream Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "relief_air",
+        "role": "OUTLET",
+        "rule_id": "oa.mixer.relief.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Return Air Stream Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "mixed_air",
+        "role": "INLET",
+        "rule_id": "oa.mixer.return.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Inlet Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "supply",
+        "role": "INLET",
+        "rule_id": "oa.hx.supply.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "supply",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.supply.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Exhaust Air Inlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "exhaust",
+        "role": "INLET",
+        "rule_id": "oa.hx.exhaust.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Exhaust Air Outlet Node Name",
+        "field_token": "A6",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "exhaust",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.exhaust.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Inlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "supply",
+        "role": "INLET",
+        "rule_id": "oa.hx.flatplate.supply.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Outlet Node Name",
+        "field_token": "A6",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "supply",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.flatplate.supply.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Secondary Air Inlet Node Name",
+        "field_token": "A7",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "secondary",
+        "role": "INLET",
+        "rule_id": "oa.hx.flatplate.secondary.inlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Secondary Air Outlet Node Name",
+        "field_token": "A8",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "secondary",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.flatplate.secondary.outlet.e22_1.v1",
+        "versions": [
+          "22.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Inlet Node Name",
+        "field_token": "A2",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneSplitter",
+        "port_group": "distribution",
+        "role": "INLET",
+        "rule_id": "airpath.splitter.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Inlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:SupplyPlenum",
+        "port_group": "distribution",
+        "role": "INLET",
+        "rule_id": "airpath.supplyplenum.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Outlet Node Name",
+        "field_token": "A2",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ZoneMixer",
+        "port_group": "return",
+        "role": "OUTLET",
+        "rule_id": "airpath.zonemixer.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "AirLoopHVAC:ReturnPlenum",
+        "port_group": "return",
+        "role": "OUTLET",
+        "rule_id": "airpath.returnplenum.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Mixed Air Node Name",
+        "field_token": "A2",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "mixed_air",
+        "role": "OUTLET",
+        "rule_id": "oa.mixer.mixed.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Outdoor Air Stream Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "mixed_air",
+        "role": "INLET",
+        "rule_id": "oa.mixer.outdoor.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Relief Air Stream Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "relief_air",
+        "role": "OUTLET",
+        "rule_id": "oa.mixer.relief.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Return Air Stream Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "OutdoorAir:Mixer",
+        "port_group": "mixed_air",
+        "role": "INLET",
+        "rule_id": "oa.mixer.return.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Inlet Node Name",
+        "field_token": "A3",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "supply",
+        "role": "INLET",
+        "rule_id": "oa.hx.supply.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Outlet Node Name",
+        "field_token": "A4",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "supply",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.supply.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Exhaust Air Inlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "exhaust",
+        "role": "INLET",
+        "rule_id": "oa.hx.exhaust.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Exhaust Air Outlet Node Name",
+        "field_token": "A6",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:SensibleAndLatent",
+        "port_group": "exhaust",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.exhaust.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Inlet Node Name",
+        "field_token": "A5",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "supply",
+        "role": "INLET",
+        "rule_id": "oa.hx.flatplate.supply.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Supply Air Outlet Node Name",
+        "field_token": "A6",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "supply",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.flatplate.supply.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Secondary Air Inlet Node Name",
+        "field_token": "A7",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "secondary",
+        "role": "INLET",
+        "rule_id": "oa.hx.flatplate.secondary.inlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      },
+      {
+        "applicability": "SUPPORTED_EXACT",
+        "field_name": "Secondary Air Outlet Node Name",
+        "field_token": "A8",
+        "medium": "AIR",
+        "object_type": "HeatExchanger:AirToAir:FlatPlate",
+        "port_group": "secondary",
+        "role": "OUTLET",
+        "rule_id": "oa.hx.flatplate.secondary.outlet.e24_1.v1",
+        "versions": [
+          "24.1"
+        ],
+        "zone_side_role": "NONE"
+      }
+    ]
+  },
+  "release_status": "V22_RELEASE_CANDIDATE_READY",
+  "runtime_api": {
+    "benchmark_hints_accepted": false,
+    "phases": [
+      "parse",
+      "ir_build",
+      "constraint_scan",
+      "candidate_generation",
+      "conflict_graph",
+      "solver",
+      "global_closure"
+    ],
+    "repair": "repair_model(text, idd, registry=None, limits=SolverLimits())",
+    "scan": "scan_model(document, idd, registry=None)"
+  },
+  "schema_version": "idfrepair.semantic-graph-v22-method-freeze-candidate.v1",
+  "sealed_final_sources": {
+    "count": 15,
+    "distinct_fingerprint_count": 15,
+    "faults_generated": false,
+    "manifest": "datasets/manifests/semantic_graph_v22_sealed_final_sources.csv",
+    "seal_status": "SEALED_NOT_INSPECTED_BY_V22",
+    "v22_scan_executed": false
+  },
+  "search_objective": [
+    "minimum_semantic_edit_count",
+    "minimum_distinct_field_edit_count"
+  ],
+  "semantic_edit_kinds": [
+    "REPLACE_TYPED_REFERENCE",
+    "REPLACE_ENDPOINT",
+    "REPLACE_ORDERED_MEMBER",
+    "REORDER_PATH_MEMBERS",
+    "REPLACE_LOOP_SIDE_REFERENCE",
+    "REPLACE_CONNECTOR_MEMBER"
+  ],
+  "solver_limits": {
+    "max_candidate_edits": 24,
+    "max_component_violations": 8,
+    "max_evaluated_sets": 256,
+    "max_semantic_edits": 4
+  }
+}
