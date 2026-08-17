@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <title>IDFRepair · EnergyPlus IDF 修复工作台</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="/static/style.css?v=20260812v4">
+  <link rel="stylesheet" href="/static/style.css?v=20260818occ5">
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="common.skip">跳到主要内容</a>
@@ -65,6 +65,14 @@
           <button type="button" data-new-input data-i18n="actions.new_input">打开新文件</button>
           <button id="session-primary-action" class="primary primary-workflow-action" type="button" data-action="choose-file" data-i18n="actions.choose_file">选择 IDF 文件</button>
           <button id="open-session-settings" type="button" data-i18n="workbench.settings">设置与所需文件</button>
+          <div class="occupancy-layer-tools" aria-label="可选人员流量图层" data-i18n-aria-label="repair.occupancy_layer_tools">
+            <label class="occupancy-layer-upload" for="occupancy-payload-file">
+              <input id="occupancy-payload-file" type="file" accept=".json,application/json">
+              <span data-i18n="repair.occupancy_layer_upload">加载人员流量数据</span>
+            </label>
+            <button id="occupancy-payload-clear" class="occupancy-layer-clear" type="button" disabled data-i18n="repair.occupancy_layer_clear">清除人员流量</button>
+            <small id="occupancy-payload-status" class="occupancy-layer-status" role="status" hidden></small>
+          </div>
           <button id="session-download" type="button" data-i18n="workbench.download">下载</button>
           <button id="session-more" type="button" aria-haspopup="menu" data-i18n="workbench.more">更多</button>
         </div>
@@ -326,7 +334,7 @@
 
         <section id="main-workbench-view" class="main-workbench-view hidden" aria-labelledby="model-title">
           <div class="main-view-toolbar">
-            <div>
+            <div class="main-view-identity">
               <h3 id="model-title" data-i18n="repair.model">IDF 模型与错误定位</h3>
               <span class="viewer-credit" data-i18n="repair.viewer_credit">EPShape 内核 · 只读</span>
             </div>
@@ -339,7 +347,7 @@
           <div id="main-view-3d" class="main-view-panel active" role="tabpanel" aria-labelledby="main-tab-3d">
         <section class="model-stage" aria-labelledby="model-title">
           <div class="model-frame">
-            <iframe id="model-viewer" title="IDF 三维模型与错误查看器" data-i18n-title="common.model_viewer" src="/static/epshape-viewer.html?v=20260812v4"></iframe>
+            <iframe id="model-viewer" title="IDF 三维模型与错误查看器" data-i18n-title="common.model_viewer" src="/static/epshape-viewer.html?v=20260818occ5"></iframe>
           </div>
         </section>
 
@@ -847,6 +855,6 @@
     </div>
   </dialog>
 
-  <script type="module" src="/static/app.js?v=20260812v4"></script>
+  <script type="module" src="/static/app.js?v=20260818occ5"></script>
 </body>
 </html>

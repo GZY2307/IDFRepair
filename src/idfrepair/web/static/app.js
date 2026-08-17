@@ -1,7 +1,7 @@
 import './workflow-state.js?v=20260811v5';
 import './batch-state.js?v=20260811v5';
 import './js/batch-workbench.js?v=20260811v5';
-import './viewer-bridge.js?v=20260812v4';
+import './viewer-bridge.js?v=20260818occ5';
 import './js/session-workbench.js?v=20260812v4';
 import './js/issue-navigator.js?v=20260812v4';
 import './js/inspector.js?v=20260812v4';
@@ -72,6 +72,9 @@ const state = {
   osmMappingLimit: 50,
   osmValidityLimit: 50,
   runReadiness: null,
+  readinessGeneration: 0,
+  readinessLoading: false,
+  readinessFailed: false,
   weatherUploadBusy: false,
   sourceKind: 'idf',
   previousIdfMode: 'safe-auto',
@@ -159,20 +162,7 @@ function primaryActionState() {
     }
     return {action: 'diagnose', labelKey: 'actions.diagnose', disabled: false};
   }
-  if (state.sessionId && state.runReadiness && window.IDFRepairSessionWorkbench) {
-    const readiness = window.IDFRepairSessionWorkbench.deriveReadinessState(
-      state.runReadiness,
-      {
-        sessionId: state.sessionId,
-        lifecycleStatus: state.summary?.lifecycle_status,
-        reportStatus: state.summary?.status
-      }
-    );
-    if (readiness.showWeatherDrop) {
-      return {action: 'focus-weather', labelKey: 'readiness.attach', disabled: false};
-    }
-  }
-  return window.IDFRepairWorkflow.derivePrimaryAction({
+  const workflow = window.IDFRepairWorkflow.derivePrimaryAction({
     hasFile,
     runtimeReady: Boolean(state.selectedRuntimeId),
     busy: state.busy,
@@ -182,6 +172,26 @@ function primaryActionState() {
     reportStatus: state.report?.final_status || state.summary?.status || null,
     outputReady: state.outputReady
   });
+  if (workflow.action !== 'diagnose' || !state.sessionId || !window.IDFRepairSessionWorkbench) {
+    return workflow;
+  }
+  if (!state.runReadiness) {
+    return state.readinessFailed
+      ? {action: 'retry-readiness', labelKey: 'readiness.retry', disabled: false}
+      : {action: 'check-readiness', labelKey: 'readiness.checking', disabled: true};
+  }
+  const readiness = window.IDFRepairSessionWorkbench.deriveReadinessState(
+    state.runReadiness,
+    {
+      sessionId: state.sessionId,
+      lifecycleStatus: state.summary?.lifecycle_status,
+      reportStatus: state.summary?.status
+    }
+  );
+  if (readiness.showWeatherDrop) {
+    return {action: 'focus-weather', labelKey: 'readiness.attach', disabled: false};
+  }
+  return workflow;
 }
 
 function detectOpenStudioModelText(text) {
@@ -897,7 +907,7 @@ function selectAdjacentIssue(direction) {
 }
 
 async function loadLocale(locale) {
-  const response = await fetch(`/locales/${locale}.json?v=20260812v4`, {cache: 'no-store'});
+  const response = await fetch(`/locales/${locale}.json?v=20260818occ5`, {cache: 'no-store'});
   if (!response.ok) throw new Error(`locale_load_failed:${locale}`);
   state.messages = await response.json();
   state.locale = locale;
@@ -976,22 +986,33 @@ function renderReadiness() {
 }
 
 async function refreshReadiness(sessionId = state.sessionId) {
+  const generation = ++state.readinessGeneration;
   if (!sessionId) {
     state.runReadiness = null;
+    state.readinessLoading = false;
+    state.readinessFailed = false;
     renderReadiness();
     return null;
   }
+  state.readinessLoading = true;
+  state.readinessFailed = false;
+  updatePrimaryAction();
   try {
     const readiness = await request(`/api/sessions/${encodeURIComponent(sessionId)}/readiness`);
-    if (state.sessionId !== sessionId) return null;
+    if (state.sessionId !== sessionId || state.readinessGeneration !== generation) return null;
     state.runReadiness = readiness;
+    state.readinessLoading = false;
+    state.readinessFailed = false;
     renderReadiness();
     updatePrimaryAction();
     return readiness;
   } catch (error) {
-    if (state.sessionId === sessionId) {
+    if (state.sessionId === sessionId && state.readinessGeneration === generation) {
       state.runReadiness = null;
+      state.readinessLoading = false;
+      state.readinessFailed = true;
       renderReadiness();
+      updatePrimaryAction();
       notice(error.message, true);
     }
     return null;
@@ -1002,7 +1023,10 @@ async function attachSessionWeather() {
   const sessionId = state.sessionId;
   const file = $('#session-epw-file')?.files?.[0];
   if (!sessionId || !file || state.weatherUploadBusy) return;
+  const generation = ++state.readinessGeneration;
   state.weatherUploadBusy = true;
+  state.readinessLoading = false;
+  state.readinessFailed = false;
   renderReadiness();
   try {
     const body = new FormData();
@@ -1011,8 +1035,9 @@ async function attachSessionWeather() {
       `/api/sessions/${encodeURIComponent(sessionId)}/weather`,
       {method: 'POST', body}
     );
-    if (state.sessionId !== sessionId) return;
+    if (state.sessionId !== sessionId || state.readinessGeneration !== generation) return;
     state.runReadiness = result.readiness;
+    state.readinessFailed = false;
     $('#session-epw-file').value = '';
     $('#session-epw-name').textContent = result.filename || file.name;
     notice(t('readiness.attached_explicit'));
@@ -1476,6 +1501,9 @@ function resetRepairViewForNewInput({clearViewerSelection = true} = {}) {
   state.osmMappingLimit = 50;
   state.osmValidityLimit = 50;
   state.runReadiness = null;
+  state.readinessGeneration += 1;
+  state.readinessLoading = false;
+  state.readinessFailed = false;
   state.weatherUploadBusy = false;
   state.settingsOpen = false;
   state.issueCategory = 'all';
@@ -1601,6 +1629,12 @@ function startNewInput() {
 
 function setStatus(summary) {
   const openingDifferentSession = state.sessionId !== summary.session_id;
+  if (openingDifferentSession) {
+    state.runReadiness = null;
+    state.readinessGeneration += 1;
+    state.readinessLoading = false;
+    state.readinessFailed = false;
+  }
   state.summary = summary;
   state.sessionId = summary.session_id;
   if (summary.last_completed_action) {
@@ -4406,6 +4440,18 @@ async function runSession(action) {
   } catch (error) {
     if (state.sessionId !== requestedSessionId) return;
     if (tracksEnergyPlus) finishRunProgress(false);
+    const checkIds = error.payload?.params?.check_ids || error.payload?.check_ids || [];
+    const weatherBlocked = error.payload?.message_id === 'error.run_readiness_blocked'
+      && Array.isArray(checkIds) && checkIds.includes('weather');
+    if (weatherBlocked) {
+      await refreshReadiness(requestedSessionId);
+      if (state.sessionId !== requestedSessionId) return;
+      renderReadiness();
+      updatePrimaryAction();
+      notice(t('readiness.blocked_recoverable'), true);
+      $('#readiness-blocker').scrollIntoView({behavior: 'smooth', block: 'center'});
+      return;
+    }
     notice(error.message, true);
   }
 }
@@ -4837,12 +4883,17 @@ async function handlePrimaryAction() {
       break;
     case 'diagnose':
       if (!state.sessionId && !await createSessionForCurrentInput()) return;
-      if (state.runReadiness && !currentReadinessState().canDiagnose) {
+      if (!state.runReadiness && !await refreshReadiness(state.sessionId)) return;
+      if (!currentReadinessState().canDiagnose) {
         renderReadiness();
+        notice(t('readiness.not_ready'), true);
         $('#readiness-blocker').scrollIntoView({behavior: 'smooth', block: 'center'});
         return;
       }
       await runSession('diagnose');
+      break;
+    case 'retry-readiness':
+      await refreshReadiness(state.sessionId);
       break;
     case 'focus-weather':
       $('#readiness-blocker').scrollIntoView({behavior: 'smooth', block: 'center'});

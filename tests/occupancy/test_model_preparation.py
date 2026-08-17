@@ -113,12 +113,19 @@ def test_translate_preserves_source_and_records_provenance(tmp_path: Path) -> No
     assert provenance["source_sha256_before"] == before
     assert provenance["source_sha256_after"] == before
     assert provenance["source_unchanged"] is True
+    assert provenance["schema_version"] == "idfrepair.source-preserving-ideal-loads.v2"
     assert provenance["mode"] == "translate"
     assert provenance["openstudio_version"].startswith("3.6.1")
     assert provenance["before_counts"]["spaces"] == 1
     assert provenance["before_counts"]["thermal_zones"] == 1
     assert provenance["before_counts"]["people"] == 1
     assert provenance["synthetic_hvac_demo"] is False
+    assert provenance["protected_source_objects_unchanged"] is True
+    assert provenance["protected_snapshot_sha256_before"] == provenance[
+        "protected_snapshot_sha256_after"
+    ]
+    assert provenance["thermal_zone_source_semantics_unchanged"] is True
+    assert provenance["source_fields_modified"] == 0
     assert (tmp_path / "translated" / "derived.idf").is_file()
     assert not (tmp_path / "translated" / "derived.osm").exists()
 
@@ -138,6 +145,15 @@ def test_ideal_loads_exists_only_in_derived_copy(tmp_path: Path) -> None:
     assert provenance["synthetic_ideal_loads_added"] == 1
     assert provenance["after_counts"]["ideal_loads"] == 1
     assert provenance["after_counts"]["real_zone_equipment"] == 0
+    assert provenance["protected_source_objects_unchanged"] is True
+    assert provenance["protected_snapshot_sha256_before"] == provenance[
+        "protected_snapshot_sha256_after"
+    ]
+    assert provenance["thermal_zone_source_semantics_unchanged"] is True
+    assert provenance["thermal_zone_semantics_sha256_before"] == provenance[
+        "thermal_zone_semantics_sha256_after"
+    ]
+    assert provenance["source_fields_modified"] == 0
     assert (tmp_path / "ideal" / "derived.osm").is_file()
     assert (tmp_path / "ideal" / "derived.idf").is_file()
 

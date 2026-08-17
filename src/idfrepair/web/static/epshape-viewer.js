@@ -47,6 +47,30 @@
   const issueKeyNeutral = document.querySelector('#issue-key-neutral b');
   const issueKeyBefore = document.querySelector('#issue-key-before b');
   const issueKeyAfter = document.querySelector('#issue-key-after b');
+  const occupancyControls = document.querySelector('#occupancy-controls');
+  const occupancyPlayButton = document.querySelector('#occupancy-play');
+  const occupancyTimeInput = document.querySelector('#occupancy-time');
+  const occupancyTimeLabel = document.querySelector('#occupancy-time-label');
+  const occupancyMetricSelect = document.querySelector('#occupancy-metric');
+  const occupancyScenarioLabel = document.querySelector('#occupancy-scenario');
+  const occupancyTimelinePeople = document.querySelector('#occupancy-timeline-people');
+  const occupancyTimelineLoad = document.querySelector('#occupancy-timeline-load');
+  const occupancyTimelineCursor = document.querySelector('#occupancy-timeline-cursor');
+  const occupancyDetails = document.querySelector('#occupancy-details');
+  const occupancyDetailName = document.querySelector('#occupancy-detail-name');
+  const occupancyEntranceBadge = document.querySelector('#occupancy-entrance-badge');
+  const occupancyConflictBadge = document.querySelector('#occupancy-conflict-badge');
+  const occupancyDetailCategory = document.querySelector('#occupancy-detail-category');
+  const occupancyDetailPeople = document.querySelector('#occupancy-detail-people');
+  const occupancyDetailDensity = document.querySelector('#occupancy-detail-density');
+  const occupancyDetailCapacity = document.querySelector('#occupancy-detail-capacity');
+  const occupancyDetailFlow = document.querySelector('#occupancy-detail-flow');
+  const occupancyDetailPhase = document.querySelector('#occupancy-detail-phase');
+  const occupancyDetailScenario = document.querySelector('#occupancy-detail-scenario');
+  const occupancyDetailLoad = document.querySelector('#occupancy-detail-load');
+  const roomFunctionOption = colorModeSelect.querySelector('option[value="roomFunction"]');
+  const occupancyOption = colorModeSelect.querySelector('option[value="occupancy"]');
+  const occupancyState = window.IDFRepairOccupancyState;
 
   const VIEWER_COPY = Object.freeze({
     'zh-CN': {
@@ -79,7 +103,12 @@
       issueScope: '{rooms} 个房间 · {levels}', issueScopeFallback: '已按表面名称定位',
       issueStories: '{count} 个真实楼层', issueElevationGroups: '{count} 个几何标高分组',
       osmPendingTitle: 'OSM 已识别', osmPendingHelp: '等待 OpenStudio 前向翻译；完成后这里显示派生 IDF 几何。',
-      osmPendingStatus: 'OSM 待转换 · 尚未生成派生 IDF'
+      osmPendingStatus: 'OSM 待转换 · 尚未生成派生 IDF',
+      roomFunctionMode: 'Room Function / 房间功能', occupancyMode: 'Occupancy / 人员流量',
+      occupancyPlay: '播放人员流量', occupancyPause: '暂停人员流量', occupancyMetric: '人员流量着色指标',
+      metadataConflict: '源 metadata 冲突', occupancyUnavailable: '未加载 room-aware occupancy payload',
+      entranceSeed: '入口种子', flowRegion: '{entrance} 区域 · 邻接 {hops} 跳',
+      flowPhase: '{minutes} 分钟受控响应（非步行时间）'
     },
     en: {
       title: 'IDFRepair EPShape Viewer', idfGeometry: 'IDF geometry', waiting: 'Waiting for a local IDF',
@@ -111,7 +140,12 @@
       issueScope: '{rooms} rooms · {levels}', issueScopeFallback: 'Located by surface name',
       issueStories: '{count} model stories', issueElevationGroups: '{count} geometry elevation groups',
       osmPendingTitle: 'OSM detected', osmPendingHelp: 'Waiting for OpenStudio forward translation; derived IDF geometry will appear here.',
-      osmPendingStatus: 'OSM pending · derived IDF not generated yet'
+      osmPendingStatus: 'OSM pending · derived IDF not generated yet',
+      roomFunctionMode: 'Room Function', occupancyMode: 'Occupancy', occupancyPlay: 'Play occupancy',
+      occupancyPause: 'Pause occupancy', occupancyMetric: 'Occupancy color metric',
+      metadataConflict: 'Source metadata conflict', occupancyUnavailable: 'Room-aware occupancy payload not loaded',
+      entranceSeed: 'Entrance seed', flowRegion: '{entrance} region · {hops} adjacency hops',
+      flowPhase: '{minutes}-minute controlled response (not walking time)'
     }
   });
 
@@ -258,6 +292,14 @@
   let selectionState = {kind: 'none', mesh: null, roomKey: null};
   let animationFrame = 0;
   let loadRevision = 0;
+  let currentOccupancy = null;
+  let occupancySpacesByRoomKey = new Map();
+  let occupancyTimeIndex = 0;
+  let occupancyMetric = 'density';
+  let occupancyMaximum = 0;
+  let occupancyPlaybackTimer = null;
+  let occupancyTimeline = null;
+  let occupancyDetailRoomKey = null;
 
   function normalizeName(value) {
     return String(value || '').trim().replace(/^['"]|['"]$/g, '').toLowerCase();
@@ -582,7 +624,37 @@
     return color.getHex();
   }
 
+  function hexColor(value, fallback = COLORS.unassigned) {
+    const normalized = String(value || '').replace('#', '');
+    return /^[0-9a-f]{6}$/i.test(normalized) ? Number.parseInt(normalized, 16) : fallback;
+  }
+
+  function occupancySpaceForSurface(surface) {
+    return occupancySpacesByRoomKey.get(roomIdentity(surface).key) || null;
+  }
+
+  function occupancyDescriptor(surface) {
+    const space = occupancySpaceForSurface(surface);
+    if (!space || !occupancyState) return {label: 'Unassigned', color: COLORS.unassigned};
+    const color = occupancyState.colorForMetric(
+      space,
+      occupancyTimeIndex,
+      occupancyMetric,
+      occupancyMaximum
+    );
+    return {label: 'Occupancy intensity', color: hexColor(color)};
+  }
+
   function colorDescriptor(surface, mode = currentMode) {
+    if (mode === 'roomFunction') {
+      const space = occupancySpaceForSurface(surface);
+      if (!space || !occupancyState) return {label: 'Unassigned', color: COLORS.unassigned};
+      return {
+        label: space.category,
+        color: hexColor(occupancyState.CATEGORY_COLORS[space.category])
+      };
+    }
+    if (mode === 'occupancy') return occupancyDescriptor(surface);
     if (mode === 'normal') return {label: 'Normal', color: COLORS.normal};
     if (mode === 'boundary') {
       const label = boundaryCategory(surface.boundary);
@@ -1019,6 +1091,15 @@
   }
 
   function descriptorDisplayLabel(label) {
+    const roomFunctions = {
+      terminal_hall: currentLocale === 'zh-CN' ? '航站楼大厅' : 'Terminal hall',
+      office: currentLocale === 'zh-CN' ? '办公室' : 'Office',
+      commerce_retail: currentLocale === 'zh-CN' ? '商业零售' : 'Commerce / retail',
+      dining: currentLocale === 'zh-CN' ? '餐饮' : 'Dining',
+      restroom: currentLocale === 'zh-CN' ? '卫生间' : 'Restroom',
+      breakroom: currentLocale === 'zh-CN' ? '休息室' : 'Breakroom'
+    };
+    if (roomFunctions[label]) return roomFunctions[label];
     const keys = {
       'Exterior Wall': 'exteriorWall', 'Interior Surface': 'interiorSurface', Adiabatic: 'adiabatic',
       'Roof / Ceiling': 'roof', 'Ground / Floor': 'floor', Window: 'window', Door: 'door',
@@ -1059,7 +1140,31 @@
       return;
     }
     let entries = [];
-    if (currentMode === 'normal') {
+    if (currentMode === 'occupancy' && currentOccupancy) {
+      const gradient = document.createElement('span');
+      gradient.className = 'occupancy-gradient';
+      const minimum = document.createElement('b');
+      minimum.textContent = '0';
+      const swatch = document.createElement('i');
+      const maximum = document.createElement('b');
+      const unit = occupancyMetric === 'count'
+        ? 'people'
+        : (occupancyMetric === 'capacity' ? '%' : 'people/m²');
+      maximum.textContent = `${occupancyMaximum.toFixed(occupancyMetric === 'density' ? 3 : 1)} ${unit}`;
+      gradient.append(minimum, swatch, maximum);
+      legendItems.append(gradient);
+      refreshLegendNavigation();
+      return;
+    }
+    if (currentMode === 'roomFunction' && currentOccupancy && occupancyState) {
+      entries = occupancyState.CATEGORIES
+        .filter((category) => Number(currentOccupancy.category_counts?.[category] || 0) > 0)
+        .map((category) => ({
+          label: category,
+          color: hexColor(occupancyState.CATEGORY_COLORS[category]),
+          count: Number(currentOccupancy.category_counts[category])
+        }));
+    } else if (currentMode === 'normal') {
       entries = [{label: 'Normal', color: COLORS.normal, count: modelMeshes.length}];
     } else {
       const counts = new Map();
@@ -1122,7 +1227,14 @@
   }
 
   function updateColorMode(mode) {
-    currentMode = mode || 'surfaceType';
+    const requested = mode || 'surfaceType';
+    currentMode = ['roomFunction', 'occupancy'].includes(requested) && !currentOccupancy
+      ? 'surfaceType'
+      : requested;
+    colorModeSelect.value = currentMode;
+    occupancyMaximum = currentOccupancy && occupancyState
+      ? occupancyState.maximumMetric(currentOccupancy, occupancyTimeIndex, occupancyMetric)
+      : 0;
     activeColorLabel = null;
     modelMeshes.forEach((mesh) => {
       const material = materialFor(mesh.userData);
@@ -1132,6 +1244,169 @@
     if (currentIssueMode) applyIssueMode(currentIssueMode);
     applyVisibility();
     updateLegend();
+  }
+
+  function stopOccupancyPlayback() {
+    if (occupancyPlaybackTimer !== null) window.clearInterval(occupancyPlaybackTimer);
+    occupancyPlaybackTimer = null;
+    occupancyPlayButton.textContent = '▶';
+    occupancyPlayButton.setAttribute('aria-pressed', 'false');
+    occupancyPlayButton.setAttribute('aria-label', copy('occupancyPlay'));
+  }
+
+  function timelinePoints(values) {
+    const maximum = Math.max(0, ...values);
+    return values.map((value, index) => {
+      const x = index * 960 / Math.max(values.length - 1, 1);
+      const y = 142 - (maximum > 0 ? value / maximum : 0) * 130;
+      return `${x.toFixed(2)},${y.toFixed(2)}`;
+    }).join(' ');
+  }
+
+  function renderOccupancyTimeline() {
+    if (!currentOccupancy || !occupancyState) {
+      occupancyTimelinePeople.setAttribute('points', '');
+      occupancyTimelineLoad.setAttribute('points', '');
+      return;
+    }
+    occupancyTimeline = occupancyState.timelineTotals(currentOccupancy);
+    const thermal = occupancyTimeline.heating_kw.map((value, index) => (
+      value + occupancyTimeline.cooling_kw[index]
+    ));
+    occupancyTimelinePeople.setAttribute('points', timelinePoints(occupancyTimeline.occupancy));
+    occupancyTimelineLoad.setAttribute('points', timelinePoints(thermal));
+  }
+
+  function renderOccupancyDetails(roomKey = occupancyDetailRoomKey) {
+    occupancyDetailRoomKey = roomKey;
+    const entry = occupancySpacesByRoomKey.get(roomKey);
+    if (!currentOccupancy || !entry || !occupancyState) {
+      occupancyDetails.hidden = true;
+      return;
+    }
+    const details = occupancyState.spaceDetails(
+      currentOccupancy,
+      entry.source_space_name,
+      occupancyTimeIndex,
+      occupancyMetric
+    );
+    occupancyDetails.hidden = false;
+    occupancyDetailName.textContent = details.source_space_name;
+    occupancyConflictBadge.hidden = !details.conflict;
+    occupancyConflictBadge.textContent = copy('metadataConflict');
+    occupancyEntranceBadge.hidden = !details.is_flow_entrance;
+    occupancyEntranceBadge.textContent = copy('entranceSeed');
+    occupancyDetailCategory.textContent = descriptorDisplayLabel(details.category);
+    occupancyDetailPeople.textContent = `${details.current_people.toFixed(2)} people`;
+    occupancyDetailDensity.textContent = `${details.density_people_m2.toFixed(4)} people/m²`;
+    occupancyDetailCapacity.textContent = `${details.capacity_percent.toFixed(1)}%`;
+    occupancyDetailFlow.textContent = details.nearest_entrance_space
+      ? copy('flowRegion', {
+        entrance: details.nearest_entrance_space,
+        hops: details.adjacency_hops
+      })
+      : '—';
+    occupancyDetailPhase.textContent = Number.isInteger(details.flow_phase_minutes)
+      ? (details.is_flow_entrance
+        ? `${details.nearest_entrance_space} · ${copy('entranceSeed')}`
+        : copy('flowPhase', {minutes: details.flow_phase_minutes}))
+      : '—';
+    occupancyDetailScenario.textContent = `${details.scenario_id} · ${details.time}`;
+    occupancyDetailLoad.textContent = `${details.heating_kw.toFixed(2)} / ${details.cooling_kw.toFixed(2)} kWₜₕ`;
+  }
+
+  function updateOccupancyStep(index) {
+    if (!currentOccupancy || !occupancyState) return;
+    occupancyTimeIndex = occupancyState.stepIndex(Number(index), 0, currentOccupancy.timestamps.length);
+    occupancyTimeInput.value = String(occupancyTimeIndex);
+    occupancyTimeLabel.textContent = currentOccupancy.timestamps[occupancyTimeIndex];
+    occupancyTimelineCursor.setAttribute('x1', String(occupancyTimeIndex * 960 / 95));
+    occupancyTimelineCursor.setAttribute('x2', String(occupancyTimeIndex * 960 / 95));
+    occupancyMaximum = occupancyState.maximumMetric(
+      currentOccupancy,
+      occupancyTimeIndex,
+      occupancyMetric
+    );
+    if (currentMode === 'occupancy') updateColorMode('occupancy');
+    else updateLegend();
+    renderOccupancyDetails();
+  }
+
+  function toggleOccupancyPlayback() {
+    if (!currentOccupancy || !occupancyState) return;
+    if (occupancyPlaybackTimer !== null) {
+      stopOccupancyPlayback();
+      return;
+    }
+    occupancyPlayButton.textContent = 'Ⅱ';
+    occupancyPlayButton.setAttribute('aria-pressed', 'true');
+    occupancyPlayButton.setAttribute('aria-label', copy('occupancyPause'));
+    occupancyPlaybackTimer = window.setInterval(() => {
+      updateOccupancyStep(occupancyState.stepIndex(
+        occupancyTimeIndex,
+        1,
+        currentOccupancy.timestamps.length
+      ));
+    }, 420);
+  }
+
+  function scrubOccupancyTimeline(event) {
+    if (!currentOccupancy || !occupancyState) return;
+    const bounds = occupancyTimeInput.getBoundingClientRect();
+    if (!bounds.width) return;
+    const ratio = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+    const maximum = currentOccupancy.timestamps.length - 1;
+    updateOccupancyStep(Math.round(ratio * maximum));
+  }
+
+  function reconcileOccupancyRooms() {
+    if (!currentOccupancy || !roomMeshes.size) return;
+    const modelRoomKeys = new Set([...roomMeshes.keys()].filter((key) => key !== 'unassigned'));
+    const payloadRoomKeys = new Set(occupancySpacesByRoomKey.keys());
+    const missing = [...payloadRoomKeys].filter((key) => !modelRoomKeys.has(key));
+    const extra = [...modelRoomKeys].filter((key) => !payloadRoomKeys.has(key));
+    if (missing.length || extra.length) {
+      throw new Error(`occupancy_room_mapping_mismatch:${missing.length}:${extra.length}`);
+    }
+  }
+
+  function loadOccupancyPayload(input) {
+    stopOccupancyPlayback();
+    occupancyDetailRoomKey = null;
+    if (!input) {
+      currentOccupancy = null;
+      occupancySpacesByRoomKey = new Map();
+      occupancyControls.hidden = true;
+      occupancyDetails.hidden = true;
+      roomFunctionOption.disabled = true;
+      occupancyOption.disabled = true;
+      if (['roomFunction', 'occupancy'].includes(currentMode)) updateColorMode('surfaceType');
+      return;
+    }
+    if (!occupancyState) throw new Error('occupancy_state_kernel_unavailable');
+    currentOccupancy = occupancyState.validatePayload(input);
+    occupancySpacesByRoomKey = new Map();
+    Object.values(currentOccupancy.spaces).forEach((space) => {
+      const key = normalizeName(space.source_space_name);
+      if (occupancySpacesByRoomKey.has(key)) throw new Error(`occupancy_room_key_duplicate:${key}`);
+      occupancySpacesByRoomKey.set(key, space);
+    });
+    reconcileOccupancyRooms();
+    roomFunctionOption.disabled = false;
+    occupancyOption.disabled = false;
+    occupancyControls.hidden = false;
+    occupancyScenarioLabel.textContent = `${currentOccupancy.scenario_id} · ${currentOccupancy.period_id} · 15 min`;
+    occupancyTimeInput.max = String(currentOccupancy.timestamps.length - 1);
+    renderOccupancyTimeline();
+    updateOccupancyStep(0);
+    updateColorMode('roomFunction');
+    window.parent.postMessage({
+      type: 'idfrepair:viewer-occupancy-ready',
+      scenarioId: currentOccupancy.scenario_id,
+      periodId: currentOccupancy.period_id,
+      spaceCount: currentOccupancy.space_count,
+      conflictCount: Number(currentOccupancy.conflict_count || 0)
+    }, parentOrigin);
   }
 
   function applyVisibility() {
@@ -1213,6 +1488,16 @@
         ? copy('levels', {count: explicitStories.length})
         : copy('inferredLevel', {height: minimumZ.toFixed(2)}));
     selectionState = {kind: 'room', mesh: null, roomKey};
+    renderOccupancyDetails(roomKey);
+    const occupancyEntry = occupancySpacesByRoomKey.get(roomKey);
+    const occupancy = currentOccupancy && occupancyEntry && occupancyState
+      ? occupancyState.spaceDetails(
+        currentOccupancy,
+        occupancyEntry.source_space_name,
+        occupancyTimeIndex,
+        occupancyMetric
+      )
+      : null;
     window.parent.postMessage({
       type: 'idfrepair:viewer-selected',
       selectionKind: 'room',
@@ -1225,7 +1510,8 @@
       storyIsInferred: explicitStories.length === 0,
       surfaceCount: room.meshes.filter((mesh) => mesh.userData.kind === 'surface').length,
       windowCount: room.meshes.filter((mesh) => mesh.userData.kind === 'fenestration').length,
-      shadingCount: room.meshes.filter((mesh) => mesh.userData.kind === 'shading').length
+      shadingCount: room.meshes.filter((mesh) => mesh.userData.kind === 'shading').length,
+      occupancy
     }, parentOrigin);
   }
 
@@ -1329,6 +1615,11 @@
     colorModeSelect.setAttribute('aria-label', copy('colorMode'));
     colorModeLabel.textContent = copy('color');
     updateStoryModeLabel();
+    roomFunctionOption.textContent = copy('roomFunctionMode');
+    occupancyOption.textContent = copy('occupancyMode');
+    occupancyMetricSelect.setAttribute('aria-label', copy('occupancyMetric'));
+    if (occupancyPlaybackTimer === null) occupancyPlayButton.setAttribute('aria-label', copy('occupancyPlay'));
+    occupancyConflictBadge.textContent = copy('metadataConflict');
     setButtonCopy(toggleRoomsButton, 'toggleRooms');
     setButtonCopy(fitButton, 'fit');
     setButtonCopy(focusButton, 'focus');
@@ -1408,6 +1699,7 @@
     if (modelMeshes.length) {
       emptyState.hidden = true;
       statusLabel.textContent = statusText();
+      reconcileOccupancyRooms();
       applyVisibility();
       updateColorMode(currentMode);
       renderRoomList();
@@ -1495,6 +1787,16 @@
     if (!mesh) return;
     const data = mesh.userData;
     selectionState = {kind: 'surface', mesh, roomKey: data.roomKey};
+    renderOccupancyDetails(data.roomKey);
+    const occupancyEntry = occupancySpacesByRoomKey.get(data.roomKey);
+    const occupancy = currentOccupancy && occupancyEntry && occupancyState
+      ? occupancyState.spaceDetails(
+        currentOccupancy,
+        occupancyEntry.source_space_name,
+        occupancyTimeIndex,
+        occupancyMetric
+      )
+      : null;
     window.parent.postMessage({
       type: 'idfrepair:viewer-selected',
       selectionKind: 'surface',
@@ -1509,7 +1811,8 @@
       story: localizedValue(data.story),
       storyIsInferred: data.storyIsInferred,
       vertexCount: data.vertexCount,
-      normal: data.normal
+      normal: data.normal,
+      occupancy
     }, parentOrigin);
   }
 
@@ -1528,7 +1831,13 @@
     container.classList.toggle('panning', mode === 'pan');
   });
   renderer.domElement.addEventListener('pointermove', (event) => {
-    if (!drag) return;
+    if (!drag) {
+      if (currentOccupancy) {
+        const mesh = pickMesh(event);
+        if (mesh) renderOccupancyDetails(mesh.userData.roomKey);
+      }
+      return;
+    }
     const deltaX = event.clientX - drag.x;
     const deltaY = event.clientY - drag.y;
     drag.moved += Math.abs(deltaX) + Math.abs(deltaY);
@@ -1589,6 +1898,23 @@
     updateColorMode(colorModeSelect.value);
     fitMeshes();
   });
+  occupancyPlayButton.addEventListener('click', toggleOccupancyPlayback);
+  occupancyTimeInput.addEventListener('input', () => updateOccupancyStep(occupancyTimeInput.value));
+  occupancyTimeInput.addEventListener('pointerdown', (event) => {
+    occupancyTimeInput.setPointerCapture?.(event.pointerId);
+    scrubOccupancyTimeline(event);
+  });
+  occupancyTimeInput.addEventListener('pointermove', (event) => {
+    if (event.buttons || occupancyTimeInput.hasPointerCapture?.(event.pointerId)) {
+      scrubOccupancyTimeline(event);
+    }
+  });
+  occupancyMetricSelect.addEventListener('change', () => {
+    occupancyMetric = occupancyState?.METRICS.includes(occupancyMetricSelect.value)
+      ? occupancyMetricSelect.value
+      : 'density';
+    updateOccupancyStep(occupancyTimeIndex);
+  });
   legendPreviousButton.addEventListener('click', () => scrollLegend(-1));
   legendNextButton.addEventListener('click', () => scrollLegend(1));
   legendItems.addEventListener('scroll', syncLegendNavigation, {passive: true});
@@ -1646,17 +1972,24 @@
         const focusMeshes = issueFocusMeshes();
         if (focusMeshes.length) fitMeshes(focusMeshes);
       }
+      if (message.type === 'idfrepair:viewer-occupancy') {
+        loadOccupancyPayload(message.payload);
+      }
     } catch (_error) {
-      statusLabel.textContent = copy('unavailable');
+      const occupancyFailure = message.type === 'idfrepair:viewer-occupancy';
+      if (!occupancyFailure) statusLabel.textContent = copy('unavailable');
       window.parent.postMessage(
-        {type: 'idfrepair:viewer-error', reason: 'idf_geometry_parse_failed'},
+        {
+          type: 'idfrepair:viewer-error',
+          reason: occupancyFailure ? 'occupancy_payload_invalid' : 'idf_geometry_parse_failed'
+        },
         parentOrigin
       );
     }
   });
 
   const observer = new ResizeObserver(resize);
-  observer.observe(container);
+  if (container) observer.observe(container);
   resize();
   applyLocale('zh-CN');
   fitMeshes([]);
@@ -1664,6 +1997,7 @@
   window.parent.postMessage({type: 'idfrepair:viewer-ready'}, parentOrigin);
 
   window.addEventListener('pagehide', () => {
+    stopOccupancyPlayback();
     observer.disconnect();
     window.cancelAnimationFrame(animationFrame);
     clearGroup(modelGroup);

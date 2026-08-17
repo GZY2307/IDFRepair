@@ -1,0 +1,21 @@
+{
+  "baseline_r": {
+    "derived_idf_sha256": "a94538ecdfdc72353f02c01440277411b0035a991333a33922e3d595c3f42d11",
+    "ideal_loads_added": 304,
+    "manifest_sha256": "d9473eab5cf1baac7a8f283c4d8ab6287f1fe4e8de7c7199fcb478c429781b94",
+    "non_people_fields_modified": 0,
+    "people_added": 304,
+    "protected_snapshot_sha256": "8e95fa691368a41c79d0004e98a773ce34d8c4d413aafe40e4ab27feeb4fa9b7",
+    "thermal_zone_semantics_sha256": "07118d12f1323230b3181d014f0efd961363dc536eb6ad5679a47265d73071df"
+  },
+  "baseline_s": {
+    "derived_idf_sha256": "787135f259f443a0d6af5c82bff79fc8ae7527b6e3f32e27b48c6f6fdcdb2616",
+    "protected_snapshot_sha256": "ae2e23d1e1656c826bc17582231090ffab9a37e78b09bc6a52dfcccc93a8f0f8",
+    "source_fields_modified": 0,
+    "synthetic_ideal_loads_added": 304,
+    "thermal_zone_semantics_sha256": "07118d12f1323230b3181d014f0efd961363dc536eb6ad5679a47265d73071df"
+  },
+  "schema_version": "idfrepair.room-aware-provenance-chain.v1",
+  "source_osm_sha256": "6463d680b834230e665df8a250c694cae57c3d5cb3c877d1ad22a9c761fcccdb",
+  "status": "PASS"
+}

@@ -124,6 +124,9 @@
     "upload_help": "Choose an IDF first; if weather or external data is required, the page will ask for it clearly.",
     "model": "IDF model and error location",
     "viewer_credit": "EPShape kernel · read-only",
+    "occupancy_layer_tools": "Optional occupancy layer",
+    "occupancy_layer_upload": "Load occupancy data",
+    "occupancy_layer_clear": "Clear occupancy",
     "model_info": "Model information and selection details",
     "model_info_index": "MODEL",
     "model_info_help": "Select blank space, a room, or a surface to switch the information shown.",
@@ -142,7 +145,7 @@
     "trace_help": "Each attempt shows static, semantic, EnergyPlus, and transition outcomes."
   },
   "form": {
-    "idf": "EnergyPlus IDF model", "epw": "Weather file (optional)", "epw_none": "No weather file selected",
+    "idf": "EnergyPlus IDF model", "epw": "Weather file (required when the model needs it)", "epw_none": "No weather file selected",
     "dependencies": "External dependencies (multiple)", "dependencies_none": "No external dependencies selected",
     "dependency_count": "{count} files selected",
     "mode": "Mode", "rule_set": "Rule set", "project_id": "Project ID",
@@ -202,7 +205,11 @@
     "attach": "Add weather file",
     "explicit_diagnose": "Uploading only refreshes readiness; you must still click Diagnose explicitly.",
     "ready_explicit": "The weather file is ready; click Diagnose explicitly to continue.",
-    "attached_explicit": "Weather was added without starting diagnosis automatically."
+    "attached_explicit": "Weather was added to this session without starting diagnosis automatically.",
+    "checking": "Checking required run files…",
+    "retry": "Recheck required files",
+    "not_ready": "This session is not ready for EnergyPlus. Add the files requested above first.",
+    "blocked_recoverable": "This session needs a weather file. Attach an EPW above and continue without reopening the IDF."
   },
   "batch": {
     "eyebrow": "Multiple files",
@@ -876,6 +883,7 @@
     "rules": {"imported": "Imported {count} rules; they remain disabled by default."},
     "rule": {"deleted": "Rule deleted.", "saved_from_session": "Rule saved from the validated session."},
     "error": {
+      "run_readiness_blocked": "EnergyPlus run requirements are not ready. Add the files requested above and continue.",
       "sessionstateerror": "The session request could not be completed: {raw}",
       "keyerror": "The requested record was not found: {raw}",
       "valueerror": "The request parameters are invalid: {raw}",

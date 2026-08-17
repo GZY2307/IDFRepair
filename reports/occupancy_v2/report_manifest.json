@@ -1,0 +1,149 @@
+{
+  "admission_reason": "localized_same_person_hours_effect_passed_predeclared_thresholds",
+  "annual_run_count": 9,
+  "files": [
+    {
+      "bytes": 2237,
+      "path": "reports/occupancy_v2/annual_results.md",
+      "sha256": "59139a7a14af0da3f854ca6cd5025ed35b2f925f38a1d9ad8c2dd88153cfba93"
+    },
+    {
+      "bytes": 286598,
+      "path": "reports/occupancy_v2/category_results.csv",
+      "sha256": "9bc33fcabb472ad76354c367af684a30393a6ed39d161bfca8ab0d936700733d"
+    },
+    {
+      "bytes": 2597,
+      "path": "reports/occupancy_v2/entrance_flow_evidence.md",
+      "sha256": "3053c30376089b9452d7eff0be27dc9488010afcb68b78d0f4de9cfd19a6f4b5"
+    },
+    {
+      "bytes": 39819,
+      "path": "reports/occupancy_v2/entrance_flow_mapping.csv",
+      "sha256": "781018eb6bf14704c7004a38055bfa05471ebca50eb4dab4c762e8ca9409df7b"
+    },
+    {
+      "bytes": 60892,
+      "path": "reports/occupancy_v2/figures/annual_ideal_loads.png",
+      "sha256": "fd6e07b8b6a4c9597a57e44786c5515cabf4e78fdd7877c400a0c70d32342d6d"
+    },
+    {
+      "bytes": 89105,
+      "path": "reports/occupancy_v2/figures/category_cooling_peak_effects.png",
+      "sha256": "0d3236c9260403aeb7b42635ed6b559addfdfa630d5b059b76720f6e919c513f"
+    },
+    {
+      "bytes": 104158,
+      "path": "reports/occupancy_v2/figures/conflict_space_detail.png",
+      "sha256": "341c8099b7d918eee4bc27403b4eb9509d7aec7a594c2fd1ee540b26e050ec56"
+    },
+    {
+      "bytes": 299842,
+      "path": "reports/occupancy_v2/figures/occupancy_0600.png",
+      "sha256": "7d9cefe0ad91e3754df9897fcc431bbd2e0d8e94e9d4afd897adde798896f24c"
+    },
+    {
+      "bytes": 304539,
+      "path": "reports/occupancy_v2/figures/occupancy_0900.png",
+      "sha256": "f766c78c6c6ba3f052f71786968bc544d51b082332fb457a8f43285aa19edef3"
+    },
+    {
+      "bytes": 300596,
+      "path": "reports/occupancy_v2/figures/occupancy_1300.png",
+      "sha256": "f21a822cbb9a02cecbd43909368c38eb55d556b9bd1de698bb4ac538f11dc630"
+    },
+    {
+      "bytes": 302981,
+      "path": "reports/occupancy_v2/figures/occupancy_1800.png",
+      "sha256": "d33bae36c02befb1a3fe90f2eeb997812021eea69402aa523a300ac1644d1bc1"
+    },
+    {
+      "bytes": 302508,
+      "path": "reports/occupancy_v2/figures/occupancy_2100.png",
+      "sha256": "fb74794d7cc18221a2edf288aa6b352edbd07f51e2d23ab32c34def6e92fbcfb"
+    },
+    {
+      "bytes": 366749,
+      "path": "reports/occupancy_v2/figures/occupancy_five_times.png",
+      "sha256": "c555ae68565253980e92b0024b347db09e4c1d7c5ffc5f34f6c7e0f58c12a48e"
+    },
+    {
+      "bytes": 38933,
+      "path": "reports/occupancy_v2/figures/occupancy_mobile_1300.png",
+      "sha256": "9f7fa6976a0419137db8f12b90cee2b0a98c321407f4aae41c19e8f31dc457c0"
+    },
+    {
+      "bytes": 110532,
+      "path": "reports/occupancy_v2/figures/room_function_view.png",
+      "sha256": "3eba7686c713024a589446db5e91e88abde00356ec08a864f4b834508bf31c7c"
+    },
+    {
+      "bytes": 128167,
+      "path": "reports/occupancy_v2/figures/same_person_hours_effects.png",
+      "sha256": "0579b5bc50636de9e89eab0519ed6b05b0ecb52ab7a3ce50e4847cb53e73b2f6"
+    },
+    {
+      "bytes": 3068,
+      "path": "reports/occupancy_v2/paper_admission.md",
+      "sha256": "f32482266cf00ffdaa877bf8c176f5dc434a035515e97590fe16be845b0772b3"
+    },
+    {
+      "bytes": 1078,
+      "path": "reports/occupancy_v2/provenance_chain.json",
+      "sha256": "80f93d7d04aa54d8ad254c19e456888d68427f5e3e5f2f78a8fb7931a3e3294d"
+    },
+    {
+      "bytes": 2691,
+      "path": "reports/occupancy_v2/room_aware_reference_baseline.md",
+      "sha256": "37db406f78f7716206250d0e6ca719e4ad58a2eef3835b2a57c2b2158645f84f"
+    },
+    {
+      "bytes": 5837,
+      "path": "reports/occupancy_v2/room_function_registry.csv",
+      "sha256": "a4a56e238cf8e457bb9102b229891d1ad8fc2fb6b96140b90df60500539ecbe9"
+    },
+    {
+      "bytes": 2303039,
+      "path": "reports/occupancy_v2/same_person_hours_effects.csv",
+      "sha256": "991eee406ebfaa08b8945e0c01aa2b084716e72712e20a9aa8fe63189268f019"
+    },
+    {
+      "bytes": 48461,
+      "path": "reports/occupancy_v2/scenario_results.csv",
+      "sha256": "ccb44523cf83e0200c6b32804ae69634413c905af06cd063ae54ae22a176e5cd"
+    },
+    {
+      "bytes": 5612,
+      "path": "reports/occupancy_v2/seasonal_results.md",
+      "sha256": "a52a012621e4337b1fff60c69ddcf194184dff17d68d631b2e0598c2df95cc8d"
+    },
+    {
+      "bytes": 1783,
+      "path": "reports/occupancy_v2/source_preserving_baseline.md",
+      "sha256": "72b5edcd2d11c5509323071c3917265eff1c99c20b4042843c4e69dccaf76c49"
+    },
+    {
+      "bytes": 160157,
+      "path": "reports/occupancy_v2/source_room_function_audit.csv",
+      "sha256": "d6d7bdd3351d4097dd2c38b6856812d6496eb80237e74fab88e523091bc73051"
+    },
+    {
+      "bytes": 4492,
+      "path": "reports/occupancy_v2/source_room_function_audit.md",
+      "sha256": "a9a876baf9910865ac707b61d2d1e920a1537edfb7e1741ab13f2661f1032f14"
+    },
+    {
+      "bytes": 2938,
+      "path": "reports/occupancy_v2/visualization_validation.md",
+      "sha256": "8b43914f7e66c748ebad91e22674480ca4d1a401f86e8ecf8877188c65725eac"
+    }
+  ],
+  "frozen_method_sha256": "efbd22cd185db678edafb4fb5d44286fcc529aa6be12146ee7188fc54d084d4b",
+  "historical_occupancy_sha256": "99d378b7b0cb5a4e86eea42cfdf933e7d1dac3d5b1cb2fd7259f80238f6ea171",
+  "qualifying_effect_count": 19,
+  "schema_version": "idfrepair.room-aware-report.v1",
+  "seasonal_run_count": 42,
+  "source_osm_sha256": "6463d680b834230e665df8a250c694cae57c3d5cb3c877d1ad22a9c761fcccdb",
+  "source_space_count": 304,
+  "status": "OCCUPANCY_CASE_PAPER_READY"
+}

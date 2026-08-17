@@ -53,10 +53,13 @@ async def _upload_tuple(
 ) -> tuple[str, bytes] | None:
     if upload is None:
         return None
+    content = await upload.read()
+    if not upload.filename and not content:
+        return None
     supplied_name = upload.filename or "upload"
     return (
         supplied_name if preserve_filename else Path(supplied_name).name,
-        await upload.read(),
+        content,
     )
 
 

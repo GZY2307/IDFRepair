@@ -2,6 +2,7 @@
 
 test_run_command_records_nonzero_exit_without_raising(): 验证失败被结构化记录。
 test_run_command_records_success_output(): 验证成功输出和返回码。
+test_run_command_records_missing_executable_without_raising(): 验证缺失命令被结构化记录。
 test_public_test_targets_only_returns_existing_paths(): 验证 smoke 不引用缺失测试。
 test_smoke_result_requires_every_phase_to_pass(): 验证任一失败阻断整体状态。
 """
@@ -42,6 +43,23 @@ def test_run_command_records_success_output(tmp_path: Path) -> None:
 
     assert result.passed is True
     assert "smoke-ok" in result.output_tail
+
+
+def test_run_command_records_missing_executable_without_raising(
+    tmp_path: Path,
+) -> None:
+    """缺失的安装后 CLI 应成为失败证据，而不是中断报告生成。"""
+
+    result = run_command(
+        (str(tmp_path / "missing-idfrepair"), "--help"),
+        cwd=tmp_path,
+        phase="installed_cli_help",
+    )
+
+    assert result.returncode == 127
+    assert result.passed is False
+    assert result.timed_out is False
+    assert "FileNotFoundError" in result.output_tail
 
 
 def test_public_test_targets_only_returns_existing_paths(tmp_path: Path) -> None:

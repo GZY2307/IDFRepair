@@ -31,6 +31,7 @@ eplusout.*
 !/datasets/manifests/semantic_graph_final_operator_registry.json
 !/datasets/manifests/semantic_graph_final_source_qualification.csv
 /runs/
+/derived/occupancy_room_aware/
 /cloud_exchange/
 /reports/final_evaluation_r4b_preconstruction_pilot/
 /reports/p11_hardening/

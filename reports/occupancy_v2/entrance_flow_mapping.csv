@@ -1,0 +1,305 @@
+source_space_name,category,nearest_entrance_space,adjacency_hops,flow_distance_band,flow_phase_steps,flow_phase_minutes,is_flow_entrance,phase_basis,phase_semantics
+d-b-breakroom-1,breakroom,z-u-hall-3,4,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-breakroom-2,breakroom,z-u-hall-3,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-breakroom-3,breakroom,z-u-hall-3,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-commerce-1,commerce_retail,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-commerce-2,commerce_retail,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-commerce-3,commerce_retail,z-u-hall-3,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-commerce-4,commerce_retail,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-commerce-5,commerce_retail,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-commerce-6,commerce_retail,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-commerce-7,commerce_retail,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-commerce-8,commerce_retail,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-dining-1,dining,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-dining-2,dining,z-u-hall-3,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-dining-3,dining,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-dining-4,dining,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-dining-5,dining,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-1,terminal_hall,z-u-hall-3,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-10,terminal_hall,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-11,terminal_hall,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-12,terminal_hall,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-13,terminal_hall,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-14,terminal_hall,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-15,terminal_hall,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-16,terminal_hall,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-17,terminal_hall,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-2,terminal_hall,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-3,terminal_hall,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-4,terminal_hall,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-5,terminal_hall,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-6,terminal_hall,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-7,terminal_hall,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-8,terminal_hall,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-hall-9,terminal_hall,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-office-1,office,z-u-hall-3,4,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-10,office,z-u-hall-3,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-11,office,z-u-hall-3,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-2,office,z-u-hall-3,4,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-3,office,z-u-hall-3,4,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-4,office,z-u-hall-3,4,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-5,office,z-u-hall-3,4,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-6,office,z-u-hall-3,4,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-7,office,z-u-hall-3,8,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-8,office,z-u-hall-3,7,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-office-9,office,z-u-hall-3,7,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+d-b-restroom-1,restroom,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-restroom-2,restroom,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-restroom-3,restroom,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+d-b-restroom-4,restroom,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-1,terminal_hall,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-10,terminal_hall,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-11,terminal_hall,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-12,terminal_hall,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-13,terminal_hall,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-2,terminal_hall,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-3,terminal_hall,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-4,terminal_hall,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-5,terminal_hall,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-6,terminal_hall,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-7,terminal_hall,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-8,terminal_hall,z-u-hall-3,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-1-9,terminal_hall,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-2-1,terminal_hall,z-u-hall-3,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-2-2,terminal_hall,z-u-hall-3,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-2-3,terminal_hall,z-u-hall-3,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-3-1,terminal_hall,z-u-hall-3,15,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-3-2,terminal_hall,z-u-hall-3,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-3-3,terminal_hall,z-u-hall-3,15,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-4-1,terminal_hall,z-u-hall-3,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-4-2,terminal_hall,z-u-hall-3,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-4-3,terminal_hall,z-u-hall-3,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+hall-4-4,terminal_hall,z-u-hall-3,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-1,terminal_hall,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-10,terminal_hall,z-u-hall-3,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-11,terminal_hall,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-12,terminal_hall,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-13,terminal_hall,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-2,terminal_hall,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-3,terminal_hall,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-4,terminal_hall,z-u-hall-2,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-5,terminal_hall,z-u-hall-2,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-6,terminal_hall,z-u-hall-2,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-7,terminal_hall,z-u-hall-2,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-8,terminal_hall,z-u-hall-3,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-hall-9,terminal_hall,z-u-hall-3,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-office-1,office,z-u-hall-2,10,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+n-office-2,office,z-u-hall-3,10,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+n-office-3,office,z-u-hall-2,12,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+n-office-4,office,z-u-hall-3,12,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+n-office-5,office,z-u-hall-2,14,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+n-office-6,office,z-u-hall-3,14,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+n-restroom-1,restroom,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-restroom-2,restroom,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-restroom-3,restroom,z-u-hall-2,15,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+n-restroom-4,restroom,z-u-hall-3,15,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-1-commerce 1,commerce_retail,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-1-dining 1,dining,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-1-office 1,office,z-u-hall-3,8,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+P1-1-office 2,office,z-u-hall-3,8,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+P1-10-restroom 1,restroom,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-11-commerce 1,commerce_retail,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-11-commerce 2,commerce_retail,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-11-office 1,office,z-u-hall-3,7,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+P1-11-office 2,office,z-u-hall-3,7,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+P1-2-breakroom 1,breakroom,z-u-hall-3,8,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+P1-2-dining 1,dining,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-2-restroom 1,restroom,z-u-hall-3,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-3-commerce 1,commerce_retail,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-4-commerce 1,commerce_retail,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-4-dining 1,dining,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-5-commerce 1,commerce_retail,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-6-commerce 1,commerce_retail,z-u-hall-3,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-7-dining 1,dining,z-u-hall-3,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-7-office 1,office,z-u-hall-3,11,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+P1-8-restroom 1,restroom,z-u-hall-3,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P1-9-commerce 1,commerce_retail,z-u-hall-3,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P2-1-commerce 2,commerce_retail,z-u-hall-3,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P2-1-commerce 3,commerce_retail,z-u-hall-3,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P2-2-restroom 1,restroom,z-u-hall-3,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P3-1-commerce 1,commerce_retail,z-u-hall-3,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P3-1-dining 1,dining,z-u-hall-3,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P3-2-dining 1,dining,z-u-hall-3,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P3-2-restroom 1,restroom,z-u-hall-3,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P4-1-commerce 1,commerce_retail,z-u-hall-3,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P4-2-commerce 1,commerce_retail,z-u-hall-3,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P4-2-commerce 2,commerce_retail,z-u-hall-3,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P4-3-commerce 1,commerce_retail,z-u-hall-3,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+P4-3-commerce 2,commerce_retail,z-u-hall-3,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-breakroom-1,breakroom,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-breakroom-2,breakroom,z-u-hall-2,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-commerce-1,commerce_retail,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-commerce-2,commerce_retail,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-commerce-3,commerce_retail,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-commerce-4,commerce_retail,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-commerce-5,commerce_retail,z-u-hall-2,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-dining-1,dining,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-dining-2,dining,z-u-hall-2,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-dining-3,dining,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-dining-4,dining,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-1,terminal_hall,z-u-hall-2,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-10,terminal_hall,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-11,terminal_hall,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-12,terminal_hall,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-13,terminal_hall,z-u-hall-2,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-14,terminal_hall,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-15,terminal_hall,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-16,terminal_hall,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-17,terminal_hall,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-18,terminal_hall,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-2,terminal_hall,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-3,terminal_hall,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-4,terminal_hall,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-5,terminal_hall,z-u-hall-2,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-6,terminal_hall,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-7,terminal_hall,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-8,terminal_hall,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-hall-9,terminal_hall,z-u-hall-2,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-office-1,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-10,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-11,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-12,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-13,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-14,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-15,office,z-u-hall-2,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-16,office,z-u-hall-2,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-17,office,z-u-hall-2,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-18,office,z-u-hall-2,5,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-2,office,z-u-hall-2,7,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-3,office,z-u-hall-2,9,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-4,office,z-u-hall-2,10,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-5,office,z-u-hall-2,10,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-6,office,z-u-hall-2,10,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-7,office,z-u-hall-2,8,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-8,office,z-u-hall-2,8,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-office-9,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-b-restroom-1,restroom,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-restroom-3,restroom,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-restroom-4,restroom,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-restroom-5,restroom,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-b-restroom-6,restroom,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-breakroom-1,breakroom,z-u-hall-2,11,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-commerce-1,commerce_retail,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-commerce-2,commerce_retail,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-commerce-3,commerce_retail,z-u-hall-2,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-commerce-4,commerce_retail,z-u-hall-2,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-commerce-5,commerce_retail,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-commerce-6,commerce_retail,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-dining-1,dining,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-dining-2,dining,z-u-hall-2,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-dining-3,dining,z-u-hall-2,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-dining-4,dining,z-u-hall-2,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-dining-5,dining,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-1,terminal_hall,z-u-hall-2,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-10,terminal_hall,z-u-hall-2,16,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-11,terminal_hall,z-u-hall-2,15,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-12,terminal_hall,z-u-hall-2,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-13,terminal_hall,z-u-hall-2,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-14,terminal_hall,z-u-hall-2,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-15,terminal_hall,z-u-hall-2,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-16,terminal_hall,z-u-hall-2,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-17,terminal_hall,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-18,terminal_hall,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-19,terminal_hall,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-2,terminal_hall,z-u-hall-2,8,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-20,terminal_hall,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-3,terminal_hall,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-4,terminal_hall,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-5,terminal_hall,z-u-hall-2,11,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-6,terminal_hall,z-u-hall-2,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-7,terminal_hall,z-u-hall-2,13,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-8,terminal_hall,z-u-hall-2,14,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall-9,terminal_hall,z-u-hall-2,15,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-hall21,terminal_hall,z-u-hall-2,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-office-1,office,z-u-hall-2,11,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-10,office,z-u-hall-2,9,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-11,office,z-u-hall-2,9,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-12,office,z-u-hall-2,7,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-13,office,z-u-hall-2,7,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-2,office,z-u-hall-2,13,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-3,office,z-u-hall-2,14,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-4,office,z-u-hall-2,17,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-5,office,z-u-hall-2,17,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-6,office,z-u-hall-2,14,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-7,office,z-u-hall-2,14,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-8,office,z-u-hall-2,13,3,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-office-9,office,z-u-hall-2,9,2,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+x-n-restroom-1,restroom,z-u-hall-2,9,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-restroom-2,restroom,z-u-hall-2,12,3,3,45,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+x-n-restroom-3,restroom,z-u-hall-2,10,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-commerce-1,commerce_retail,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-commerce-2,commerce_retail,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-commerce-3,commerce_retail,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-commerce-4,commerce_retail,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-hall-1,terminal_hall,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-hall-2,terminal_hall,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-hall-3,terminal_hall,z-u-hall-2,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-hall-4,terminal_hall,z-u-hall-3,7,2,2,30,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-d-office-1,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-d-office-2,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-d-office-3,office,z-u-hall-3,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-d-office-4,office,z-u-hall-2,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-d-office-5,office,z-u-hall-3,6,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-l-commerce-1,commerce_retail,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-commerce-2,commerce_retail,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-commerce-3,commerce_retail,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-commerce-4,commerce_retail,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-commerce-5,commerce_retail,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-dining-1,dining,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-1,terminal_hall,z-u-hall-2,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-2,terminal_hall,z-u-hall-2,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-3,terminal_hall,z-u-hall-2,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-4,terminal_hall,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-5,terminal_hall,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-6,terminal_hall,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-7,terminal_hall,z-u-hall-2,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-8,terminal_hall,z-u-hall-2,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-l-hall-9,terminal_hall,z-u-hall-2,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-commerce-1,commerce_retail,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-commerce-2,commerce_retail,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-commerce-3,commerce_retail,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-commerce-4,commerce_retail,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-commerce-5,commerce_retail,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-dining-1,dining,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-1,terminal_hall,z-u-hall-3,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-2,terminal_hall,z-u-hall-3,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-3,terminal_hall,z-u-hall-3,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-4,terminal_hall,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-5,terminal_hall,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-6,terminal_hall,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-7,terminal_hall,z-u-hall-3,6,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-8,terminal_hall,z-u-hall-3,5,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-r-hall-9,terminal_hall,z-u-hall-3,4,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-breakroom-1,breakroom,z-u-hall-2,2,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-breakroom-2,breakroom,z-u-hall-3,2,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-commerce-1,commerce_retail,z-u-hall-2,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-commerce-2,commerce_retail,z-u-hall-3,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-1,terminal_hall,z-u-hall-2,1,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-10,terminal_hall,z-u-hall-3,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-11,terminal_hall,z-u-hall-2,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-12,terminal_hall,z-u-hall-3,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-2,terminal_hall,z-u-hall-2,0,0,0,0,True,declared_entrance_seed,controlled_occupancy_response_not_travel_time
+z-u-hall-3,terminal_hall,z-u-hall-3,0,0,0,0,True,declared_entrance_seed,controlled_occupancy_response_not_travel_time
+z-u-hall-4,terminal_hall,z-u-hall-3,1,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-5,terminal_hall,z-u-hall-2,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-6,terminal_hall,z-u-hall-2,1,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-7,terminal_hall,z-u-hall-3,1,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-8,terminal_hall,z-u-hall-3,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-hall-9,terminal_hall,z-u-hall-2,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-office-1,office,z-u-hall-2,2,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-10,office,z-u-hall-3,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-11,office,z-u-hall-3,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-2,office,z-u-hall-2,2,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-3,office,z-u-hall-3,2,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-4,office,z-u-hall-2,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-5,office,z-u-hall-2,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-6,office,z-u-hall-2,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-7,office,z-u-hall-2,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-8,office,z-u-hall-3,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-office-9,office,z-u-hall-3,3,1,0,0,False,staff_fixed_not_entrance_delayed,controlled_occupancy_response_not_travel_time
+z-u-restroom-1,restroom,z-u-hall-2,1,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-restroom-2,restroom,z-u-hall-3,1,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-restroom-3,restroom,z-u-hall-2,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-restroom-4,restroom,z-u-hall-3,3,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-restroom-5,restroom,z-u-hall-2,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time
+z-u-restroom-6,restroom,z-u-hall-3,2,1,1,15,False,public_dynamic_adjacency_tercile,controlled_occupancy_response_not_travel_time

@@ -10,6 +10,13 @@ require 'json'
 require 'optparse'
 
 
+MUTABLE_CONNECTION_TYPES = %w[
+  OS_PortList
+  OS_ThermalZone
+  OS_ZoneHVAC_EquipmentList
+].freeze
+
+
 def fail_closed(message)
   warn(message)
   exit(2)
@@ -39,6 +46,40 @@ def model_counts(model)
 end
 
 
+def canonical_rows(model, handles = nil)
+  rows = model.objects.filter_map do |object|
+    type = object.iddObject.type.valueName
+    next if MUTABLE_CONNECTION_TYPES.include?(type)
+    next if handles && !handles.include?(object.handle.to_s)
+
+    [type, object.handle.to_s, object.to_s]
+  end
+  rows.sort_by { |row| [row[0], row[1]] }
+end
+
+
+def snapshot(rows)
+  serialized = rows.map { |row| row.join("\u001f") }.join("\u001e")
+  Digest::SHA256.hexdigest(serialized)
+end
+
+
+def zone_semantic_rows(model)
+  model.getThermalZones.sort_by(&:nameString).map do |zone|
+    thermostat = zone.thermostatSetpointDualSetpoint
+    {
+      'name' => zone.nameString,
+      'multiplier' => zone.multiplier,
+      'space_names' => zone.spaces.map(&:nameString).sort,
+      'space_floor_area_m2' => zone.spaces.sum(&:floorArea),
+      'thermostat_setpoint_dual_setpoint' => (
+        thermostat.is_initialized ? thermostat.get.nameString : nil
+      )
+    }
+  end
+end
+
+
 options = { mode: 'translate' }
 OptionParser.new do |parser|
   parser.on('--input PATH') { |value| options[:input] = value }
@@ -64,6 +105,11 @@ loaded = translator.loadModel(OpenStudio::Path.new(source))
 fail_closed('openstudio_model_load_failed') if loaded.empty?
 model = loaded.get
 before_counts = model_counts(model)
+protected_before = canonical_rows(model)
+protected_handles = protected_before.map { |row| row[1] }.to_h { |handle| [handle, true] }
+protected_sha_before = snapshot(protected_before)
+zone_semantics_before = zone_semantic_rows(model)
+zone_semantics_sha_before = Digest::SHA256.hexdigest(JSON.generate(zone_semantics_before))
 
 FileUtils.mkdir_p(output_dir)
 synthetic_added = 0
@@ -87,6 +133,16 @@ if options[:mode] == 'ideal-loads-demo'
   fail_closed('derived_osm_save_failed') unless saved
 end
 
+
+protected_after = canonical_rows(model, protected_handles)
+protected_sha_after = snapshot(protected_after)
+protected_unchanged = protected_before == protected_after
+zone_semantics_after = zone_semantic_rows(model)
+zone_semantics_sha_after = Digest::SHA256.hexdigest(JSON.generate(zone_semantics_after))
+zone_semantics_unchanged = zone_semantics_before == zone_semantics_after
+fail_closed('thermal_zone_source_semantics_changed') unless zone_semantics_unchanged
+fail_closed('protected_source_objects_changed') unless protected_unchanged
+
 forward = OpenStudio::EnergyPlus::ForwardTranslator.new
 workspace = forward.translateModel(model)
 derived_idf = File.join(output_dir, 'derived.idf')
@@ -97,7 +153,7 @@ source_sha_after = Digest::SHA256.file(source).hexdigest
 fail_closed('source_hash_changed') unless source_sha_before == source_sha_after
 
 provenance = {
-  'schema_version' => 1,
+  'schema_version' => 'idfrepair.source-preserving-ideal-loads.v2',
   'mode' => options[:mode],
   'source_basename' => File.basename(source),
   'source_sha256_before' => source_sha_before,
@@ -110,6 +166,14 @@ provenance = {
   'synthetic_hvac_demo' => options[:mode] == 'ideal-loads-demo',
   'synthetic_ideal_loads_added' => synthetic_added,
   'synthetic_zones_skipped_no_spaces' => synthetic_skipped_no_spaces,
+  'protected_source_object_count' => protected_before.size,
+  'protected_snapshot_sha256_before' => protected_sha_before,
+  'protected_snapshot_sha256_after' => protected_sha_after,
+  'protected_source_objects_unchanged' => protected_unchanged,
+  'thermal_zone_semantics_sha256_before' => zone_semantics_sha_before,
+  'thermal_zone_semantics_sha256_after' => zone_semantics_sha_after,
+  'thermal_zone_source_semantics_unchanged' => zone_semantics_unchanged,
+  'source_fields_modified' => 0,
   'derived_idf_sha256' => Digest::SHA256.file(derived_idf).hexdigest,
   'derived_osm_sha256' => derived_osm ? Digest::SHA256.file(derived_osm).hexdigest : nil,
   'forward_translation_warning_count' => forward.warnings.size,

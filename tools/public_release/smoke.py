@@ -29,6 +29,7 @@ DEFAULT_TIMEOUT_SECONDS = 600
 CORE_TEST_CANDIDATES = (
     "tests/public_release",
     "tests/occupancy",
+    "tests/occupancy_room_aware",
     "tests/post_final",
     *tuple(
         path.as_posix()
@@ -127,6 +128,15 @@ def run_command(
             duration_seconds=round(time.monotonic() - started, 3),
             output_tail=str(output)[-OUTPUT_TAIL_BYTES:],
         )
+    except OSError as exc:
+        return CommandResult(
+            phase=phase,
+            command=tuple(str(value) for value in command),
+            returncode=127,
+            timed_out=False,
+            duration_seconds=round(time.monotonic() - started, 3),
+            output_tail=f"{type(exc).__name__}: {exc}"[-OUTPUT_TAIL_BYTES:],
+        )
 
 
 def public_test_targets(root: Path) -> tuple[str, ...]:
@@ -211,28 +221,35 @@ def run_smoke(root: Path, workspace: Path) -> SmokeResult:
     wheels = tuple(sorted(wheel_directory.glob("idfrepair-*.whl")))
     if wheels and phases[-1].passed:
         python = environment / "bin/python"
-        phases.append(
-            run_command(
-                (str(python), "-m", "pip", "install", "--no-deps", str(wheels[-1])),
-                cwd=root,
-                phase="wheel_install",
-            )
+        install = run_command(
+            (str(python), "-m", "pip", "install", "--no-deps", str(wheels[-1])),
+            cwd=root,
+            phase="wheel_install",
         )
-        phases.append(
-            run_command(
+        phases.append(install)
+        if install.passed:
+            phases.append(
+                run_command(
+                    (
+                        str(python),
+                        "-c",
+                        "import idfrepair; import idfrepair.semantic_graph_v2; print('import-ok')",
+                    ),
+                    cwd=workspace,
+                    phase="installed_import",
+                )
+            )
+            cli = environment / "bin/idfrepair"
+            phases.append(
+                run_command((str(cli), "--help"), cwd=workspace, phase="installed_cli_help")
+            )
+        else:
+            phases.extend(
                 (
-                    str(python),
-                    "-c",
-                    "import idfrepair; import idfrepair.semantic_graph_v2; print('import-ok')",
-                ),
-                cwd=workspace,
-                phase="installed_import",
+                    _missing_phase("installed_import", "wheel_install_failed"),
+                    _missing_phase("installed_cli_help", "wheel_install_failed"),
+                )
             )
-        )
-        cli = environment / "bin/idfrepair"
-        phases.append(
-            run_command((str(cli), "--help"), cwd=workspace, phase="installed_cli_help")
-        )
     else:
         phases.extend(
             (

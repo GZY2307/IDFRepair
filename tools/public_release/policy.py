@@ -67,11 +67,14 @@ PUBLIC_PREFIXES = (
     PurePosixPath("docs/research/semantic_graph_v22"),
     PurePosixPath("examples/public"),
     PurePosixPath("reports/occupancy"),
+    PurePosixPath("reports/occupancy_v2"),
     PurePosixPath("reports/public_release"),
     PurePosixPath("reports/publication"),
     PurePosixPath("scripts/occupancy"),
+    PurePosixPath("scripts/occupancy_room_aware"),
     PurePosixPath("src/idfrepair"),
     PurePosixPath("tests/occupancy"),
+    PurePosixPath("tests/occupancy_room_aware"),
     PurePosixPath("tests/post_final"),
     PurePosixPath("tests/public_release"),
     PurePosixPath("tools/public_release"),
@@ -81,6 +84,7 @@ PUBLIC_SCRIPT_EXACT = frozenset(
     {
         PurePosixPath("scripts/public_reproduce_formal_v2.py"),
         PurePosixPath("scripts/run_airport_occupancy.py"),
+        PurePosixPath("scripts/run_airport_occupancy_room_aware.py"),
     }
 )
 
@@ -192,6 +196,8 @@ def forbidden_reason(path: PurePosixPath) -> str | None:
     suffix = path.suffix.casefold()
     if set(lowered).intersection(FORBIDDEN_PARTS):
         return "forbidden_path_component"
+    if any(part.endswith((".egg-info", ".dist-info")) for part in lowered):
+        return "generated_package_metadata"
     if lowered[0] == "models":
         return "private_model_asset_tree"
     if basename == "server_training.md":

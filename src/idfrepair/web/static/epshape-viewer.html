@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <title>IDFRepair EPShape 查看器</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="/static/epshape-viewer.css?v=20260811v5">
+  <link rel="stylesheet" href="/static/epshape-viewer.css?v=20260818occ5">
 </head>
 <body>
   <main class="viewer-shell">
@@ -26,6 +26,8 @@
             <option value="thermalZone">ThermalZone</option>
             <option value="spaceType">SpaceType</option>
             <option value="buildingStory">BuildingStory</option>
+            <option value="roomFunction" disabled>房间功能</option>
+            <option value="occupancy" disabled>人员占用</option>
           </select>
         </label>
         <button id="toggle-rooms" type="button" title="显示或隐藏房间" aria-label="显示或隐藏房间" aria-expanded="false">▦</button>
@@ -40,6 +42,50 @@
         <small>请在修复工作台选择一个 IDF。</small>
       </div>
       <div id="error-caption" class="error-caption" hidden></div>
+      <section id="occupancy-controls" class="occupancy-controls" aria-label="人员流量时间控制" hidden>
+        <div class="occupancy-control-row">
+          <button id="occupancy-play" type="button" aria-label="播放人员流量">▶</button>
+          <span id="occupancy-time-label" class="occupancy-time-label" aria-live="polite">00:00–00:15</span>
+          <label class="occupancy-metric-control">
+            <span>指标</span>
+            <select id="occupancy-metric" aria-label="人员流量着色指标">
+              <option value="density">人员密度（人/m²）</option>
+              <option value="count">人员数</option>
+              <option value="capacity">设计容量百分比</option>
+            </select>
+          </label>
+        </div>
+        <div class="occupancy-scenario-row">
+          <strong id="occupancy-scenario">—</strong>
+          <span><i class="timeline-key occupancy-key"></i>人员占用</span>
+          <span><i class="timeline-key load-key"></i>供暖与制冷负荷</span>
+        </div>
+        <label class="occupancy-chart-control" for="occupancy-time">
+          <svg id="occupancy-timeline-chart" viewBox="0 0 960 150" preserveAspectRatio="none" aria-hidden="true">
+            <polyline id="occupancy-timeline-people" class="timeline-people" points=""></polyline>
+            <polyline id="occupancy-timeline-load" class="timeline-load" points=""></polyline>
+            <line id="occupancy-timeline-cursor" class="timeline-cursor" x1="0" y1="0" x2="0" y2="150"></line>
+          </svg>
+          <input id="occupancy-time" type="range" min="0" max="95" step="1" value="0" aria-label="在人员与热负荷图表上选择 15 分钟时刻">
+        </label>
+      </section>
+      <aside id="occupancy-details" class="occupancy-details" aria-label="房间人员与热负荷详情" hidden>
+        <div class="occupancy-details-heading">
+          <strong id="occupancy-detail-name">—</strong>
+          <span id="occupancy-entrance-badge" class="occupancy-entrance-badge" hidden>入口种子</span>
+          <span id="occupancy-conflict-badge" hidden>源模型元数据冲突</span>
+        </div>
+        <dl>
+          <div><dt>房间功能</dt><dd id="occupancy-detail-category">—</dd></div>
+          <div><dt>当前人数</dt><dd id="occupancy-detail-people">—</dd></div>
+          <div><dt>人员密度</dt><dd id="occupancy-detail-density">—</dd></div>
+          <div><dt>设计容量</dt><dd id="occupancy-detail-capacity">—</dd></div>
+          <div><dt>入口区域</dt><dd id="occupancy-detail-flow">—</dd></div>
+          <div><dt>响应阶段</dt><dd id="occupancy-detail-phase">—</dd></div>
+          <div><dt>情景与时刻</dt><dd id="occupancy-detail-scenario">—</dd></div>
+          <div><dt>供暖与制冷</dt><dd id="occupancy-detail-load">—</dd></div>
+        </dl>
+      </aside>
       <aside id="issue-mode-legend" class="issue-mode-legend" aria-label="问题定位图例" hidden>
         <div class="issue-mode-heading">
           <div>
@@ -83,6 +129,7 @@
   </main>
   <script src="/static/epshape-three.js"></script>
   <script src="/static/viewer-issue-state.js?v=20260811v5"></script>
-  <script src="/static/epshape-viewer.js?v=20260812v4"></script>
+  <script src="/static/occupancy-viewer-state.js?v=20260818occ5"></script>
+  <script src="/static/epshape-viewer.js?v=20260818occ5"></script>
 </body>
 </html>

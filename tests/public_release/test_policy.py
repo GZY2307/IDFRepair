@@ -108,6 +108,7 @@ def test_reviewed_csv_manifests_are_byte_preserved_git_evidence() -> None:
         "paper/source.pdf",
         "runs/a/eplusout.err",
         "models/terminal.osm",
+        "src/idfrepair.egg-info/PKG-INFO",
         ".private/final_oracle.json",
         "release/all-refs.bundle",
     ],
@@ -133,6 +134,18 @@ def test_allowlist_is_explicit_and_never_admits_private_models() -> None:
     )
     assert allowed_public_path(
         PurePosixPath("tests/semantic_graph_v2/test_runtime.py")
+    )
+    assert allowed_public_path(
+        PurePosixPath("reports/occupancy_v2/paper_admission.md")
+    )
+    assert allowed_public_path(
+        PurePosixPath("scripts/run_airport_occupancy_room_aware.py")
+    )
+    assert allowed_public_path(
+        PurePosixPath("tests/occupancy_room_aware/test_provenance.py")
+    )
+    assert not allowed_public_path(
+        PurePosixPath("derived/occupancy_room_aware/baseline_r/derived.osm")
     )
     assert not allowed_public_path(
         PurePosixPath("tests/semantic_graph_v2/test_v2_runner.py")

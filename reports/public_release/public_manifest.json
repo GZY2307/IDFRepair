@@ -1,5 +1,5 @@
 {
-  "member_count": 338,
+  "member_count": 408,
   "members": [
     {
       "bytes": 119,
@@ -8,10 +8,10 @@
       "sha256": "c92f7dd8ce49d63585dccf2f2bf89b3d1d1653ec6ff9157f7223f10f5f0c5698"
     },
     {
-      "bytes": 1568,
+      "bytes": 1599,
       "category": "package_metadata",
       "path": ".gitignore",
-      "sha256": "442daead2f0c4837c2a207d36c62fa8e6df29d3910d0a031587ee495bfed29db"
+      "sha256": "51b1d480e0df57e78e72144386a34e0e3e13dba21df400cf2caabbecab7c9cff"
     },
     {
       "bytes": 458,
@@ -116,10 +116,40 @@
       "sha256": "b8d4be275fa9264621030305a2cb38e580a07b35fa3f63d1fc18c20860305748"
     },
     {
+      "bytes": 2868,
+      "category": "documentation",
+      "path": "docs/research/occupancy/entrance_flow_evidence.md",
+      "sha256": "3e3b15985401c96919cf7d0a56718493ce1314f4e38798455f8a2d155f67b54f"
+    },
+    {
       "bytes": 8174,
       "category": "documentation",
       "path": "docs/research/occupancy/occupancy_scenario_protocol.md",
       "sha256": "937e969e6f36cc7c096b140903985c75f50702c8dfc3abbcc0e60ce63d560bfa"
+    },
+    {
+      "bytes": 4737,
+      "category": "documentation",
+      "path": "docs/research/occupancy/review_package_allowlist.json",
+      "sha256": "c9f4fb0a73e6f8a866c322eee1651921db1dae70ca2f9827b0a89311c0cd2b46"
+    },
+    {
+      "bytes": 10917,
+      "category": "documentation",
+      "path": "docs/research/occupancy/room_aware_parameter_evidence.md",
+      "sha256": "7815b87e03dcaadb9c1cb69b46dc2ab6cda01a6848b2ea49c7251c8e6f4987ba"
+    },
+    {
+      "bytes": 5193,
+      "category": "documentation",
+      "path": "docs/research/occupancy/room_aware_protocol.md",
+      "sha256": "786c3380b2aa16998b91fb252b0e2e3fb9f0b7bada948444c4da4d93f8bbcd20"
+    },
+    {
+      "bytes": 5002,
+      "category": "documentation",
+      "path": "docs/research/occupancy/room_function_registry.md",
+      "sha256": "f3d248bb68d4ff228de1e9b8e1b13dab5d5a5d593877cbd747d3384281ef0db6"
     },
     {
       "bytes": 26945,
@@ -242,6 +272,174 @@
       "sha256": "396a3e9a52b38437218b7fd3f2695756a725b65fda8afdb0c675246e07c0e488"
     },
     {
+      "bytes": 2237,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/annual_results.md",
+      "sha256": "59139a7a14af0da3f854ca6cd5025ed35b2f925f38a1d9ad8c2dd88153cfba93"
+    },
+    {
+      "bytes": 286598,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/category_results.csv",
+      "sha256": "9bc33fcabb472ad76354c367af684a30393a6ed39d161bfca8ab0d936700733d"
+    },
+    {
+      "bytes": 2597,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/entrance_flow_evidence.md",
+      "sha256": "3053c30376089b9452d7eff0be27dc9488010afcb68b78d0f4de9cfd19a6f4b5"
+    },
+    {
+      "bytes": 39819,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/entrance_flow_mapping.csv",
+      "sha256": "781018eb6bf14704c7004a38055bfa05471ebca50eb4dab4c762e8ca9409df7b"
+    },
+    {
+      "bytes": 60892,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/annual_ideal_loads.png",
+      "sha256": "fd6e07b8b6a4c9597a57e44786c5515cabf4e78fdd7877c400a0c70d32342d6d"
+    },
+    {
+      "bytes": 89105,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/category_cooling_peak_effects.png",
+      "sha256": "0d3236c9260403aeb7b42635ed6b559addfdfa630d5b059b76720f6e919c513f"
+    },
+    {
+      "bytes": 104158,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/conflict_space_detail.png",
+      "sha256": "341c8099b7d918eee4bc27403b4eb9509d7aec7a594c2fd1ee540b26e050ec56"
+    },
+    {
+      "bytes": 299842,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/occupancy_0600.png",
+      "sha256": "7d9cefe0ad91e3754df9897fcc431bbd2e0d8e94e9d4afd897adde798896f24c"
+    },
+    {
+      "bytes": 304539,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/occupancy_0900.png",
+      "sha256": "f766c78c6c6ba3f052f71786968bc544d51b082332fb457a8f43285aa19edef3"
+    },
+    {
+      "bytes": 300596,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/occupancy_1300.png",
+      "sha256": "f21a822cbb9a02cecbd43909368c38eb55d556b9bd1de698bb4ac538f11dc630"
+    },
+    {
+      "bytes": 302981,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/occupancy_1800.png",
+      "sha256": "d33bae36c02befb1a3fe90f2eeb997812021eea69402aa523a300ac1644d1bc1"
+    },
+    {
+      "bytes": 302508,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/occupancy_2100.png",
+      "sha256": "fb74794d7cc18221a2edf288aa6b352edbd07f51e2d23ab32c34def6e92fbcfb"
+    },
+    {
+      "bytes": 366749,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/occupancy_five_times.png",
+      "sha256": "c555ae68565253980e92b0024b347db09e4c1d7c5ffc5f34f6c7e0f58c12a48e"
+    },
+    {
+      "bytes": 38933,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/occupancy_mobile_1300.png",
+      "sha256": "9f7fa6976a0419137db8f12b90cee2b0a98c321407f4aae41c19e8f31dc457c0"
+    },
+    {
+      "bytes": 110532,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/room_function_view.png",
+      "sha256": "3eba7686c713024a589446db5e91e88abde00356ec08a864f4b834508bf31c7c"
+    },
+    {
+      "bytes": 128167,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/figures/same_person_hours_effects.png",
+      "sha256": "0579b5bc50636de9e89eab0519ed6b05b0ecb52ab7a3ce50e4847cb53e73b2f6"
+    },
+    {
+      "bytes": 3068,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/paper_admission.md",
+      "sha256": "f32482266cf00ffdaa877bf8c176f5dc434a035515e97590fe16be845b0772b3"
+    },
+    {
+      "bytes": 1078,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/provenance_chain.json",
+      "sha256": "80f93d7d04aa54d8ad254c19e456888d68427f5e3e5f2f78a8fb7931a3e3294d"
+    },
+    {
+      "bytes": 5582,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/report_manifest.json",
+      "sha256": "cb1ffcb245afc011a6767c43fffa98dcf88d91eff472a697d9e6ac9acb2b1eaa"
+    },
+    {
+      "bytes": 2691,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/room_aware_reference_baseline.md",
+      "sha256": "37db406f78f7716206250d0e6ca719e4ad58a2eef3835b2a57c2b2158645f84f"
+    },
+    {
+      "bytes": 5837,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/room_function_registry.csv",
+      "sha256": "a4a56e238cf8e457bb9102b229891d1ad8fc2fb6b96140b90df60500539ecbe9"
+    },
+    {
+      "bytes": 2303039,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/same_person_hours_effects.csv",
+      "sha256": "991eee406ebfaa08b8945e0c01aa2b084716e72712e20a9aa8fe63189268f019"
+    },
+    {
+      "bytes": 48461,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/scenario_results.csv",
+      "sha256": "ccb44523cf83e0200c6b32804ae69634413c905af06cd063ae54ae22a176e5cd"
+    },
+    {
+      "bytes": 5612,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/seasonal_results.md",
+      "sha256": "a52a012621e4337b1fff60c69ddcf194184dff17d68d631b2e0598c2df95cc8d"
+    },
+    {
+      "bytes": 1783,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/source_preserving_baseline.md",
+      "sha256": "72b5edcd2d11c5509323071c3917265eff1c99c20b4042843c4e69dccaf76c49"
+    },
+    {
+      "bytes": 160157,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/source_room_function_audit.csv",
+      "sha256": "d6d7bdd3351d4097dd2c38b6856812d6496eb80237e74fab88e523091bc73051"
+    },
+    {
+      "bytes": 4492,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/source_room_function_audit.md",
+      "sha256": "a9a876baf9910865ac707b61d2d1e920a1537edfb7e1741ab13f2661f1032f14"
+    },
+    {
+      "bytes": 2938,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v2/visualization_validation.md",
+      "sha256": "8b43914f7e66c748ebad91e22674480ca4d1a401f86e8ecf8877188c65725eac"
+    },
+    {
       "bytes": 4724,
       "category": "compact_evidence",
       "path": "reports/post_final/final_evidence_status.md",
@@ -282,6 +480,18 @@
       "category": "compact_evidence",
       "path": "reports/public_release/reproducibility_smoke.md",
       "sha256": "03e571973bb8dece63fb6f5bd34389cfca1eac9f29db26d5dcf9783741c2f5bc"
+    },
+    {
+      "bytes": 1902,
+      "category": "compact_evidence",
+      "path": "reports/public_release/room_aware_fresh_clone_smoke.md",
+      "sha256": "323f8845499ca4884fddd0710d8e4d3840307ba5d64676f20c680a2bdc4d099d"
+    },
+    {
+      "bytes": 1559,
+      "category": "compact_evidence",
+      "path": "reports/public_release/room_aware_staging_audit.md",
+      "sha256": "7af5ffd1ae24ee4177da8a48199776f53074f8e4d58e90ff1a9060af90b8d848"
     },
     {
       "bytes": 794,
@@ -386,10 +596,40 @@
       "sha256": "6e9bcc483256c1b44c700962ee6c352d99dadc836f55cf5198fd1c53bb5d86f6"
     },
     {
-      "bytes": 4659,
+      "bytes": 7111,
       "category": "reproducibility_tool",
       "path": "scripts/occupancy/prepare_terminal_model.rb",
-      "sha256": "7c62566ef0af8fef4a79fe82fa95f952db910c78fff3383cf2b3a6ee9032ffc7"
+      "sha256": "5987324b29bcb4b0ac39e834bb865dcf1fe9debd9e5f0b8d2877a97ad264a329"
+    },
+    {
+      "bytes": 9426,
+      "category": "reproducibility_tool",
+      "path": "scripts/occupancy_room_aware/audit_terminal_model.rb",
+      "sha256": "2d39a0fea90c29613fddb2a64b387849d0ebfe7a14aca9a6488a9aa5926e5675"
+    },
+    {
+      "bytes": 12593,
+      "category": "reproducibility_tool",
+      "path": "scripts/occupancy_room_aware/build_people_derivative.rb",
+      "sha256": "0479779a32da44dd12ec7b21e7d3255c56aaa6d7616fc0efb9990d388e93709d"
+    },
+    {
+      "bytes": 4173,
+      "category": "reproducibility_tool",
+      "path": "scripts/occupancy_room_aware/build_viewer_payload.py",
+      "sha256": "ee0844f38bfbce9c418362dddafea9a20c04cdcb1c0855913ca579439e60a559"
+    },
+    {
+      "bytes": 48251,
+      "category": "reproducibility_tool",
+      "path": "scripts/occupancy_room_aware/generate_reports.py",
+      "sha256": "56733c4f22d8122b0a740ed2c63eaabfe17f7f31a029593d6758e18325e03dba"
+    },
+    {
+      "bytes": 866,
+      "category": "reproducibility_tool",
+      "path": "scripts/occupancy_room_aware/package_review.py",
+      "sha256": "035cc6986f517da19747d472e88b84c450bf4294c565ab91092d00b292040c25"
     },
     {
       "bytes": 4127,
@@ -402,6 +642,12 @@
       "category": "reproducibility_tool",
       "path": "scripts/run_airport_occupancy.py",
       "sha256": "7fcb35a379faa7ec00a5b7b1dccaa478866d89dccb064892475fd24da6f9665e"
+    },
+    {
+      "bytes": 30153,
+      "category": "reproducibility_tool",
+      "path": "scripts/run_airport_occupancy_room_aware.py",
+      "sha256": "02f3c9ed6340114fa160b9969274a80e209d3e370b048e6375f978e888aceb5b"
     },
     {
       "bytes": 355,
@@ -476,16 +722,94 @@
       "sha256": "ba934ab1e58caffcf73013951ac022a00f01d81c6127f3d450109e19a959a51e"
     },
     {
+      "bytes": 693,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/__init__.py",
+      "sha256": "08c32f8ee05971e270c90a4d05779d0b43a05d6ea94daef56ba6c58925d63161"
+    },
+    {
+      "bytes": 1994,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/classification.py",
+      "sha256": "401ee5b3902b9177502090cf2de46dc47de621e72dba246b89c64de2c1aee4b8"
+    },
+    {
+      "bytes": 16231,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/compiler.py",
+      "sha256": "314a50c04d6a0a822b75d09ed1fea926160364aecf1077505d442507c9656fce"
+    },
+    {
+      "bytes": 41546,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/evidence.py",
+      "sha256": "17cd4df90b2cd7e10a3c6d61fbd719a9c90a38e6f3604c810a566cb796be7fbd"
+    },
+    {
+      "bytes": 12802,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/flow.py",
+      "sha256": "4fc51a00957877792abaee1bae0b9270888fe5011d58ec9944ecd0f565a2bbc2"
+    },
+    {
+      "bytes": 2496,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/models.py",
+      "sha256": "7377d804c8499d29cd5b69371527ad067b0ee2c052d00cd57b7d7a52639809fc"
+    },
+    {
+      "bytes": 24046,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/profiles.py",
+      "sha256": "4dfa8831ad47a767dd22c8ba3d2c7c20ce8b6ec36ff588d43ba23e4e684d6489"
+    },
+    {
+      "bytes": 7588,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/provenance.py",
+      "sha256": "36c73180191bec3d931982f64a83668195af257f2cde6f81a5d0731e09d2d88c"
+    },
+    {
+      "bytes": 9632,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/reporting.py",
+      "sha256": "6a3f198d5ea3f8a16a94bcd8c162e9d2aa1dff5c2f8169d215e36fdbec674ef0"
+    },
+    {
+      "bytes": 44053,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/results.py",
+      "sha256": "aa5be76014f0993f4366e0e0de8b2e54ebce1a09fc65ed23d7b676ea1206b9d6"
+    },
+    {
+      "bytes": 10602,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/review_package.py",
+      "sha256": "3efd23cd2c50ffbffd83cfb22be075e9a100b7365d14fb47ef0902e1ab5f3fa7"
+    },
+    {
+      "bytes": 16174,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/source_audit.py",
+      "sha256": "5aaa4c292b480012a03a3f5aa110ed1aa0898248ffecec9081612f48ebfffaf4"
+    },
+    {
+      "bytes": 13521,
+      "category": "source",
+      "path": "src/idfrepair/analysis/occupancy_room_aware/visualization.py",
+      "sha256": "943691ddbc4fa1165eaedf55a0e221530f5797db83112004a09aa2b5e8b373c8"
+    },
+    {
       "bytes": 353,
       "category": "source",
       "path": "src/idfrepair/api/__init__.py",
       "sha256": "7e201db6f0532ccc7e8852c09b91dda26261cbc389db9e7864d9dbf6279425cc"
     },
     {
-      "bytes": 54332,
+      "bytes": 54418,
       "category": "source",
       "path": "src/idfrepair/api/app.py",
-      "sha256": "96f153677990bce627e01682d2c8845496bbc1035cf07b1ab790f52ddc6e1e96"
+      "sha256": "f461fae78a95239886c289212dc643331cb07fd381a8937a296c23b18d035d74"
     },
     {
       "bytes": 2074,
@@ -1550,22 +1874,22 @@
       "sha256": "040cb03577a2fcfce2bd2334c378db3937bd88305cd57098f3361aa30acc1289"
     },
     {
-      "bytes": 65344,
+      "bytes": 65976,
       "category": "source",
       "path": "src/idfrepair/web/locales/en.json",
-      "sha256": "221ba32d9c51174ea969f494bf88543b331a824f41ad4b007f838bba360edffc"
+      "sha256": "0821342e980314f07c9a532de84adfa7eff59ab0afc08e52df66781e6faac7a5"
     },
     {
-      "bytes": 61103,
+      "bytes": 61740,
       "category": "source",
       "path": "src/idfrepair/web/locales/zh-CN.json",
-      "sha256": "eec1c1da8e502f94d5a26f0f24adce84da8d8e5c0e85cfc334aeae54a6dad17e"
+      "sha256": "fc512e3dbfeed674383bd1b09f8083cdd7de92e73784a321d7674bd8b76e8546"
     },
     {
-      "bytes": 219087,
+      "bytes": 221179,
       "category": "source",
       "path": "src/idfrepair/web/static/app.js",
-      "sha256": "3ce780fc7fcabed7a746c04c21e83e036abfbf370fd1ea998f5e3f0abdc1d3da"
+      "sha256": "4c05eab7cdfd8a37333e396f6ded41665bfb1d9cf8f443af261fb84408dae144"
     },
     {
       "bytes": 3612,
@@ -1586,28 +1910,28 @@
       "sha256": "b8f6b2c8c4c8b8132d36a159a3e5affb06aa82606d897f0427dc51d4df167eea"
     },
     {
-      "bytes": 10860,
+      "bytes": 15632,
       "category": "source",
       "path": "src/idfrepair/web/static/epshape-viewer.css",
-      "sha256": "5effa34e9b1954d7e73db088e465c458b7b99b6bee4bf05498965df90c436afc"
+      "sha256": "61d5061b9a7d5e6fd1ed62e527882cdce7100a9640abc9622e96cda564b841d5"
     },
     {
-      "bytes": 5010,
+      "bytes": 8127,
       "category": "source",
       "path": "src/idfrepair/web/static/epshape-viewer.html",
-      "sha256": "17a1395e63ba763784c93c6770e19e112f4f12710d8a7bcd4f40bd96969b4db1"
+      "sha256": "4ae62a7cd2f0e1bbc0cbd743c8d1bde04628859a899b8870b26dd19fbd849874"
     },
     {
-      "bytes": 69639,
+      "bytes": 85565,
       "category": "source",
       "path": "src/idfrepair/web/static/epshape-viewer.js",
-      "sha256": "8a031fce776cbf287d1b19d4f9fb8e076c4dff108ca682828720c0a2906fd2ce"
+      "sha256": "9c62fd3806f9199d01fdd9c3827d9dca7e5d9e7bd68a4193a86a1a3cf4699b39"
     },
     {
-      "bytes": 69938,
+      "bytes": 70694,
       "category": "source",
       "path": "src/idfrepair/web/static/index.html",
-      "sha256": "fb51b31c26c5eaa94ae70e3e61c3e1115c5ee7536f22542436d8b818666985e7"
+      "sha256": "2bc372b9f9fb3b1303ff9c7bac02df07251ce34bd6b43a747da39c8083a97c13"
     },
     {
       "bytes": 4182,
@@ -1658,16 +1982,28 @@
       "sha256": "589eacd65c3e6f4a04e5f57406420fc6a331d2773e642dc6b2b838a020bb7e7d"
     },
     {
-      "bytes": 101781,
+      "bytes": 2961,
       "category": "source",
-      "path": "src/idfrepair/web/static/style.css",
-      "sha256": "95b70881219f954738a9568cb7161d61f7f6b36a9e5f74ab9c7db47f1b2cf4fa"
+      "path": "src/idfrepair/web/static/occupancy-local.html",
+      "sha256": "9e1b6d4caf33779f2c8711428e6555c9f7745d7cebfb32d8ba27372120411ae3"
     },
     {
-      "bytes": 5283,
+      "bytes": 10886,
+      "category": "source",
+      "path": "src/idfrepair/web/static/occupancy-viewer-state.js",
+      "sha256": "9079f9784883a3de269100cd77850a7b3a822ac1971762d3790ff43bd76dfab8"
+    },
+    {
+      "bytes": 103323,
+      "category": "source",
+      "path": "src/idfrepair/web/static/style.css",
+      "sha256": "54d0003b902c89697c5fddcf267330ce75d10217212b2e5f87ca440782eca2e8"
+    },
+    {
+      "bytes": 9193,
       "category": "source",
       "path": "src/idfrepair/web/static/viewer-bridge.js",
-      "sha256": "55400cc5e2b8d8b4e691031a36ba8136b7b330dcc22400f0c205202670d8064d"
+      "sha256": "38378b2f1150acbe82f333588c5c314833124ad71e8ce29b6a1c66ff4ec7d77f"
     },
     {
       "bytes": 3827,
@@ -1718,10 +2054,10 @@
       "sha256": "809b9fb7fc15628d0365f03b617279888fe740b6c0edef9c9c30c9bdee2ea9f6"
     },
     {
-      "bytes": 8463,
+      "bytes": 9310,
       "category": "test",
       "path": "tests/occupancy/test_model_preparation.py",
-      "sha256": "0b8af2ac8dffef2c06d2a74968bcece855d9294f8fecc853ffb0f7c063dc0729"
+      "sha256": "d6f952bccab974825866ea8f82c4297b76717e7aac083224974ad9608c4f26bc"
     },
     {
       "bytes": 4379,
@@ -1748,6 +2084,90 @@
       "sha256": "51dabd8eeb295eebca2076c735981a39396b7e96a1470447eabc290fddff70de"
     },
     {
+      "bytes": 52,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/__init__.py",
+      "sha256": "f8f866c6f0086d1d0d8af4555e72339b4cc1229692578e43d44a70913786e65c"
+    },
+    {
+      "bytes": 2416,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_classification.py",
+      "sha256": "d874b9ca8d43bd22a0677307e2d39d0deb2e2cdc88219c4c2c0812b0406e7f4f"
+    },
+    {
+      "bytes": 5559,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_compiler.py",
+      "sha256": "9afbb035a41dd6278490e73dca8d0a936713054fd950667f18d038f968e06c85"
+    },
+    {
+      "bytes": 11740,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_derivative.py",
+      "sha256": "7be1e00b7ac5d60cd7470358a7ae8781d010515c0b258e8f5de5b7ed61878645"
+    },
+    {
+      "bytes": 6429,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_evidence.py",
+      "sha256": "fc5bc2af04ee68a9d9249db1c067b951007cbc7230e8e9fc1da59e905802ffc6"
+    },
+    {
+      "bytes": 6087,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_flow.py",
+      "sha256": "9c22b8c2138a7bddf03401f30fd72ee810d7d01b87287c1e4191ef75347ea621"
+    },
+    {
+      "bytes": 5908,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_profiles.py",
+      "sha256": "869cd704cfd2ea63935257eddfe9e008d7f01bc7cc3081f8f50b1b0ab5624bab"
+    },
+    {
+      "bytes": 6220,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_provenance.py",
+      "sha256": "4fb705f8785723d3c178b40ede665c6e235553500d82243968da2ed7f7669c5a"
+    },
+    {
+      "bytes": 4834,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_reporting.py",
+      "sha256": "f5e12dd25e812498315ec0223200916726590c50900f649a5dbff9ec52c6d417"
+    },
+    {
+      "bytes": 19858,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_results.py",
+      "sha256": "de0aea2443d205b8712d64a12cba9aad464cc5cb5d2ba2208c5d03e2aa2237d2"
+    },
+    {
+      "bytes": 6567,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_review_package.py",
+      "sha256": "32acbc7e458dc9709b4e224969c7dd8a9abed5fec13d8b5f3828b05acb6bfb7e"
+    },
+    {
+      "bytes": 10118,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_source_audit.py",
+      "sha256": "91214959c3c01dbfd6eaa29e8ca53e05b60399f408c2794ac6a679510a728e39"
+    },
+    {
+      "bytes": 10555,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_viewer_state.py",
+      "sha256": "93d17c4815d3d0b00f8776f1cab0521b5037c546508643c0b94080967d00dbcd"
+    },
+    {
+      "bytes": 6582,
+      "category": "test",
+      "path": "tests/occupancy_room_aware/test_visualization.py",
+      "sha256": "4c3193fac5802bba4eb219858f543280fcbe5717d7719c7700941bddc871d666"
+    },
+    {
       "bytes": 1381,
       "category": "test",
       "path": "tests/post_final/test_native_diagnostics.py",
@@ -1772,16 +2192,16 @@
       "sha256": "22fb09e37c195bf1b38026f64e19f8ab24e8b23a20806fc8beb8c464c70a0fa5"
     },
     {
-      "bytes": 6286,
+      "bytes": 6767,
       "category": "test",
       "path": "tests/public_release/test_policy.py",
-      "sha256": "62323172a9bf0cbab74ac7803ece393324878f9d8d662077ba4ea4556bd95306"
+      "sha256": "4b5cd04549ebac2ca75142c5cfe273ae73bf1b2e93a6604102a6a1eeebd37976"
     },
     {
-      "bytes": 2458,
+      "bytes": 3056,
       "category": "test",
       "path": "tests/public_release/test_smoke.py",
-      "sha256": "559315dfff492995229053da288ad26c3f0891b8774ae827eebf27478d4c8133"
+      "sha256": "b75c13a1cd6aa809d214c5a4f0660d83d58306c8326865bf42662d93d600c446"
     },
     {
       "bytes": 53,
@@ -2018,16 +2438,16 @@
       "sha256": "0f8ea5b8505d859c6bf9ae5438a3bccd1c67eefd63f15413b660a558b4cb0971"
     },
     {
-      "bytes": 10714,
+      "bytes": 11047,
       "category": "reproducibility_tool",
       "path": "tools/public_release/policy.py",
-      "sha256": "5ec7546496efdd17965ec58f011117a26650329f7c557c3ffabf99d866d6ea08"
+      "sha256": "88067ad1514e9289054f42a2edeec5033057bbe2037b70976b2aa595eec87233"
     },
     {
-      "bytes": 8824,
+      "bytes": 9539,
       "category": "reproducibility_tool",
       "path": "tools/public_release/smoke.py",
-      "sha256": "1659219d9af92a5998dacc186587b14ef8fc026c892a751e82657e2e8d23fa2b"
+      "sha256": "d7bf3ae0707b411cdd5e775deb2ea0a80484208a4054d8a4d20c9acad0e45c26"
     }
   ],
   "policy": {
@@ -2037,6 +2457,6 @@
     "runtime_binary_or_weather_included": false
   },
   "schema_version": "idfrepair.public-manifest.v1",
-  "snapshot_sha256": "b5b0804498654d244cfedb96d5405b431e68b11a58e427cf8fb1cedad7935992",
-  "total_bytes": 11813542
+  "snapshot_sha256": "f2190313a57dcf217fe8180b78b81342e76543db339c762aa54c494ddf6bdef2",
+  "total_bytes": 17593250
 }

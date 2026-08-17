@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IDFRepair 本地人员流量 3D</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #e9efec; color: #1c2d28; }
+    body { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+    header { min-width: 0; display: flex; align-items: center; gap: .8rem; min-height: 54px; border-bottom: 1px solid #cbd8d3; background: rgb(255 255 255 / 94%); padding: .5rem .8rem; }
+    header strong { margin-right: auto; font-size: .78rem; }
+    label { min-width: 0; display: inline-flex; align-items: center; gap: .35rem; color: #52625d; font-size: .62rem; }
+    input[type="file"] { width: min(230px, 100%); min-width: 0; max-width: 230px; font-size: .58rem; }
+    #local-status { min-width: 120px; color: #287568; font-size: .58rem; text-align: right; }
+    iframe { min-width: 0; width: 100%; height: 100%; border: 0; background: #eef2ef; }
+    @media (max-width: 760px) {
+      header { align-items: stretch; flex-wrap: wrap; }
+      header strong { width: 100%; }
+      label { flex: 1 1 280px; }
+      #local-status { flex: 1 1 100%; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Occupancy / 人员流量 · 本地私有模型</strong>
+    <label>IDF geometry <input id="idf-file" type="file" accept=".idf,text/plain"></label>
+    <label>Room-aware payload <input id="occupancy-file" type="file" accept=".json,application/json"></label>
+    <span id="local-status" role="status">请选择本地派生 IDF 与 payload</span>
+  </header>
+  <iframe id="model-viewer" title="Room-aware terminal occupancy 3D" src="/static/epshape-viewer.html?v=20260818occ5"></iframe>
+  <script src="/static/viewer-bridge.js?v=20260818occ5"></script>
+  <script>
+    'use strict';
+    (() => {
+      const input = document.querySelector('#occupancy-file');
+      const status = document.querySelector('#local-status');
+      input.addEventListener('change', async () => {
+        const file = input.files?.[0];
+        if (!file) return;
+        try {
+          const payload = JSON.parse(await file.text());
+          window.IDFRepairViewer.loadOccupancy(payload);
+          status.textContent = `${payload.space_count} Spaces · ${payload.scenario_id} · ${payload.period_id}`;
+        } catch (_error) {
+          status.textContent = 'payload 读取或验证失败';
+        }
+      });
+      window.addEventListener('message', (event) => {
+        if (event.origin !== window.location.origin) return;
+        if (event.data?.type === 'idfrepair:viewer-occupancy-ready') {
+          status.textContent = `${event.data.spaceCount} Spaces · payload ready`;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

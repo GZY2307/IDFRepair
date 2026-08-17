@@ -124,6 +124,9 @@
     "upload_help": "先选择 IDF；如果模型需要天气或外部数据，系统会明确提示。",
     "model": "IDF 模型与错误定位",
     "viewer_credit": "EPShape 内核 · 只读",
+    "occupancy_layer_tools": "可选人员流量图层",
+    "occupancy_layer_upload": "加载人员流量数据",
+    "occupancy_layer_clear": "清除人员流量",
     "model_info": "模型信息与选择详情",
     "model_info_index": "模型",
     "model_info_help": "单击空白、房间或表面切换对应信息。",
@@ -147,7 +150,7 @@
     "idf_none": "尚未选择文件",
     "model_extension_invalid": "主入口只支持 .idf；OSM 请使用下方的 OSM 导入入口。",
     "osm_content_detected": "文件扩展名是 .idf，但内容是 OpenStudio OSM。系统将按 OSM 导入并生成真正的 EnergyPlus IDF 副本。",
-    "epw": "天气文件（可选）",
+    "epw": "天气文件（模型需要时必需）",
     "epw_none": "尚未选择天气文件",
     "dependencies": "外部依赖（可多选）",
     "dependencies_none": "尚未选择外部依赖",
@@ -212,7 +215,11 @@
     "attach": "添加天气文件",
     "explicit_diagnose": "上传只会刷新就绪状态；仍需您明确点击“诊断”。",
     "ready_explicit": "天气文件已就绪；请明确点击“诊断”继续。",
-    "attached_explicit": "天气文件已添加，未自动开始诊断。"
+    "attached_explicit": "天气文件已添加到当前会话，未自动开始诊断。",
+    "checking": "正在检查运行所需文件…",
+    "retry": "重新检查所需文件",
+    "not_ready": "当前会话尚未满足 EnergyPlus 运行条件，请先补齐上方提示的文件。",
+    "blocked_recoverable": "当前会话缺少天气文件；可在上方补传 EPW 后继续，无需重新打开 IDF。"
   },
   "batch": {
     "eyebrow": "批量",
@@ -937,6 +944,7 @@
     "rules": {"imported": "已导入 {count} 条规则，默认保持禁用。"},
     "rule": {"deleted": "规则已删除。", "saved_from_session": "已从验证会话保存规则。"},
     "error": {
+      "run_readiness_blocked": "EnergyPlus 运行条件尚未满足；请补齐上方提示的文件后继续。",
       "sessionstateerror": "会话请求无法完成：{raw}",
       "keyerror": "未找到请求的记录：{raw}",
       "valueerror": "请求参数无效：{raw}",
