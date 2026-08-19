@@ -111,17 +111,28 @@ git diff --check
 版本边界、公开 benchmark 构建、安全门和 fresh-clone 流程见
 [公开复现说明](docs/reproducibility/public_release.md)。
 
-## 航站楼 occupancy 扩展
+## 航站楼 Airport ABM V3 扩展
 
-occupancy namespace 是下游分析流程，不是新的 repair method。它提取
-People→Zone→HVAC 关系，生成确定性的 15 分钟场景，并在 passenger-hours 相同的
-前提下比较时间与空间重分布。人数总量敏感性单独报告。两个用户自建航站楼 OSM
-原文件及所有 raw derivatives 均保持私有，公开内容只包含聚合 inventory 与哈希。
+Airport ABM namespace 是下游分析流程，不修改冻结的 repair method。它采用有向
+离散事件模型、彼此独立的 passenger/staff access graph、受时间预算约束的可选
+detour、15 分钟 People schedules，并复用既有 People→Zone→HVAC 关系。主比较在
+public/staff passenger-hours 分别不变时重分配时间与空间；人数总量与 dwell 另作
+敏感性分析。
+
+公开版本包含通用源码、测试、可运行的合成航站楼 fixture、聚合报告和集成式 3D
+人员显示。用户自建航站楼模型、派生 OSM/IDF、天气文件、图纸、精确房间映射及原始
+仿真目录均不公开。方法与证据入口见
+[Airport ABM V3](docs/research/occupancy_v3/README.md)：
+
+```bash
+python examples/airport_abm_v3/run_synthetic.py --fixture examples/airport_abm_v3/synthetic_terminal.json
+python -m pytest -q tests/airport_abm
+```
 
 ## 目录
 
 - `src/idfrepair/semantic_graph_v2/`：冻结语义投影与修复。
-- `src/idfrepair/analysis/occupancy/`：隔离的下游 occupancy 分析。
+- `src/idfrepair/analysis/airport_abm/`：隔离的有向 occupancy 分析。
 - `tests/`：单元、安全、冻结回归和复现测试。
 - `scripts/`：公开指标与 occupancy 入口。
 - `docs/research/`：方法身份、claim 边界和 occupancy 研究。

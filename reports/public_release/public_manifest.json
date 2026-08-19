@@ -1,5 +1,5 @@
 {
-  "member_count": 408,
+  "member_count": 505,
   "members": [
     {
       "bytes": 119,
@@ -26,16 +26,16 @@
       "sha256": "f96637765267c7302d144b537d7f6137888d30f515227915133a99d7c12604f4"
     },
     {
-      "bytes": 5382,
+      "bytes": 5945,
       "category": "documentation",
       "path": "README.md",
-      "sha256": "254fc5a382bbfb68884997e5f988ac6e5b8aebfebbc79c99f31b9aa4869dbb9e"
+      "sha256": "29d114e3bfc9c0cef0db3cfaba15ac3b625f0f1cc8d6847af625f50edb6abf81"
     },
     {
-      "bytes": 4924,
+      "bytes": 5436,
       "category": "documentation",
       "path": "README_zh.md",
-      "sha256": "8d66c618f6cadd7b39f225aca6b2e4816ef0ddddc9066f1a73c8603eb85e8317"
+      "sha256": "d4d6fba23f508e0a1e53d65f7a2c49f140c08ebf9517e7885bfdb56577a100df"
     },
     {
       "bytes": 1902,
@@ -152,6 +152,36 @@
       "sha256": "f3d248bb68d4ff228de1e9b8e1b13dab5d5a5d593877cbd747d3384281ef0db6"
     },
     {
+      "bytes": 1642,
+      "category": "documentation",
+      "path": "docs/research/occupancy_v3/README.md",
+      "sha256": "6591f98bf6de25b69e4344da9383558189d71c16d67acd939783ae49b10105a1"
+    },
+    {
+      "bytes": 5121,
+      "category": "documentation",
+      "path": "docs/research/occupancy_v3/evidence_registry.md",
+      "sha256": "8fbd20979d9cd304bdd16c39df921de1f0f3cb556fd1384cb4fa23b496c27050"
+    },
+    {
+      "bytes": 5509,
+      "category": "documentation",
+      "path": "docs/research/occupancy_v3/method.md",
+      "sha256": "b877b93274af879883e3d59e0417cad77991ca3e7598a28f405d4a5ba3a60493"
+    },
+    {
+      "bytes": 5443,
+      "category": "documentation",
+      "path": "docs/research/occupancy_v3/review_package_allowlist.json",
+      "sha256": "68aa97b9b53b186ca312453acaf5af8b85f866bd81ba71e42475af8bd733bf10"
+    },
+    {
+      "bytes": 4525,
+      "category": "documentation",
+      "path": "docs/research/occupancy_v3/scenario_protocol.md",
+      "sha256": "048f0e02d3ce6f5213e8bd26fc12f1d39ba99244af2ee3165fa55de580dcfc9b"
+    },
+    {
       "bytes": 26945,
       "category": "documentation",
       "path": "docs/research/post_final/frozen_source_excerpts.md",
@@ -210,6 +240,24 @@
       "category": "documentation",
       "path": "docs/research/semantic_graph_v22/release_candidate_contract.md",
       "sha256": "503d60caff02b915daebecfc3cc88757bd0a7379fa3d184bc4b616fbd356d901"
+    },
+    {
+      "bytes": 621,
+      "category": "example",
+      "path": "examples/airport_abm_v3/README.md",
+      "sha256": "aff4b74985dc628e3a00a7a509ab9221ec36967ece6f63a4f7f94389fb365446"
+    },
+    {
+      "bytes": 4346,
+      "category": "example",
+      "path": "examples/airport_abm_v3/run_synthetic.py",
+      "sha256": "3f75cdf2723f00941082f2e402865d372cab847fc6f72e1b0c237f9be6222777"
+    },
+    {
+      "bytes": 5135,
+      "category": "example",
+      "path": "examples/airport_abm_v3/synthetic_terminal.json",
+      "sha256": "9243604c92216fd2c6556cc86d76bfd7957dca882f66522a3c1df9895d23413a"
     },
     {
       "bytes": 1863,
@@ -440,6 +488,138 @@
       "sha256": "8b43914f7e66c748ebad91e22674480ca4d1a401f86e8ecf8877188c65725eac"
     },
     {
+      "bytes": 116706,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/figures/function_peak_matrix.png",
+      "sha256": "6248f29bf046a4e0c4c771ff5253f90ead5c32735edab90eb9f53464b0f70114"
+    },
+    {
+      "bytes": 96529,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/figures/representative_shoulder_airloop_effects.png",
+      "sha256": "4f9d6b929353ba470fe50066091f36af44eb57a08a87a9a31c26095d7dee732e"
+    },
+    {
+      "bytes": 84756,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/figures/representative_shoulder_timing_effects.png",
+      "sha256": "df0c7d389cf91597cd5c1ad03fdce5df36a034b0a0a14ac5da12a99593d3022e"
+    },
+    {
+      "bytes": 94379,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/figures/timing_peak_uncertainty.png",
+      "sha256": "97a932e89de0254102864e48732dfcaa0aff595631767890a8d328326c7ae98d"
+    },
+    {
+      "bytes": 195922,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/figures/timing_profiles_seed40015.png",
+      "sha256": "b329195bd97d6fbbd836b0f04aaa460d835550237607e834aff2360d19c26e4e"
+    },
+    {
+      "bytes": 69566,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/figures/volume_and_dwell_sensitivity.png",
+      "sha256": "2db1ea13e02fa4d4a4df488a83a3127d080228f324e1d72fc04a731e6a5c6ec0"
+    },
+    {
+      "bytes": 1103,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/abm_validation.md",
+      "sha256": "68c1af916d7ffa767410a6daecd8f0ef8cd4045cb54e7bcb29d362c86efe5196"
+    },
+    {
+      "bytes": 1651,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/access_graph_summary.md",
+      "sha256": "a720aade01129f8acbf239351855bc5c313fadee2dea9cfca124cbd6c2e7a235"
+    },
+    {
+      "bytes": 1328,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/agent_route_registry.md",
+      "sha256": "208d1fa3863b79f8e704405670cdc3f86ac5f6e69bac3bcf6033e63f6a45df66"
+    },
+    {
+      "bytes": 4494,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/energy_results.md",
+      "sha256": "3669a79b8edeaad1ccb5b2f6c418489040578d241ddf0123eb84b47017727b00"
+    },
+    {
+      "bytes": 73505,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/energy_results_aggregate.csv",
+      "sha256": "4eaced207037d0f1c59f5fbc6f0b680fc64da7f95c6828857f648894e0f8090d"
+    },
+    {
+      "bytes": 2180,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/method_comparison.md",
+      "sha256": "a5b1c66bb202fd5b6075184e377c3dafa99f920e581b609e7d86acf089dcdc45"
+    },
+    {
+      "bytes": 1565,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/model_validation_summary.md",
+      "sha256": "6545b44fa648350db01a0d7bb30d8fd0a334af1a27d216ca30e1ca8995453e86"
+    },
+    {
+      "bytes": 2838,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/occupancy_results.md",
+      "sha256": "e09d580bc7dce3bf783e43f64623bef748306ce268c9cdfed95eb770484d2bf6"
+    },
+    {
+      "bytes": 111025,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/occupancy_results_aggregate.csv",
+      "sha256": "14e37363d832a9f48598bbae761d0098b1c6527fd2ac857b19047a3ca403de3e"
+    },
+    {
+      "bytes": 1314,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/paper_admission.md",
+      "sha256": "9a65c8b574522a9d8e4abb40d0df7ae6d248b894591868591a1c58c88333648b"
+    },
+    {
+      "bytes": 3959,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/technical_summary.md",
+      "sha256": "eb3ae267d59cdc0ed484a95080507d7bd4ac07f0b908005a548261dbfdec06e0"
+    },
+    {
+      "bytes": 2404,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/uncertainty_results.md",
+      "sha256": "c028d7cbeeb49251407afa08ddce16c3150a73c8f7ec619dbea9608bc433f985"
+    },
+    {
+      "bytes": 3536,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/visualization_validation.md",
+      "sha256": "605ad4df3d8775a1554995fe6b017a0fc080e4aaad108ca8efa9ddb6bf756deb"
+    },
+    {
+      "bytes": 517756,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/zone_hvac_results.csv",
+      "sha256": "00ee221f583fe6de37818a067467f1c3580755586fad17ba084f6aa9f4bd5fae"
+    },
+    {
+      "bytes": 26340,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/public/zone_hvac_results.md",
+      "sha256": "06ee800170105302f55805b23e753edbad09f2815a51daeeb38ee6f2bd110c18"
+    },
+    {
+      "bytes": 10077,
+      "category": "compact_evidence",
+      "path": "reports/occupancy_v3/review_package_manifest.json",
+      "sha256": "64eab91eca1c6042c9c09418c982b95aed84607e2be6df69771bc9a6a57838c0"
+    },
+    {
       "bytes": 4724,
       "category": "compact_evidence",
       "path": "reports/post_final/final_evidence_status.md",
@@ -468,6 +648,12 @@
       "category": "compact_evidence",
       "path": "reports/post_final/simulation_relevance.md",
       "sha256": "b39c918ad757de01099ec69adfd5cebd3a104116eff3cceede0a385f543cf0e0"
+    },
+    {
+      "bytes": 1676,
+      "category": "compact_evidence",
+      "path": "reports/public_release/airport_abm_v3_staging_audit.md",
+      "sha256": "e4c12760429ff15f7da4aaaa49f6e1dc3308abdb57982535a1cd3761ae3636f1"
     },
     {
       "bytes": 4023,
@@ -596,6 +782,84 @@
       "sha256": "6e9bcc483256c1b44c700962ee6c352d99dadc836f55cf5198fd1c53bb5d86f6"
     },
     {
+      "bytes": 13877,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/aggregate_zone_energy.py",
+      "sha256": "c22253aa2c6f66f1625e0a331cdb546e2c54583e9a8d6deb994212cb50b9bfc9"
+    },
+    {
+      "bytes": 7504,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/audit_model.rb",
+      "sha256": "b8cbfc72a686a1bc8789494cba716ef0086dbedb3a6cf0b701564689d0e5cbb5"
+    },
+    {
+      "bytes": 3808,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/build_access_graph.py",
+      "sha256": "e94a1ea8f6a182bd81ec1d59f2bf19e3a4a306f6e5b0bb8bb32041e336a81bc9"
+    },
+    {
+      "bytes": 12002,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/build_people_derivative.rb",
+      "sha256": "7c155734922fd776001e27f1873d85300b5cbab3cf0dbbf3ccff28bdb73aebdd"
+    },
+    {
+      "bytes": 1473,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/build_seasonal_schedule.py",
+      "sha256": "dfc7d7c6f4e6f7d9af18be69c60b9778dc4293dc6180744c779b9cb7ac7c902f"
+    },
+    {
+      "bytes": 1273,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/build_viewer_payload.py",
+      "sha256": "7d3e5d3ea77427ec3b639d21f9f41921048822bc97d1851c39b40d2d56185b13"
+    },
+    {
+      "bytes": 29709,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/generate_energy_reports.py",
+      "sha256": "f718f5307f3a52881f5fdb87391d1070dee1288be19bc54a86f17f6a1dc28dc9"
+    },
+    {
+      "bytes": 24188,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/generate_occupancy_reports.py",
+      "sha256": "e03812b523f61eeeffd1bff136a2bf14c0610f622c86a11f80935cff16b1d9ed"
+    },
+    {
+      "bytes": 963,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/instrument_static_idf.py",
+      "sha256": "42bd1341730f4227dcb195ef8fa6ade5a326b60250f1cae7bd85048dff11206c"
+    },
+    {
+      "bytes": 3615,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/prepare_weather_matrix.py",
+      "sha256": "36a8a7aa47c293720b8d481ca2ed1897f80ca8ead539d7a482b8710011d1cff2"
+    },
+    {
+      "bytes": 2232,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/prepare_weather_run.py",
+      "sha256": "1dd1c0a51854848bd9056a21554077075e1c0b99a08de54a8016d2f3378cdde7"
+    },
+    {
+      "bytes": 1101,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/rebuild_people_manifest.py",
+      "sha256": "0b6c19b35ff9a4106eaa910c70346b5a6aa0832ece4441e6173771949efc271d"
+    },
+    {
+      "bytes": 19091,
+      "category": "reproducibility_tool",
+      "path": "scripts/airport_abm/summarize_energyplus.py",
+      "sha256": "39f87b8a832042dc9524b204a32ccff9195f5be20c5a78f873fe9a441a567a7a"
+    },
+    {
       "bytes": 7111,
       "category": "reproducibility_tool",
       "path": "scripts/occupancy/prepare_terminal_model.rb",
@@ -638,6 +902,12 @@
       "sha256": "3f78601b51a9a1643fa2ccb3acf6e426af64af1be7f287c9b6111d4f413dfc71"
     },
     {
+      "bytes": 8482,
+      "category": "reproducibility_tool",
+      "path": "scripts/run_airport_abm_v3.py",
+      "sha256": "f8a38f06d8bdd6dee41157cf5f56a701f9741c39ef9dbb49afe8e8b6cc5aa3b1"
+    },
+    {
       "bytes": 44267,
       "category": "reproducibility_tool",
       "path": "scripts/run_airport_occupancy.py",
@@ -660,6 +930,150 @@
       "category": "source",
       "path": "src/idfrepair/analysis/__init__.py",
       "sha256": "8e1ec6bfeececa0bcd320ffc59bb0ce7f2c9f5048612a7d93a23ff05ec423f87"
+    },
+    {
+      "bytes": 377,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/__init__.py",
+      "sha256": "0b608df04491d01fe453dd5d239d6bafe132d83320323229b14139fc6438eaf0"
+    },
+    {
+      "bytes": 5393,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/access_graph.py",
+      "sha256": "73ce19511839ab1e66c6d67f5584b4d43592538e3d265f77fd14709eb4f705e2"
+    },
+    {
+      "bytes": 1889,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/agents.py",
+      "sha256": "5dbd4d1088455ab6c13af221ddb66861f7f51b7ee318ed9663adf0a7c4431921"
+    },
+    {
+      "bytes": 12120,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/annual_schedule.py",
+      "sha256": "206df450ad9d646be02183e4a9e36221260cb08e97cb132b62e4c5af0e5ea9e0"
+    },
+    {
+      "bytes": 2850,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/audit.py",
+      "sha256": "b50ab510a904bcf5277c2eb8473a5b2401b9faf34852b211a192ef23fc6ae56f"
+    },
+    {
+      "bytes": 6075,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/config_graph.py",
+      "sha256": "85fe0a4f0662a73225a9199be030f424adc0ca6acc1b8f208c4a69b22a9a2c59"
+    },
+    {
+      "bytes": 3118,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/dwell.py",
+      "sha256": "40a82fa3eb90e4ae953c305da760c5a595e317d5a0635f79e25591fcc308bd81"
+    },
+    {
+      "bytes": 27246,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/energyplus_coupling.py",
+      "sha256": "02950c8d1045b7e5112ccd46de8091ded899f847d36c087d74cdeac432e7f26f"
+    },
+    {
+      "bytes": 1144,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/events.py",
+      "sha256": "573da655f83f12679b21d843e529bf672148159a753b7c8970e56d80eff2a869"
+    },
+    {
+      "bytes": 20983,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/experiment.py",
+      "sha256": "a93ed082658394e656db5445ff7fad52bbb19fd319cf280f6789eb2d245fa655"
+    },
+    {
+      "bytes": 14218,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/flight_bank.py",
+      "sha256": "f2f7dd6fbddeced29651c939ad2e78c3119545d053bb3f4a5f0e326948e82d0f"
+    },
+    {
+      "bytes": 5058,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/graph_checks.py",
+      "sha256": "2205d6be013a6b8456e1111931f35a90e1504d4a2d8ed0e0af68e6e28df109ea"
+    },
+    {
+      "bytes": 5229,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/group_config.py",
+      "sha256": "b265f0a314c8966678f4a75d5dbb7bd816f998764e3918aa7227538e991d8c22"
+    },
+    {
+      "bytes": 4152,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/model.py",
+      "sha256": "8c1bf7fc5a140b8b77ec23c89d5b5cc946aab4f7830799dc71f30586c971207d"
+    },
+    {
+      "bytes": 5970,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/normalization.py",
+      "sha256": "76d680213eccbe9406cc4fc1f703f09d3792e1a40e0ae22bb0ae31dbff954913"
+    },
+    {
+      "bytes": 1155,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/provenance.py",
+      "sha256": "da2cc29f191d5c8bc726d769d69e162220afb6e94ff024a46112066d2c4dc20c"
+    },
+    {
+      "bytes": 6602,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/reporting.py",
+      "sha256": "4b99892c5dcb208fe9831db208ef80bf71d95b753f89022cbf78593d4b577bcf"
+    },
+    {
+      "bytes": 3799,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/routing.py",
+      "sha256": "7ff4b9b997bd84e62d1f2d92cfed36f723963df372e4ca646cbd35769c6245df"
+    },
+    {
+      "bytes": 12119,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/schedule_compiler.py",
+      "sha256": "b2bba2789e59040c9539d7868cc51d8675b2becaee4c75148f69b583fb3683b1"
+    },
+    {
+      "bytes": 4923,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/seasonal_schedule.py",
+      "sha256": "14fa5f836964bdd2dbeb038e08434ea774d9b5409ae45c1be11487f35829154a"
+    },
+    {
+      "bytes": 5053,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/simulation.py",
+      "sha256": "7f943088d0c5d6bb7ca3efd26c8416a15f7b52b0e28585f88c52aa12769dd54f"
+    },
+    {
+      "bytes": 5175,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/source.py",
+      "sha256": "1171edb32545700497e6f021387f4db58888a59bcbad813ae6dde73ca31e2db4"
+    },
+    {
+      "bytes": 5992,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/validation.py",
+      "sha256": "8e9a57d59bdaee8e17e62ec0f2d740028ed6199896a7b4bb27ae07d4a55ee38a"
+    },
+    {
+      "bytes": 18008,
+      "category": "source",
+      "path": "src/idfrepair/analysis/airport_abm/visualization.py",
+      "sha256": "b08d68e28d0cf381183006bc420d66f161e3117bf3b7ea49b136a063f94d6e89"
     },
     {
       "bytes": 310,
@@ -1886,10 +2300,10 @@
       "sha256": "fc512e3dbfeed674383bd1b09f8083cdd7de92e73784a321d7674bd8b76e8546"
     },
     {
-      "bytes": 221179,
+      "bytes": 221181,
       "category": "source",
       "path": "src/idfrepair/web/static/app.js",
-      "sha256": "4c05eab7cdfd8a37333e396f6ded41665bfb1d9cf8f443af261fb84408dae144"
+      "sha256": "eb05053318b48f97ebda5803ecd27a871837f0facf0dbc6feeafdafd58cf74af"
     },
     {
       "bytes": 3612,
@@ -1910,28 +2324,28 @@
       "sha256": "b8f6b2c8c4c8b8132d36a159a3e5affb06aa82606d897f0427dc51d4df167eea"
     },
     {
-      "bytes": 15632,
+      "bytes": 17996,
       "category": "source",
       "path": "src/idfrepair/web/static/epshape-viewer.css",
-      "sha256": "61d5061b9a7d5e6fd1ed62e527882cdce7100a9640abc9622e96cda564b841d5"
+      "sha256": "2230262ec9ea369001947ec45a729de719ac313ac7ae14ef6da55eb79a6c0741"
     },
     {
-      "bytes": 8127,
+      "bytes": 10314,
       "category": "source",
       "path": "src/idfrepair/web/static/epshape-viewer.html",
-      "sha256": "4ae62a7cd2f0e1bbc0cbd743c8d1bde04628859a899b8870b26dd19fbd849874"
+      "sha256": "226c307aa246960be99d361947aabe918c2f287f6a8a034ce4ff44b40dde95bf"
     },
     {
-      "bytes": 85565,
+      "bytes": 104568,
       "category": "source",
       "path": "src/idfrepair/web/static/epshape-viewer.js",
-      "sha256": "9c62fd3806f9199d01fdd9c3827d9dca7e5d9e7bd68a4193a86a1a3cf4699b39"
+      "sha256": "3ca2d8727ac9eabf59806e771477e94cf7dd03f7b05c2c9437376abfd56178aa"
     },
     {
-      "bytes": 70694,
+      "bytes": 70715,
       "category": "source",
       "path": "src/idfrepair/web/static/index.html",
-      "sha256": "2bc372b9f9fb3b1303ff9c7bac02df07251ce34bd6b43a747da39c8083a97c13"
+      "sha256": "5f8b43bdcf388d0300680fbbd554ff4e80aef8bfbca5426b2483fa779fc63d80"
     },
     {
       "bytes": 4182,
@@ -1982,22 +2396,22 @@
       "sha256": "589eacd65c3e6f4a04e5f57406420fc6a331d2773e642dc6b2b838a020bb7e7d"
     },
     {
-      "bytes": 2961,
+      "bytes": 2884,
       "category": "source",
       "path": "src/idfrepair/web/static/occupancy-local.html",
-      "sha256": "9e1b6d4caf33779f2c8711428e6555c9f7745d7cebfb32d8ba27372120411ae3"
+      "sha256": "561ded3b260a61d87420e345f842f28737b4f47b5951c4644717514eac81205e"
     },
     {
-      "bytes": 10886,
+      "bytes": 26811,
       "category": "source",
       "path": "src/idfrepair/web/static/occupancy-viewer-state.js",
-      "sha256": "9079f9784883a3de269100cd77850a7b3a822ac1971762d3790ff43bd76dfab8"
+      "sha256": "bd5dba72751f337f9f35d06badff028d9005300f8e2a5710ad3ee8cb98ebe6cf"
     },
     {
-      "bytes": 103323,
+      "bytes": 103897,
       "category": "source",
       "path": "src/idfrepair/web/static/style.css",
-      "sha256": "54d0003b902c89697c5fddcf267330ce75d10217212b2e5f87ca440782eca2e8"
+      "sha256": "e9e6075a1356e8f7da161d4f3fd8b7043e39c9ae5a93273a7d51b08fb3f858a0"
     },
     {
       "bytes": 9193,
@@ -2016,6 +2430,162 @@
       "category": "source",
       "path": "src/idfrepair/web/static/workflow-state.js",
       "sha256": "b4c907c3d4fc65e2bd2c41faf504feb91570da80a36ed8daa7e605df5615204b"
+    },
+    {
+      "bytes": 34,
+      "category": "test",
+      "path": "tests/airport_abm/__init__.py",
+      "sha256": "c737c3f545fded0782f1242a5305fad920b69da8edf594c3c0c8ddb3ef009f3d"
+    },
+    {
+      "bytes": 4752,
+      "category": "test",
+      "path": "tests/airport_abm/test_access_graph.py",
+      "sha256": "e1993d8aaba18e204d6f8036bc0604c1c6dc83e9a264050f0304a9f38480b681"
+    },
+    {
+      "bytes": 5272,
+      "category": "test",
+      "path": "tests/airport_abm/test_access_graph_cli.py",
+      "sha256": "6bcaabfc7fad88294afc814f82fcb930982c11d591c4fb52f4c41016d9107c0b"
+    },
+    {
+      "bytes": 2116,
+      "category": "test",
+      "path": "tests/airport_abm/test_annual_schedule.py",
+      "sha256": "c44c89d4fb94070ad40da38e0a8784137e0ea3b2efd9ed51b4dd6c204e2ff469"
+    },
+    {
+      "bytes": 2908,
+      "category": "test",
+      "path": "tests/airport_abm/test_audit_contract.py",
+      "sha256": "9c912b488a0013c8efe27899fcddb2890004847d2e31c35af1f04f0bb3074cd7"
+    },
+    {
+      "bytes": 3297,
+      "category": "test",
+      "path": "tests/airport_abm/test_config_graph.py",
+      "sha256": "d244fa65102d5b8a59d6119292cede56ea2dd748068bd7d21f916caade538420"
+    },
+    {
+      "bytes": 2068,
+      "category": "test",
+      "path": "tests/airport_abm/test_dwell.py",
+      "sha256": "f3aadc89ae849a7899d5ca303e001baba272bfcb94730b629ddbbcbc52511c0c"
+    },
+    {
+      "bytes": 16428,
+      "category": "test",
+      "path": "tests/airport_abm/test_energyplus_coupling.py",
+      "sha256": "3fa39f42a376c9a4169a83aff89793a17839eaf34ab14c7eed1789c6127d68f8"
+    },
+    {
+      "bytes": 9440,
+      "category": "test",
+      "path": "tests/airport_abm/test_flight_bank.py",
+      "sha256": "e1e8838e760dc16a23dd78172b14a88292b46b580e06a15e17e71bb1cf589d5e"
+    },
+    {
+      "bytes": 3662,
+      "category": "test",
+      "path": "tests/airport_abm/test_graph_checks.py",
+      "sha256": "739da99b033519d5995c5445d90ae8f1ac8e49d58f4d264f28a6744b6f419c74"
+    },
+    {
+      "bytes": 3578,
+      "category": "test",
+      "path": "tests/airport_abm/test_group_config.py",
+      "sha256": "4edb473a103a6bd82189cf79943fae27cb13337badd3ebe8b7a390cbcbfdd594"
+    },
+    {
+      "bytes": 3885,
+      "category": "test",
+      "path": "tests/airport_abm/test_normalization.py",
+      "sha256": "0df13ec6d5aeaeb04d16ad7c3b47c562d1057e596ab6a727b922f7428c717186"
+    },
+    {
+      "bytes": 10379,
+      "category": "test",
+      "path": "tests/airport_abm/test_people_derivative.py",
+      "sha256": "6d19353e80782b1a937e9e18166f128875c698d532f6aa10bdceed71303823e8"
+    },
+    {
+      "bytes": 2184,
+      "category": "test",
+      "path": "tests/airport_abm/test_provenance.py",
+      "sha256": "0b7116e07e5e3b7e2f68e45f658daca081dd21b4db32f4d6e2990afed78a0a4e"
+    },
+    {
+      "bytes": 6531,
+      "category": "test",
+      "path": "tests/airport_abm/test_reporting.py",
+      "sha256": "9b8e862644150828291cc415339c91fdc56c7d38e7934de23cb6ec7490ef8031"
+    },
+    {
+      "bytes": 3092,
+      "category": "test",
+      "path": "tests/airport_abm/test_review_package.py",
+      "sha256": "20dc4a838352b4ba43a7a45c09a1bf941d1ddb861a8d1d8cd6ddc52f94b71022"
+    },
+    {
+      "bytes": 6765,
+      "category": "test",
+      "path": "tests/airport_abm/test_routing.py",
+      "sha256": "3268d8a230a0c84c8cc41e51c36f1831656de34fb6a035be059617a23b698051"
+    },
+    {
+      "bytes": 7220,
+      "category": "test",
+      "path": "tests/airport_abm/test_schedule_compiler.py",
+      "sha256": "5ce9bda523625a81d06e086e29f1a542a00d13b12d0a6d298386167728162af9"
+    },
+    {
+      "bytes": 2862,
+      "category": "test",
+      "path": "tests/airport_abm/test_seasonal_schedule.py",
+      "sha256": "394b53428cd71aad39c4cf220874dd331ae43acb35d842b4675dbaa5e54c1304"
+    },
+    {
+      "bytes": 4376,
+      "category": "test",
+      "path": "tests/airport_abm/test_simulation.py",
+      "sha256": "01a3de64dcedea16cbf3501dc56235814f80a82d153f33d9635f8e3548d800b0"
+    },
+    {
+      "bytes": 4526,
+      "category": "test",
+      "path": "tests/airport_abm/test_source.py",
+      "sha256": "a0c1e3b15af78232cd531bdcc2ba514282f795673071fa72b951257a19db31c8"
+    },
+    {
+      "bytes": 1019,
+      "category": "test",
+      "path": "tests/airport_abm/test_synthetic_example.py",
+      "sha256": "99e69af42b5f58ac5aa635be7b8cc165da3576e3c54fe9890bc489419ab1eed7"
+    },
+    {
+      "bytes": 5549,
+      "category": "test",
+      "path": "tests/airport_abm/test_validation.py",
+      "sha256": "78cefe4ec875faf29b6c260b65c9cd1132e7e1ccaebf10b28d49a4260458c3be"
+    },
+    {
+      "bytes": 10244,
+      "category": "test",
+      "path": "tests/airport_abm/test_viewer_payload.py",
+      "sha256": "509ed704225bb5329bec3a1b5f5adfc2807c8ba2129ffe5287ce4a894ac1c809"
+    },
+    {
+      "bytes": 10284,
+      "category": "test",
+      "path": "tests/airport_abm/test_viewer_v3.py",
+      "sha256": "e0f49516d77bd88ae23eeace5ac4f404543deba216bedd103e3fadda27b6d324"
+    },
+    {
+      "bytes": 3111,
+      "category": "test",
+      "path": "tests/airport_abm/test_zone_energy_reporting.py",
+      "sha256": "c4c20b368eb9d9c1828d8b61a14718ed5b84f546a5a80e79a9531ff82d498e6c"
     },
     {
       "bytes": 45,
@@ -2192,10 +2762,10 @@
       "sha256": "22fb09e37c195bf1b38026f64e19f8ab24e8b23a20806fc8beb8c464c70a0fa5"
     },
     {
-      "bytes": 6767,
+      "bytes": 7863,
       "category": "test",
       "path": "tests/public_release/test_policy.py",
-      "sha256": "4b5cd04549ebac2ca75142c5cfe273ae73bf1b2e93a6604102a6a1eeebd37976"
+      "sha256": "0799cb454c511ae629100a5c1fc42d892a7dede19b3744576ac1175547580e65"
     },
     {
       "bytes": 3056,
@@ -2414,6 +2984,18 @@
       "sha256": "1efc0eabfe1aa3aabc22181c758462a55b96779111abc1aab8c7cdf1d48829fa"
     },
     {
+      "bytes": 39,
+      "category": "reproducibility_tool",
+      "path": "tools/airport_abm/__init__.py",
+      "sha256": "a58d32153521f4e1ffb39baf5bb5062a40fd9c28c072227e4fac2b704b788b5b"
+    },
+    {
+      "bytes": 8747,
+      "category": "reproducibility_tool",
+      "path": "tools/airport_abm/review_package.py",
+      "sha256": "4acda092d532af277f25507b0f1e13f94a5d7ab366edab92370e16d7a55ca9b0"
+    },
+    {
       "bytes": 1275,
       "category": "reproducibility_tool",
       "path": "tools/analysis/post_final_native_diagnostics.py",
@@ -2438,10 +3020,10 @@
       "sha256": "0f8ea5b8505d859c6bf9ae5438a3bccd1c67eefd63f15413b660a558b4cb0971"
     },
     {
-      "bytes": 11047,
+      "bytes": 12867,
       "category": "reproducibility_tool",
       "path": "tools/public_release/policy.py",
-      "sha256": "88067ad1514e9289054f42a2edeec5033057bbe2037b70976b2aa595eec87233"
+      "sha256": "6a7a3f3bd0ed74b1b3da4a3a9fb0019c3e53520b8433022d8fcb2e02f8791702"
     },
     {
       "bytes": 9539,
@@ -2457,6 +3039,6 @@
     "runtime_binary_or_weather_included": false
   },
   "schema_version": "idfrepair.public-manifest.v1",
-  "snapshot_sha256": "4676e84ceba58335f635a7ea22e7f21eb7d3bcb5ef12034cdf4529eef58be76d",
-  "total_bytes": 17593137
+  "snapshot_sha256": "ca8f989727d557b9c7805b3961d88da8622f6f65b8752c7c698556747c102ae2",
+  "total_bytes": 19546412
 }

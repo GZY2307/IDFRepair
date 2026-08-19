@@ -1,0 +1,46 @@
+{
+  "schema_version": "idfrepair.airport-abm-synthetic-fixture.v3",
+  "seed": 17,
+  "nodes": [
+    {"name": "departure-boundary", "function": "departure_entry", "region": "public"},
+    {"name": "public-spine", "function": "central_hall", "region": "public"},
+    {"name": "gate-a", "function": "domestic_waiting", "region": "pier-a"},
+    {"name": "gate-b", "function": "domestic_waiting", "region": "pier-b"},
+    {"name": "bag-claim", "function": "baggage_claim", "region": "arrival"},
+    {"name": "arrival-boundary", "function": "arrival_exit", "region": "arrival"},
+    {"name": "international-entry", "function": "international_arrival", "region": "international"},
+    {"name": "international-hall", "function": "international_hall", "region": "international"},
+    {"name": "vertical-boundary", "function": "transfer", "region": "international"},
+    {"name": "staff-entry", "function": "staff_entry", "region": "staff"},
+    {"name": "office-a", "function": "office", "region": "staff"},
+    {"name": "staff-exit", "function": "staff_exit", "region": "staff"},
+    {"name": "BOARDING", "function": "boarding_sink", "region": "off-model", "is_virtual": true},
+    {"name": "OUT", "function": "out_sink", "region": "off-model", "is_virtual": true},
+    {"name": "OFF_MODEL_LEVEL1_IMMIGRATION", "function": "level1_sink", "region": "off-model", "is_virtual": true},
+    {"name": "STAFF_EXIT_BOUNDARY", "function": "staff_sink", "region": "off-model", "is_virtual": true}
+  ],
+  "edges": [
+    {"from": "departure-boundary", "to": "public-spine", "roles": ["DOMESTIC_DEPARTURE"], "evidence_ref": "synthetic process"},
+    {"from": "public-spine", "to": "gate-a", "roles": ["DOMESTIC_DEPARTURE"], "evidence_ref": "synthetic process"},
+    {"from": "gate-a", "to": "BOARDING", "roles": ["DOMESTIC_DEPARTURE"], "evidence_ref": "synthetic boundary"},
+    {"from": "gate-a", "to": "public-spine", "roles": ["DOMESTIC_ARRIVAL", "DOMESTIC_TRANSFER"], "evidence_ref": "synthetic process"},
+    {"from": "public-spine", "to": "bag-claim", "roles": ["DOMESTIC_ARRIVAL"], "evidence_ref": "synthetic process"},
+    {"from": "bag-claim", "to": "arrival-boundary", "roles": ["DOMESTIC_ARRIVAL"], "evidence_ref": "synthetic process"},
+    {"from": "arrival-boundary", "to": "OUT", "roles": ["DOMESTIC_ARRIVAL"], "evidence_ref": "synthetic boundary"},
+    {"from": "public-spine", "to": "gate-b", "roles": ["DOMESTIC_TRANSFER"], "evidence_ref": "synthetic process"},
+    {"from": "gate-b", "to": "BOARDING", "roles": ["DOMESTIC_TRANSFER"], "evidence_ref": "synthetic boundary"},
+    {"from": "international-entry", "to": "international-hall", "roles": ["INTERNATIONAL_ARRIVAL"], "evidence_ref": "synthetic process"},
+    {"from": "international-hall", "to": "vertical-boundary", "roles": ["INTERNATIONAL_ARRIVAL"], "evidence_ref": "synthetic process"},
+    {"from": "vertical-boundary", "to": "OFF_MODEL_LEVEL1_IMMIGRATION", "roles": ["INTERNATIONAL_ARRIVAL"], "evidence_ref": "synthetic boundary"},
+    {"from": "staff-entry", "to": "office-a", "roles": ["STAFF"], "evidence_ref": "synthetic staff access"},
+    {"from": "office-a", "to": "staff-exit", "roles": ["STAFF"], "evidence_ref": "synthetic staff access"},
+    {"from": "staff-exit", "to": "STAFF_EXIT_BOUNDARY", "roles": ["STAFF"], "evidence_ref": "synthetic boundary"}
+  ],
+  "agents": [
+    {"agent_id": "departure-1", "class": "DOMESTIC_DEPARTURE", "spawn_minute": 60, "deadline_minute": 180, "terminal_state": "BOARDING", "stops": [{"location": "departure-boundary", "stage": "entry", "dwell_minutes": 5}, {"location": "public-spine", "stage": "public", "dwell_minutes": 5}, {"location": "gate-a", "stage": "wait", "dwell_minutes": 30}]},
+    {"agent_id": "arrival-1", "class": "DOMESTIC_ARRIVAL", "spawn_minute": 70, "terminal_state": "OUT", "stops": [{"location": "gate-a", "stage": "deplane", "dwell_minutes": 5}, {"location": "public-spine", "stage": "public", "dwell_minutes": 5}, {"location": "bag-claim", "stage": "baggage", "dwell_minutes": 15}, {"location": "arrival-boundary", "stage": "exit", "dwell_minutes": 1}]},
+    {"agent_id": "transfer-1", "class": "DOMESTIC_TRANSFER", "spawn_minute": 80, "deadline_minute": 180, "terminal_state": "BOARDING", "stops": [{"location": "gate-a", "stage": "deplane", "dwell_minutes": 5}, {"location": "public-spine", "stage": "public", "dwell_minutes": 5}, {"location": "gate-b", "stage": "wait", "dwell_minutes": 20}]},
+    {"agent_id": "international-1", "class": "INTERNATIONAL_ARRIVAL", "spawn_minute": 90, "terminal_state": "OFF_MODEL_LEVEL1_IMMIGRATION", "stops": [{"location": "international-entry", "stage": "arrival", "dwell_minutes": 5}, {"location": "international-hall", "stage": "international", "dwell_minutes": 5}, {"location": "vertical-boundary", "stage": "level-change", "dwell_minutes": 1}]},
+    {"agent_id": "staff-1", "class": "STAFF", "spawn_minute": 30, "terminal_state": "STAFF_EXIT_BOUNDARY", "stops": [{"location": "staff-entry", "stage": "entry", "dwell_minutes": 2}, {"location": "office-a", "stage": "work", "dwell_minutes": 60}, {"location": "staff-exit", "stage": "exit", "dwell_minutes": 2}]}
+  ]
+}

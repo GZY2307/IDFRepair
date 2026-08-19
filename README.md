@@ -118,19 +118,31 @@ See [public reproducibility](docs/reproducibility/public_release.md) for the
 version boundary, public benchmark construction, security gates, and
 fresh-clone procedure.
 
-## Airport occupancy extension
+## Airport occupancy V3 extension
 
-The occupancy namespace is a downstream analysis workflow, not a new repair
-method. It extracts People→Zone→HVAC relations, generates deterministic
-15-minute scenarios, and compares temporal and spatial redistribution while
-holding passenger-hours constant. Volume sensitivity is reported separately.
-The two user-authored terminal OSM source files and all raw derivatives remain
-private and are represented publicly only by aggregate inventories and hashes.
+The Airport ABM namespace is a downstream analysis workflow, not a change to
+the frozen repair method. It uses a directed discrete-event model with separate
+passenger and staff access graphs, bounded discretionary detours, 15-minute
+People schedules, and the existing People→Zone→HVAC relations. Its primary
+comparison holds public and staff person-hours constant while redistributing
+occupancy in time and space; passenger volume and dwell are separate
+sensitivities.
+
+The public release contains generic source, tests, a runnable synthetic terminal
+fixture, aggregate reports, and the integrated 3D occupancy viewer. User-authored
+terminal models, derived OSM/IDF files, weather files, drawings, exact room
+mapping, and raw simulation directories are deliberately excluded. See the
+[V3 method and evidence index](docs/research/occupancy_v3/README.md) and run:
+
+```bash
+python examples/airport_abm_v3/run_synthetic.py --fixture examples/airport_abm_v3/synthetic_terminal.json
+python -m pytest -q tests/airport_abm
+```
 
 ## Repository map
 
 - `src/idfrepair/semantic_graph_v2/`: frozen semantic projection and repair.
-- `src/idfrepair/analysis/occupancy/`: isolated downstream occupancy analysis.
+- `src/idfrepair/analysis/airport_abm/`: isolated directed occupancy analysis.
 - `tests/`: unit, safety, frozen-regression, and reproduction tests.
 - `scripts/`: public metric and occupancy entry points.
 - `docs/research/`: method identity, claim boundary, and occupancy research.
