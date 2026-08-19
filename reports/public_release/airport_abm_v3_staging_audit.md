@@ -6,7 +6,7 @@ Status: **PASSED**
 
 The repository public-release builder was run from the explicit allowlist with
 the frozen Formal V2 guard enabled. The resulting no-history staging tree
-contains 505 regular files and 19,546,033 uncompressed bytes.
+contains 506 regular files and 19,548,330 uncompressed bytes.
 
 The separate lightweight Airport ABM V3 review archive contains 101 allowlisted
 project files (103 ZIP members including its README and embedded manifest) and
