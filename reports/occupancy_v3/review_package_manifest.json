@@ -1,0 +1,416 @@
+{
+  "schema_version": "idfrepair.airport-abm-review-package.v3",
+  "file_count": 101,
+  "raw_private_models_included": false,
+  "sensitive_information_audit": "PASS",
+  "files": [
+    {
+      "path": "docs/research/occupancy_v3/README.md",
+      "bytes": 1642
+    },
+    {
+      "path": "docs/research/occupancy_v3/evidence_registry.md",
+      "bytes": 5121
+    },
+    {
+      "path": "docs/research/occupancy_v3/method.md",
+      "bytes": 5509
+    },
+    {
+      "path": "docs/research/occupancy_v3/review_package_allowlist.json",
+      "bytes": 5443
+    },
+    {
+      "path": "docs/research/occupancy_v3/scenario_protocol.md",
+      "bytes": 4525
+    },
+    {
+      "path": "examples/airport_abm_v3/README.md",
+      "bytes": 621
+    },
+    {
+      "path": "examples/airport_abm_v3/run_synthetic.py",
+      "bytes": 4346
+    },
+    {
+      "path": "examples/airport_abm_v3/synthetic_terminal.json",
+      "bytes": 5135
+    },
+    {
+      "path": "reports/occupancy_v3/figures/function_peak_matrix.png",
+      "bytes": 116706
+    },
+    {
+      "path": "reports/occupancy_v3/figures/representative_shoulder_airloop_effects.png",
+      "bytes": 96529
+    },
+    {
+      "path": "reports/occupancy_v3/figures/representative_shoulder_timing_effects.png",
+      "bytes": 84756
+    },
+    {
+      "path": "reports/occupancy_v3/figures/timing_peak_uncertainty.png",
+      "bytes": 94379
+    },
+    {
+      "path": "reports/occupancy_v3/figures/timing_profiles_seed40015.png",
+      "bytes": 195922
+    },
+    {
+      "path": "reports/occupancy_v3/figures/volume_and_dwell_sensitivity.png",
+      "bytes": 69566
+    },
+    {
+      "path": "reports/occupancy_v3/public/abm_validation.md",
+      "bytes": 1103
+    },
+    {
+      "path": "reports/occupancy_v3/public/access_graph_summary.md",
+      "bytes": 1651
+    },
+    {
+      "path": "reports/occupancy_v3/public/agent_route_registry.md",
+      "bytes": 1328
+    },
+    {
+      "path": "reports/occupancy_v3/public/energy_results.md",
+      "bytes": 4494
+    },
+    {
+      "path": "reports/occupancy_v3/public/energy_results_aggregate.csv",
+      "bytes": 73505
+    },
+    {
+      "path": "reports/occupancy_v3/public/method_comparison.md",
+      "bytes": 2180
+    },
+    {
+      "path": "reports/occupancy_v3/public/model_validation_summary.md",
+      "bytes": 1565
+    },
+    {
+      "path": "reports/occupancy_v3/public/occupancy_results.md",
+      "bytes": 2838
+    },
+    {
+      "path": "reports/occupancy_v3/public/occupancy_results_aggregate.csv",
+      "bytes": 111025
+    },
+    {
+      "path": "reports/occupancy_v3/public/paper_admission.md",
+      "bytes": 1314
+    },
+    {
+      "path": "reports/occupancy_v3/public/technical_summary.md",
+      "bytes": 3959
+    },
+    {
+      "path": "reports/occupancy_v3/public/uncertainty_results.md",
+      "bytes": 2404
+    },
+    {
+      "path": "reports/occupancy_v3/public/visualization_validation.md",
+      "bytes": 3536
+    },
+    {
+      "path": "reports/occupancy_v3/public/zone_hvac_results.csv",
+      "bytes": 517756
+    },
+    {
+      "path": "reports/occupancy_v3/public/zone_hvac_results.md",
+      "bytes": 26340
+    },
+    {
+      "path": "scripts/airport_abm/aggregate_zone_energy.py",
+      "bytes": 13877
+    },
+    {
+      "path": "scripts/airport_abm/audit_model.rb",
+      "bytes": 7504
+    },
+    {
+      "path": "scripts/airport_abm/build_access_graph.py",
+      "bytes": 3808
+    },
+    {
+      "path": "scripts/airport_abm/build_people_derivative.rb",
+      "bytes": 12002
+    },
+    {
+      "path": "scripts/airport_abm/build_seasonal_schedule.py",
+      "bytes": 1473
+    },
+    {
+      "path": "scripts/airport_abm/build_viewer_payload.py",
+      "bytes": 1273
+    },
+    {
+      "path": "scripts/airport_abm/generate_energy_reports.py",
+      "bytes": 29709
+    },
+    {
+      "path": "scripts/airport_abm/generate_occupancy_reports.py",
+      "bytes": 24188
+    },
+    {
+      "path": "scripts/airport_abm/instrument_static_idf.py",
+      "bytes": 963
+    },
+    {
+      "path": "scripts/airport_abm/prepare_weather_matrix.py",
+      "bytes": 3615
+    },
+    {
+      "path": "scripts/airport_abm/prepare_weather_run.py",
+      "bytes": 2232
+    },
+    {
+      "path": "scripts/airport_abm/rebuild_people_manifest.py",
+      "bytes": 1101
+    },
+    {
+      "path": "scripts/airport_abm/summarize_energyplus.py",
+      "bytes": 19091
+    },
+    {
+      "path": "scripts/run_airport_abm_v3.py",
+      "bytes": 8482
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/__init__.py",
+      "bytes": 377
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/access_graph.py",
+      "bytes": 5393
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/agents.py",
+      "bytes": 1889
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/annual_schedule.py",
+      "bytes": 12120
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/audit.py",
+      "bytes": 2850
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/config_graph.py",
+      "bytes": 6075
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/dwell.py",
+      "bytes": 3118
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/energyplus_coupling.py",
+      "bytes": 27246
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/events.py",
+      "bytes": 1144
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/experiment.py",
+      "bytes": 20983
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/flight_bank.py",
+      "bytes": 14218
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/graph_checks.py",
+      "bytes": 5058
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/group_config.py",
+      "bytes": 5229
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/model.py",
+      "bytes": 4152
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/normalization.py",
+      "bytes": 5970
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/provenance.py",
+      "bytes": 1155
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/reporting.py",
+      "bytes": 6602
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/routing.py",
+      "bytes": 3799
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/schedule_compiler.py",
+      "bytes": 12119
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/seasonal_schedule.py",
+      "bytes": 4923
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/simulation.py",
+      "bytes": 5053
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/source.py",
+      "bytes": 5175
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/validation.py",
+      "bytes": 5992
+    },
+    {
+      "path": "src/idfrepair/analysis/airport_abm/visualization.py",
+      "bytes": 18008
+    },
+    {
+      "path": "src/idfrepair/web/static/app.js",
+      "bytes": 221181
+    },
+    {
+      "path": "src/idfrepair/web/static/epshape-viewer.css",
+      "bytes": 17996
+    },
+    {
+      "path": "src/idfrepair/web/static/epshape-viewer.html",
+      "bytes": 10314
+    },
+    {
+      "path": "src/idfrepair/web/static/epshape-viewer.js",
+      "bytes": 104568
+    },
+    {
+      "path": "src/idfrepair/web/static/index.html",
+      "bytes": 70715
+    },
+    {
+      "path": "src/idfrepair/web/static/occupancy-local.html",
+      "bytes": 2884
+    },
+    {
+      "path": "src/idfrepair/web/static/occupancy-viewer-state.js",
+      "bytes": 26811
+    },
+    {
+      "path": "src/idfrepair/web/static/style.css",
+      "bytes": 103897
+    },
+    {
+      "path": "src/idfrepair/web/static/viewer-bridge.js",
+      "bytes": 9193
+    },
+    {
+      "path": "tests/airport_abm/__init__.py",
+      "bytes": 34
+    },
+    {
+      "path": "tests/airport_abm/test_access_graph.py",
+      "bytes": 4752
+    },
+    {
+      "path": "tests/airport_abm/test_access_graph_cli.py",
+      "bytes": 5272
+    },
+    {
+      "path": "tests/airport_abm/test_annual_schedule.py",
+      "bytes": 2116
+    },
+    {
+      "path": "tests/airport_abm/test_audit_contract.py",
+      "bytes": 2908
+    },
+    {
+      "path": "tests/airport_abm/test_config_graph.py",
+      "bytes": 3297
+    },
+    {
+      "path": "tests/airport_abm/test_dwell.py",
+      "bytes": 2068
+    },
+    {
+      "path": "tests/airport_abm/test_energyplus_coupling.py",
+      "bytes": 16428
+    },
+    {
+      "path": "tests/airport_abm/test_flight_bank.py",
+      "bytes": 9440
+    },
+    {
+      "path": "tests/airport_abm/test_graph_checks.py",
+      "bytes": 3662
+    },
+    {
+      "path": "tests/airport_abm/test_group_config.py",
+      "bytes": 3578
+    },
+    {
+      "path": "tests/airport_abm/test_normalization.py",
+      "bytes": 3885
+    },
+    {
+      "path": "tests/airport_abm/test_people_derivative.py",
+      "bytes": 10379
+    },
+    {
+      "path": "tests/airport_abm/test_provenance.py",
+      "bytes": 2184
+    },
+    {
+      "path": "tests/airport_abm/test_reporting.py",
+      "bytes": 6531
+    },
+    {
+      "path": "tests/airport_abm/test_routing.py",
+      "bytes": 6765
+    },
+    {
+      "path": "tests/airport_abm/test_schedule_compiler.py",
+      "bytes": 7220
+    },
+    {
+      "path": "tests/airport_abm/test_seasonal_schedule.py",
+      "bytes": 2862
+    },
+    {
+      "path": "tests/airport_abm/test_simulation.py",
+      "bytes": 4376
+    },
+    {
+      "path": "tests/airport_abm/test_source.py",
+      "bytes": 4526
+    },
+    {
+      "path": "tests/airport_abm/test_synthetic_example.py",
+      "bytes": 1019
+    },
+    {
+      "path": "tests/airport_abm/test_validation.py",
+      "bytes": 5549
+    },
+    {
+      "path": "tests/airport_abm/test_viewer_payload.py",
+      "bytes": 10244
+    },
+    {
+      "path": "tests/airport_abm/test_viewer_v3.py",
+      "bytes": 10284
+    },
+    {
+      "path": "tests/airport_abm/test_zone_energy_reporting.py",
+      "bytes": 3111
+    }
+  ],
+  "archive_name": "IDFRepair-AirportABM-V3-ChatGPT-review.zip",
+  "archive_bytes": 956628,
+  "target_limit_bytes": 15728640,
+  "hard_limit_bytes": 26214400
+}

@@ -144,8 +144,30 @@ def test_allowlist_is_explicit_and_never_admits_private_models() -> None:
     assert allowed_public_path(
         PurePosixPath("tests/occupancy_room_aware/test_provenance.py")
     )
+    for public_v3_path in (
+        "docs/research/occupancy_v3/method.md",
+        "examples/airport_abm_v3/run_synthetic.py",
+        "reports/occupancy_v3/public/paper_admission.md",
+        "scripts/airport_abm/build_access_graph.py",
+        "scripts/run_airport_abm_v3.py",
+        "tests/airport_abm/test_simulation.py",
+        "tools/airport_abm/review_package.py",
+    ):
+        assert allowed_public_path(PurePosixPath(public_v3_path)), public_v3_path
     assert not allowed_public_path(
         PurePosixPath("derived/occupancy_room_aware/baseline_r/derived.osm")
+    )
+    assert not allowed_public_path(
+        PurePosixPath(".private/occupancy_v3/derived/baseline.osm")
+    )
+    assert not allowed_public_path(
+        PurePosixPath("reports/occupancy_v3/figures/seasonal_timing_energy_effects.png")
+    )
+    assert not allowed_public_path(
+        PurePosixPath("tests/airport_abm/test_model_audit_integration.py")
+    )
+    assert not allowed_public_path(
+        PurePosixPath("tests/airport_abm/test_experiment.py")
     )
     assert not allowed_public_path(
         PurePosixPath("tests/semantic_graph_v2/test_v2_runner.py")
@@ -165,6 +187,10 @@ def test_readmes_use_formal_v2_headline_and_not_legacy_final400() -> None:
         assert "66/95" in text
         assert "Final400 outcome" not in text
         assert "/" + "Users/dy/" not in text
+        assert (
+            "python examples/airport_abm_v3/run_synthetic.py "
+            "--fixture examples/airport_abm_v3/synthetic_terminal.json"
+        ) in text
 
 
 def test_release_license_citation_and_reproduction_docs_are_public_safe() -> None:

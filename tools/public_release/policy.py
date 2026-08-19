@@ -48,6 +48,17 @@ PUBLIC_EXACT = frozenset(
         PurePosixPath("reports/semantic_graph_final/v2_prediction_freeze.json"),
         PurePosixPath("reports/semantic_graph_final/v2_predictions.jsonl"),
         PurePosixPath("reports/semantic_graph_v22/method_freeze_candidate.json"),
+        PurePosixPath("reports/occupancy_v3/figures/function_peak_matrix.png"),
+        PurePosixPath(
+            "reports/occupancy_v3/figures/representative_shoulder_airloop_effects.png"
+        ),
+        PurePosixPath(
+            "reports/occupancy_v3/figures/representative_shoulder_timing_effects.png"
+        ),
+        PurePosixPath("reports/occupancy_v3/figures/timing_peak_uncertainty.png"),
+        PurePosixPath("reports/occupancy_v3/figures/timing_profiles_seed40015.png"),
+        PurePosixPath("reports/occupancy_v3/figures/volume_and_dwell_sensitivity.png"),
+        PurePosixPath("reports/occupancy_v3/review_package_manifest.json"),
         PurePosixPath("datasets/manifests/doe_prototype_inventory.csv"),
         PurePosixPath("datasets/manifests/doe_topology_clusters.csv"),
         PurePosixPath("datasets/manifests/doe_topology_profiles.json"),
@@ -63,21 +74,26 @@ PUBLIC_PREFIXES = (
     PurePosixPath("docs/method"),
     PurePosixPath("docs/reproducibility"),
     PurePosixPath("docs/research/occupancy"),
+    PurePosixPath("docs/research/occupancy_v3"),
     PurePosixPath("docs/research/post_final"),
     PurePosixPath("docs/research/semantic_graph_v22"),
     PurePosixPath("examples/public"),
+    PurePosixPath("examples/airport_abm_v3"),
     PurePosixPath("reports/occupancy"),
     PurePosixPath("reports/occupancy_v2"),
+    PurePosixPath("reports/occupancy_v3/public"),
     PurePosixPath("reports/public_release"),
     PurePosixPath("reports/publication"),
     PurePosixPath("scripts/occupancy"),
     PurePosixPath("scripts/occupancy_room_aware"),
+    PurePosixPath("scripts/airport_abm"),
     PurePosixPath("src/idfrepair"),
     PurePosixPath("tests/occupancy"),
     PurePosixPath("tests/occupancy_room_aware"),
     PurePosixPath("tests/post_final"),
     PurePosixPath("tests/public_release"),
     PurePosixPath("tools/public_release"),
+    PurePosixPath("tools/airport_abm"),
 )
 
 PUBLIC_SCRIPT_EXACT = frozenset(
@@ -85,6 +101,7 @@ PUBLIC_SCRIPT_EXACT = frozenset(
         PurePosixPath("scripts/public_reproduce_formal_v2.py"),
         PurePosixPath("scripts/run_airport_occupancy.py"),
         PurePosixPath("scripts/run_airport_occupancy_room_aware.py"),
+        PurePosixPath("scripts/run_airport_abm_v3.py"),
     }
 )
 
@@ -126,9 +143,41 @@ _SEMANTIC_CORE_TEST_NAMES = (
     "test_zone_splitter_projection.py",
 )
 
+_AIRPORT_ABM_PUBLIC_TEST_NAMES = (
+    "__init__.py",
+    "test_access_graph.py",
+    "test_access_graph_cli.py",
+    "test_annual_schedule.py",
+    "test_audit_contract.py",
+    "test_config_graph.py",
+    "test_dwell.py",
+    "test_energyplus_coupling.py",
+    "test_flight_bank.py",
+    "test_graph_checks.py",
+    "test_group_config.py",
+    "test_normalization.py",
+    "test_people_derivative.py",
+    "test_provenance.py",
+    "test_reporting.py",
+    "test_review_package.py",
+    "test_routing.py",
+    "test_schedule_compiler.py",
+    "test_seasonal_schedule.py",
+    "test_simulation.py",
+    "test_source.py",
+    "test_synthetic_example.py",
+    "test_validation.py",
+    "test_viewer_payload.py",
+    "test_viewer_v3.py",
+    "test_zone_energy_reporting.py",
+)
+
 PUBLIC_TEST_EXACT = frozenset(
     PurePosixPath("tests/semantic_graph_v2") / name
     for name in _SEMANTIC_CORE_TEST_NAMES
+) | frozenset(
+    PurePosixPath("tests/airport_abm") / name
+    for name in _AIRPORT_ABM_PUBLIC_TEST_NAMES
 )
 
 FORBIDDEN_PARTS = frozenset(

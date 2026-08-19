@@ -49,14 +49,24 @@
   const issueKeyAfter = document.querySelector('#issue-key-after b');
   const occupancyControls = document.querySelector('#occupancy-controls');
   const occupancyPlayButton = document.querySelector('#occupancy-play');
+  const occupancyControlsToggle = document.querySelector('#occupancy-controls-toggle');
+  const occupancyDetailsToggle = document.querySelector('#occupancy-details-toggle');
   const occupancyTimeInput = document.querySelector('#occupancy-time');
   const occupancyTimeLabel = document.querySelector('#occupancy-time-label');
   const occupancyMetricSelect = document.querySelector('#occupancy-metric');
   const occupancyScenarioLabel = document.querySelector('#occupancy-scenario');
   const occupancyTimelinePeople = document.querySelector('#occupancy-timeline-people');
-  const occupancyTimelineLoad = document.querySelector('#occupancy-timeline-load');
+  const occupancyTimelineHeating = document.querySelector('#occupancy-timeline-heating');
+  const occupancyTimelineCooling = document.querySelector('#occupancy-timeline-cooling');
   const occupancyTimelineCursor = document.querySelector('#occupancy-timeline-cursor');
+  const occupancyClassFilters = document.querySelector('#occupancy-class-filters');
+  const occupancyClassButtons = [...document.querySelectorAll('[data-agent-class]')];
+  const occupancyFlowLayer = document.querySelector('#occupancy-flow-layer');
+  const occupancyFlowToggle = document.querySelector('#occupancy-flow-toggle');
+  const occupancyFlowEvidence = document.querySelector('#occupancy-flow-evidence');
   const occupancyDetails = document.querySelector('#occupancy-details');
+  const occupancyDetailsDragHandle = document.querySelector('#occupancy-details-drag-handle');
+  const occupancyDetailsClose = document.querySelector('#occupancy-details-close');
   const occupancyDetailName = document.querySelector('#occupancy-detail-name');
   const occupancyEntranceBadge = document.querySelector('#occupancy-entrance-badge');
   const occupancyConflictBadge = document.querySelector('#occupancy-conflict-badge');
@@ -65,6 +75,7 @@
   const occupancyDetailDensity = document.querySelector('#occupancy-detail-density');
   const occupancyDetailCapacity = document.querySelector('#occupancy-detail-capacity');
   const occupancyDetailFlow = document.querySelector('#occupancy-detail-flow');
+  const occupancyDetailHvac = document.querySelector('#occupancy-detail-hvac');
   const occupancyDetailPhase = document.querySelector('#occupancy-detail-phase');
   const occupancyDetailScenario = document.querySelector('#occupancy-detail-scenario');
   const occupancyDetailLoad = document.querySelector('#occupancy-detail-load');
@@ -106,6 +117,9 @@
       osmPendingStatus: 'OSM 待转换 · 尚未生成派生 IDF',
       roomFunctionMode: 'Room Function / 房间功能', occupancyMode: 'Occupancy / 人员流量',
       occupancyPlay: '播放人员流量', occupancyPause: '暂停人员流量', occupancyMetric: '人员流量着色指标',
+      occupancyDetailsShow: '显示人员详情', occupancyDetailsHide: '隐藏人员详情',
+      occupancyDetailsDrag: '拖动人员详情', occupancyDetailsClose: '关闭人员详情',
+      occupancyControlsMinimize: '最小化人员时间条', occupancyControlsExpand: '展开人员时间条',
       metadataConflict: '源 metadata 冲突', occupancyUnavailable: '未加载 room-aware occupancy payload',
       entranceSeed: '入口种子', flowRegion: '{entrance} 区域 · 邻接 {hops} 跳',
       flowPhase: '{minutes} 分钟受控响应（非步行时间）'
@@ -143,6 +157,9 @@
       osmPendingStatus: 'OSM pending · derived IDF not generated yet',
       roomFunctionMode: 'Room Function', occupancyMode: 'Occupancy', occupancyPlay: 'Play occupancy',
       occupancyPause: 'Pause occupancy', occupancyMetric: 'Occupancy color metric',
+      occupancyDetailsShow: 'Show occupancy details', occupancyDetailsHide: 'Hide occupancy details',
+      occupancyDetailsDrag: 'Drag occupancy details', occupancyDetailsClose: 'Close occupancy details',
+      occupancyControlsMinimize: 'Minimize occupancy timeline', occupancyControlsExpand: 'Expand occupancy timeline',
       metadataConflict: 'Source metadata conflict', occupancyUnavailable: 'Room-aware occupancy payload not loaded',
       entranceSeed: 'Entrance seed', flowRegion: '{entrance} region · {hops} adjacency hops',
       flowPhase: '{minutes}-minute controlled response (not walking time)'
@@ -257,6 +274,10 @@
   issueOverlayGroup.name = 'IDF issue geometry overlays';
   scene.add(issueOverlayGroup);
 
+  const occupancyFlowGroup = new THREE.Group();
+  occupancyFlowGroup.name = 'Airport ABM functional route arrows';
+  scene.add(occupancyFlowGroup);
+
   const grid = new THREE.GridHelper(120, 24, 0xaeb8b5, 0xd3d9d7);
   grid.rotation.x = Math.PI / 2;
   grid.position.z = -0.02;
@@ -300,6 +321,12 @@
   let occupancyPlaybackTimer = null;
   let occupancyTimeline = null;
   let occupancyDetailRoomKey = null;
+  let occupancyAgentClass = 'ALL';
+  let occupancyFlowVisible = true;
+  let occupancyDetailsDismissed = false;
+  let occupancyDetailsPosition = null;
+  let occupancyDetailsDrag = null;
+  let occupancyControlsMinimized = false;
 
   function normalizeName(value) {
     return String(value || '').trim().replace(/^['"]|['"]$/g, '').toLowerCase();
@@ -640,7 +667,8 @@
       space,
       occupancyTimeIndex,
       occupancyMetric,
-      occupancyMaximum
+      occupancyMaximum,
+      occupancyAgentClass
     );
     return {label: 'Occupancy intensity', color: hexColor(color)};
   }
@@ -651,7 +679,11 @@
       if (!space || !occupancyState) return {label: 'Unassigned', color: COLORS.unassigned};
       return {
         label: space.category,
-        color: hexColor(occupancyState.CATEGORY_COLORS[space.category])
+        color: hexColor(
+          currentOccupancy?.is_v3
+            ? occupancyState.FUNCTION_COLORS[space.function]
+            : occupancyState.CATEGORY_COLORS[space.category]
+        )
       };
     }
     if (mode === 'occupancy') return occupancyDescriptor(surface);
@@ -754,14 +786,24 @@
 
   function clearGroup(group) {
     const shared = sharedMaterials();
+    const disposedGeometries = new Set();
+    const disposedMaterials = new Set();
     while (group.children.length) {
       const child = group.children[0];
       group.remove(child);
-      child.geometry?.dispose?.();
-      if (child.material && !shared.has(child.material)) {
-        child.material.map?.dispose?.();
-        child.material.dispose?.();
-      }
+      child.traverse((object) => {
+        if (object.geometry && !disposedGeometries.has(object.geometry)) {
+          object.geometry.dispose?.();
+          disposedGeometries.add(object.geometry);
+        }
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.filter(Boolean).forEach((material) => {
+          if (shared.has(material) || disposedMaterials.has(material)) return;
+          material.map?.dispose?.();
+          material.dispose?.();
+          disposedMaterials.add(material);
+        });
+      });
     }
   }
 
@@ -1097,7 +1139,19 @@
       commerce_retail: currentLocale === 'zh-CN' ? '商业零售' : 'Commerce / retail',
       dining: currentLocale === 'zh-CN' ? '餐饮' : 'Dining',
       restroom: currentLocale === 'zh-CN' ? '卫生间' : 'Restroom',
-      breakroom: currentLocale === 'zh-CN' ? '休息室' : 'Breakroom'
+      breakroom: currentLocale === 'zh-CN' ? '休息室' : 'Breakroom',
+      departure_entry: currentLocale === 'zh-CN' ? '国内出发入口' : 'Domestic departure entry',
+      arrival_exit: currentLocale === 'zh-CN' ? '国内到达出口' : 'Domestic arrival exit',
+      baggage_claim: currentLocale === 'zh-CN' ? '国内行李提取' : 'Domestic baggage claim',
+      central_hall: currentLocale === 'zh-CN' ? '中央大厅' : 'Central hall',
+      concourse: currentLocale === 'zh-CN' ? '公共指廊' : 'Public concourse',
+      domestic_waiting: currentLocale === 'zh-CN' ? '国内候机区' : 'Domestic waiting',
+      international_arrival: currentLocale === 'zh-CN' ? '国际到达区' : 'International arrival',
+      international_hall: currentLocale === 'zh-CN' ? '国际混流区' : 'International hall',
+      transfer: currentLocale === 'zh-CN' ? '换层边界' : 'Vertical-transfer boundary',
+      commercial: currentLocale === 'zh-CN' ? '商业' : 'Commercial',
+      restaurant: currentLocale === 'zh-CN' ? '餐厅' : 'Restaurant',
+      info: currentLocale === 'zh-CN' ? '信息用房' : 'Information room'
     };
     if (roomFunctions[label]) return roomFunctions[label];
     const keys = {
@@ -1152,17 +1206,31 @@
         : (occupancyMetric === 'capacity' ? '%' : 'people/m²');
       maximum.textContent = `${occupancyMaximum.toFixed(occupancyMetric === 'density' ? 3 : 1)} ${unit}`;
       gradient.append(minimum, swatch, maximum);
+      const overload = document.createElement('b');
+      overload.textContent = '源容量 >100%：红色';
+      gradient.append(overload);
       legendItems.append(gradient);
       refreshLegendNavigation();
       return;
     }
     if (currentMode === 'roomFunction' && currentOccupancy && occupancyState) {
-      entries = occupancyState.CATEGORIES
-        .filter((category) => Number(currentOccupancy.category_counts?.[category] || 0) > 0)
+      const categories = currentOccupancy.is_v3
+        ? currentOccupancy.functions
+        : occupancyState.CATEGORIES;
+      const categoryCounts = currentOccupancy.is_v3
+        ? Object.values(currentOccupancy.spaces).reduce((counts, space) => {
+          counts[space.function] = (counts[space.function] || 0) + 1;
+          return counts;
+        }, {})
+        : currentOccupancy.category_counts;
+      entries = categories
+        .filter((category) => Number(categoryCounts?.[category] || 0) > 0)
         .map((category) => ({
           label: category,
-          color: hexColor(occupancyState.CATEGORY_COLORS[category]),
-          count: Number(currentOccupancy.category_counts[category])
+          color: hexColor(currentOccupancy.is_v3
+            ? occupancyState.FUNCTION_COLORS[category]
+            : occupancyState.CATEGORY_COLORS[category]),
+          count: Number(categoryCounts[category])
         }));
     } else if (currentMode === 'normal') {
       entries = [{label: 'Normal', color: COLORS.normal, count: modelMeshes.length}];
@@ -1233,7 +1301,12 @@
       : requested;
     colorModeSelect.value = currentMode;
     occupancyMaximum = currentOccupancy && occupancyState
-      ? occupancyState.maximumMetric(currentOccupancy, occupancyTimeIndex, occupancyMetric)
+      ? occupancyState.maximumMetric(
+        currentOccupancy,
+        occupancyTimeIndex,
+        occupancyMetric,
+        occupancyAgentClass
+      )
       : 0;
     activeColorLabel = null;
     modelMeshes.forEach((mesh) => {
@@ -1254,8 +1327,8 @@
     occupancyPlayButton.setAttribute('aria-label', copy('occupancyPlay'));
   }
 
-  function timelinePoints(values) {
-    const maximum = Math.max(0, ...values);
+  function timelinePoints(values, scaleMaximum = null) {
+    const maximum = scaleMaximum === null ? Math.max(0, ...values) : scaleMaximum;
     return values.map((value, index) => {
       const x = index * 960 / Math.max(values.length - 1, 1);
       const y = 142 - (maximum > 0 ? value / maximum : 0) * 130;
@@ -1263,56 +1336,333 @@
     }).join(' ');
   }
 
+  function occupancyRoomAnchor(spaceName) {
+    const room = roomMeshes.get(normalizeName(spaceName));
+    if (!room?.meshes?.length) return null;
+    const bounds = new THREE.Box3();
+    room.meshes.forEach((mesh) => bounds.expandByObject(mesh));
+    if (bounds.isEmpty()) return null;
+    const center = bounds.getCenter(new THREE.Vector3());
+    center.z = bounds.max.z + 2.0;
+    return center;
+  }
+
+  function addOffModelBoundaryMarker(origin, flow, weight) {
+    const geometry = new THREE.OctahedronGeometry(0.65 + weight * 0.9, 0);
+    const material = new THREE.MeshBasicMaterial({
+      color: flow.boundary_direction === 'incoming' ? 0x237f70 : 0x8a4fb5,
+      depthTest: false,
+      opacity: 0.72 + weight * 0.24,
+      transparent: true
+    });
+    const marker = new THREE.Mesh(geometry, material);
+    marker.position.copy(origin);
+    marker.position.z += 1.0;
+    marker.renderOrder = 21;
+    marker.userData = {
+      fromSpaceName: flow.from_space_name,
+      toSpaceName: flow.to_space_name,
+      toNode: flow.to_node,
+      agentsPer15Minutes: flow.count,
+      evidenceLayer: flow.evidence_layer,
+      evidenceReference: flow.evidence_ref,
+      offModelBoundary: true,
+      boundaryDirection: flow.boundary_direction,
+      measuredTrajectory: false
+    };
+    occupancyFlowGroup.add(marker);
+  }
+
+  function renderOccupancyFlowArrows() {
+    clearGroup(occupancyFlowGroup);
+    occupancyFlowLayer.dataset.arrowCount = '0';
+    if (!currentOccupancy?.is_v3 || !occupancyState || !occupancyFlowVisible) return;
+    const flows = [...occupancyState.edgeFlowSnapshot(
+      currentOccupancy,
+      occupancyTimeIndex,
+      occupancyAgentClass
+    )].sort((left, right) => right.count - left.count);
+    occupancyFlowLayer.dataset.flowCount = String(flows.length);
+    let missingAnchorCount = 0;
+    let shortArrowCount = 0;
+    let boundaryCount = 0;
+    let explicitDoorCount = 0;
+    let abstractEdgeCount = 0;
+    const maximum = Math.max(0, ...flows.map((flow) => flow.count));
+    flows.forEach((flow) => {
+      const origin = occupancyRoomAnchor(flow.from_space_name || flow.to_space_name);
+      const weight = maximum > 0 ? flow.count / maximum : 0;
+      if (!origin) {
+        missingAnchorCount += 1;
+        return;
+      }
+      if (flow.off_model_boundary) {
+        addOffModelBoundaryMarker(origin, flow, weight);
+        boundaryCount += 1;
+        return;
+      }
+      const target = occupancyRoomAnchor(flow.to_space_name);
+      if (!target) {
+        missingAnchorCount += 1;
+        return;
+      }
+      const direction = target.clone().sub(origin);
+      const length = direction.length();
+      if (length < 0.5) {
+        shortArrowCount += 1;
+        return;
+      }
+      const isAbstraction = flow.abstraction_flag === true;
+      const arrow = new THREE.ArrowHelper(
+        direction.normalize(),
+        origin,
+        length,
+        isAbstraction ? 0xd68b00 : 0x237f70,
+        Math.max(0.8, Math.min(length * 0.22, 1.2 + weight * 2.8)),
+        0.35 + weight * 1.2
+      );
+      if (isAbstraction) {
+        arrow.line.material.dispose();
+        arrow.line.material = new THREE.LineDashedMaterial({
+          color: 0xd68b00,
+          dashSize: 1.2,
+          gapSize: 0.8,
+          opacity: 0.42 + weight * 0.5,
+          transparent: true,
+          depthTest: false
+        });
+        arrow.line.computeLineDistances();
+        abstractEdgeCount += 1;
+      } else {
+        explicitDoorCount += 1;
+      }
+      arrow.line.material.transparent = true;
+      arrow.line.material.opacity = 0.42 + weight * 0.5;
+      arrow.line.material.linewidth = 1 + weight * 6;
+      arrow.line.material.depthTest = false;
+      arrow.line.renderOrder = 20;
+      arrow.cone.material.transparent = true;
+      arrow.cone.material.opacity = 0.55 + weight * 0.4;
+      arrow.cone.material.depthTest = false;
+      arrow.cone.renderOrder = 20;
+      arrow.userData = {
+        fromSpaceName: flow.from_space_name,
+        toSpaceName: flow.to_space_name,
+        fromFunction: flow.from_function,
+        toFunction: flow.to_function,
+        agentsPer15Minutes: flow.count,
+        evidenceLayer: flow.evidence_layer,
+        evidenceLabel: flow.evidence_label,
+        evidenceReference: flow.evidence_ref,
+        doorInstances: flow.door_instances,
+        abstractionFlag: flow.abstraction_flag,
+        semanticProcessFlow: true,
+        measuredTrajectory: false
+      };
+      occupancyFlowGroup.add(arrow);
+    });
+    occupancyFlowLayer.dataset.arrowCount = String(occupancyFlowGroup.children.length);
+    occupancyFlowLayer.dataset.missingAnchorCount = String(missingAnchorCount);
+    occupancyFlowLayer.dataset.shortArrowCount = String(shortArrowCount);
+    occupancyFlowLayer.dataset.boundaryCount = String(boundaryCount);
+    occupancyFlowLayer.dataset.explicitDoorCount = String(explicitDoorCount);
+    occupancyFlowLayer.dataset.abstractEdgeCount = String(abstractEdgeCount);
+  }
+
   function renderOccupancyTimeline() {
     if (!currentOccupancy || !occupancyState) {
       occupancyTimelinePeople.setAttribute('points', '');
-      occupancyTimelineLoad.setAttribute('points', '');
+      occupancyTimelineHeating.setAttribute('points', '');
+      occupancyTimelineCooling.setAttribute('points', '');
       return;
     }
-    occupancyTimeline = occupancyState.timelineTotals(currentOccupancy);
-    const thermal = occupancyTimeline.heating_kw.map((value, index) => (
-      value + occupancyTimeline.cooling_kw[index]
-    ));
+    occupancyTimeline = occupancyState.timelineTotals(currentOccupancy, occupancyAgentClass);
     occupancyTimelinePeople.setAttribute('points', timelinePoints(occupancyTimeline.occupancy));
-    occupancyTimelineLoad.setAttribute('points', timelinePoints(thermal));
+    if (!occupancyTimeline.load_data_available) {
+      occupancyTimelineHeating.setAttribute('points', '');
+      occupancyTimelineCooling.setAttribute('points', '');
+      return;
+    }
+    const thermalMaximum = Math.max(
+      0,
+      ...occupancyTimeline.heating_kw,
+      ...occupancyTimeline.cooling_kw
+    );
+    occupancyTimelineHeating.setAttribute(
+      'points', timelinePoints(occupancyTimeline.heating_kw, thermalMaximum)
+    );
+    occupancyTimelineCooling.setAttribute(
+      'points', timelinePoints(occupancyTimeline.cooling_kw, thermalMaximum)
+    );
+  }
+
+  function updateOccupancyDetailsToggle() {
+    const visible = Boolean(currentOccupancy) && !occupancyDetailsDismissed;
+    occupancyDetailsToggle.setAttribute('aria-pressed', String(visible));
+    occupancyDetailsToggle.setAttribute(
+      'aria-label', copy(visible ? 'occupancyDetailsHide' : 'occupancyDetailsShow')
+    );
+    occupancyDetailsToggle.title = occupancyDetailsToggle.getAttribute('aria-label');
+  }
+
+  function clampOccupancyDetailsPosition() {
+    if (!occupancyDetailsPosition || occupancyDetails.hidden) return;
+    const containerBounds = container.getBoundingClientRect();
+    const detailsBounds = occupancyDetails.getBoundingClientRect();
+    const controlsBounds = occupancyControls.hidden
+      ? null : occupancyControls.getBoundingClientRect();
+    const minimum = 8;
+    const maximumX = Math.max(minimum, containerBounds.width - detailsBounds.width - minimum);
+    const controlsTop = controlsBounds
+      ? controlsBounds.top - containerBounds.top
+      : containerBounds.height;
+    const maximumY = Math.max(minimum, controlsTop - detailsBounds.height - minimum);
+    occupancyDetailsPosition = {
+      x: Math.max(minimum, Math.min(maximumX, occupancyDetailsPosition.x)),
+      y: Math.max(minimum, Math.min(maximumY, occupancyDetailsPosition.y))
+    };
+    occupancyDetails.style.left = `${occupancyDetailsPosition.x}px`;
+    occupancyDetails.style.top = `${occupancyDetailsPosition.y}px`;
+    occupancyDetails.style.right = 'auto';
+  }
+
+  function resetOccupancyDetailsPosition() {
+    occupancyDetailsPosition = null;
+    occupancyDetails.style.left = '';
+    occupancyDetails.style.top = '';
+    occupancyDetails.style.right = '';
+  }
+
+  function setOccupancyDetailsDismissed(dismissed) {
+    occupancyDetailsDismissed = Boolean(dismissed);
+    updateOccupancyDetailsToggle();
+    if (occupancyDetailsDismissed || !currentOccupancy) {
+      occupancyDetails.hidden = true;
+      return;
+    }
+    renderOccupancyDetails(occupancyDetailRoomKey);
+  }
+
+  function setOccupancyControlsMinimized(minimized) {
+    occupancyControlsMinimized = Boolean(minimized);
+    occupancyControls.classList.toggle('minimized', occupancyControlsMinimized);
+    occupancyControlsToggle.setAttribute('aria-expanded', String(!occupancyControlsMinimized));
+    occupancyControlsToggle.textContent = occupancyControlsMinimized ? '▴' : '▾';
+    const label = copy(
+      occupancyControlsMinimized ? 'occupancyControlsExpand' : 'occupancyControlsMinimize'
+    );
+    occupancyControlsToggle.setAttribute('aria-label', label);
+    occupancyControlsToggle.title = label;
+    window.requestAnimationFrame(clampOccupancyDetailsPosition);
+  }
+
+  function beginOccupancyDetailsDrag(event) {
+    if (occupancyDetails.hidden || event.button !== 0) return;
+    const containerBounds = container.getBoundingClientRect();
+    const detailsBounds = occupancyDetails.getBoundingClientRect();
+    occupancyDetailsPosition = {
+      x: detailsBounds.left - containerBounds.left,
+      y: detailsBounds.top - containerBounds.top
+    };
+    occupancyDetailsDrag = {
+      pointerId: event.pointerId,
+      offsetX: event.clientX - detailsBounds.left,
+      offsetY: event.clientY - detailsBounds.top
+    };
+    occupancyDetailsDragHandle.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  function moveOccupancyDetails(event) {
+    if (!occupancyDetailsDrag || event.pointerId !== occupancyDetailsDrag.pointerId) return;
+    const containerBounds = container.getBoundingClientRect();
+    occupancyDetailsPosition = {
+      x: event.clientX - containerBounds.left - occupancyDetailsDrag.offsetX,
+      y: event.clientY - containerBounds.top - occupancyDetailsDrag.offsetY
+    };
+    clampOccupancyDetailsPosition();
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  function endOccupancyDetailsDrag(event) {
+    if (!occupancyDetailsDrag || event.pointerId !== occupancyDetailsDrag.pointerId) return;
+    occupancyDetailsDragHandle.releasePointerCapture?.(event.pointerId);
+    occupancyDetailsDrag = null;
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   function renderOccupancyDetails(roomKey = occupancyDetailRoomKey) {
     occupancyDetailRoomKey = roomKey;
     const entry = occupancySpacesByRoomKey.get(roomKey);
-    if (!currentOccupancy || !entry || !occupancyState) {
+    if (!currentOccupancy || !occupancyState) {
       occupancyDetails.hidden = true;
       return;
     }
-    const details = occupancyState.spaceDetails(
-      currentOccupancy,
-      entry.source_space_name,
-      occupancyTimeIndex,
-      occupancyMetric
-    );
+    if (occupancyDetailsDismissed) {
+      occupancyDetails.hidden = true;
+      updateOccupancyDetailsToggle();
+      return;
+    }
+    const details = entry
+      ? occupancyState.spaceDetails(
+        currentOccupancy,
+        entry.source_space_name,
+        occupancyTimeIndex,
+        occupancyMetric,
+        occupancyAgentClass
+      )
+      : occupancyState.wholeModelDetails(
+        currentOccupancy, occupancyTimeIndex, occupancyAgentClass
+      );
     occupancyDetails.hidden = false;
-    occupancyDetailName.textContent = details.source_space_name;
-    occupancyConflictBadge.hidden = !details.conflict;
+    occupancyDetailName.textContent = details.whole_model ? '整个模型' : details.source_space_name;
+    occupancyConflictBadge.hidden = details.whole_model || !details.conflict;
     occupancyConflictBadge.textContent = copy('metadataConflict');
-    occupancyEntranceBadge.hidden = !details.is_flow_entrance;
+    occupancyEntranceBadge.hidden = details.whole_model || currentOccupancy.is_v3 || !details.is_flow_entrance;
     occupancyEntranceBadge.textContent = copy('entranceSeed');
-    occupancyDetailCategory.textContent = descriptorDisplayLabel(details.category);
+    occupancyDetailCategory.textContent = details.whole_model
+      ? `${details.space_count} 个 Space`
+      : descriptorDisplayLabel(details.category);
     occupancyDetailPeople.textContent = `${details.current_people.toFixed(2)} people`;
     occupancyDetailDensity.textContent = `${details.density_people_m2.toFixed(4)} people/m²`;
-    occupancyDetailCapacity.textContent = `${details.capacity_percent.toFixed(1)}%`;
-    occupancyDetailFlow.textContent = details.nearest_entrance_space
-      ? copy('flowRegion', {
-        entrance: details.nearest_entrance_space,
-        hops: details.adjacency_hops
-      })
-      : '—';
-    occupancyDetailPhase.textContent = Number.isInteger(details.flow_phase_minutes)
-      ? (details.is_flow_entrance
-        ? `${details.nearest_entrance_space} · ${copy('entranceSeed')}`
-        : copy('flowPhase', {minutes: details.flow_phase_minutes}))
-      : '—';
+    occupancyDetailCapacity.textContent = details.capacity_percent === null
+      ? 'flow-only · no source People capacity'
+      : `${details.capacity_percent.toFixed(1)}%`;
+    if (details.whole_model) {
+      occupancyDetailFlow.textContent = `${details.active_agent_class} · ${details.active_flow_count.toFixed(2)} 人次/15 min`;
+      occupancyDetailPhase.textContent = '全模型汇总 · 受控 ABM，不是实测流量';
+    } else if (currentOccupancy.is_v3) {
+      const activeCount = details.agent_class_counts[occupancyAgentClass];
+      occupancyDetailFlow.textContent = occupancyAgentClass === 'ALL'
+        ? `${details.function} · ${details.region}`
+        : `${occupancyAgentClass} · ${Number(activeCount || 0).toFixed(2)} people`;
+      occupancyDetailPhase.textContent = 'directed semantic/process flow · controlled, not measured';
+    } else {
+      occupancyDetailFlow.textContent = details.nearest_entrance_space
+        ? copy('flowRegion', {
+          entrance: details.nearest_entrance_space,
+          hops: details.adjacency_hops
+        })
+        : '—';
+      occupancyDetailPhase.textContent = Number.isInteger(details.flow_phase_minutes)
+        ? (details.is_flow_entrance
+          ? `${details.nearest_entrance_space} · ${copy('entranceSeed')}`
+          : copy('flowPhase', {minutes: details.flow_phase_minutes}))
+        : '—';
+    }
     occupancyDetailScenario.textContent = `${details.scenario_id} · ${details.time}`;
-    occupancyDetailLoad.textContent = `${details.heating_kw.toFixed(2)} / ${details.cooling_kw.toFixed(2)} kWₜₕ`;
+    occupancyDetailLoad.textContent = details.load_data_available
+      ? `${details.heating_kw.toFixed(2)} / ${details.cooling_kw.toFixed(2)} kWₜₕ`
+      : '未加载真实 EnergyPlus 负荷（仅展示人员）';
+    const hvac = [details.public_air_loop, details.office_doas, details.zone_hvac].filter(Boolean);
+    occupancyDetailHvac.textContent = details.whole_model
+      ? '全模型 Zone / HVAC 汇总'
+      : `${details.zone_name}${hvac.length ? ` · ${hvac.join(' / ')}` : ''}`;
+    updateOccupancyDetailsToggle();
+    window.requestAnimationFrame(clampOccupancyDetailsPosition);
   }
 
   function updateOccupancyStep(index) {
@@ -1325,11 +1675,13 @@
     occupancyMaximum = occupancyState.maximumMetric(
       currentOccupancy,
       occupancyTimeIndex,
-      occupancyMetric
+      occupancyMetric,
+      occupancyAgentClass
     );
     if (currentMode === 'occupancy') updateColorMode('occupancy');
     else updateLegend();
     renderOccupancyDetails();
+    renderOccupancyFlowArrows();
   }
 
   function toggleOccupancyPlayback() {
@@ -1373,11 +1725,22 @@
   function loadOccupancyPayload(input) {
     stopOccupancyPlayback();
     occupancyDetailRoomKey = null;
+    occupancyDetailsDismissed = false;
+    occupancyDetailsDrag = null;
+    resetOccupancyDetailsPosition();
+    setOccupancyControlsMinimized(false);
     if (!input) {
       currentOccupancy = null;
       occupancySpacesByRoomKey = new Map();
+      occupancyAgentClass = 'ALL';
+      occupancyFlowVisible = true;
+      clearGroup(occupancyFlowGroup);
       occupancyControls.hidden = true;
+      occupancyClassFilters.hidden = true;
+      occupancyFlowLayer.hidden = true;
+      occupancyFlowEvidence.hidden = true;
       occupancyDetails.hidden = true;
+      updateOccupancyDetailsToggle();
       roomFunctionOption.disabled = true;
       occupancyOption.disabled = true;
       if (['roomFunction', 'occupancy'].includes(currentMode)) updateColorMode('surfaceType');
@@ -1385,6 +1748,14 @@
     }
     if (!occupancyState) throw new Error('occupancy_state_kernel_unavailable');
     currentOccupancy = occupancyState.validatePayload(input);
+    occupancyAgentClass = 'ALL';
+    occupancyFlowVisible = true;
+    occupancyFlowToggle.checked = true;
+    occupancyClassButtons.forEach((button) => {
+      const isActive = button.dataset.agentClass === occupancyAgentClass;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
     occupancySpacesByRoomKey = new Map();
     Object.values(currentOccupancy.spaces).forEach((space) => {
       const key = normalizeName(space.source_space_name);
@@ -1395,6 +1766,9 @@
     roomFunctionOption.disabled = false;
     occupancyOption.disabled = false;
     occupancyControls.hidden = false;
+    occupancyClassFilters.hidden = !currentOccupancy.is_v3;
+    occupancyFlowLayer.hidden = !currentOccupancy.is_v3;
+    occupancyFlowEvidence.hidden = !currentOccupancy.is_v3;
     occupancyScenarioLabel.textContent = `${currentOccupancy.scenario_id} · ${currentOccupancy.period_id} · 15 min`;
     occupancyTimeInput.max = String(currentOccupancy.timestamps.length - 1);
     renderOccupancyTimeline();
@@ -1495,7 +1869,8 @@
         currentOccupancy,
         occupancyEntry.source_space_name,
         occupancyTimeIndex,
-        occupancyMetric
+        occupancyMetric,
+        occupancyAgentClass
       )
       : null;
     window.parent.postMessage({
@@ -1619,6 +1994,12 @@
     occupancyOption.textContent = copy('occupancyMode');
     occupancyMetricSelect.setAttribute('aria-label', copy('occupancyMetric'));
     if (occupancyPlaybackTimer === null) occupancyPlayButton.setAttribute('aria-label', copy('occupancyPlay'));
+    occupancyDetailsDragHandle.setAttribute('aria-label', copy('occupancyDetailsDrag'));
+    occupancyDetailsDragHandle.title = copy('occupancyDetailsDrag');
+    occupancyDetailsClose.setAttribute('aria-label', copy('occupancyDetailsClose'));
+    occupancyDetailsClose.title = copy('occupancyDetailsClose');
+    updateOccupancyDetailsToggle();
+    setOccupancyControlsMinimized(occupancyControlsMinimized);
     occupancyConflictBadge.textContent = copy('metadataConflict');
     setButtonCopy(toggleRoomsButton, 'toggleRooms');
     setButtonCopy(fitButton, 'fit');
@@ -1680,6 +2061,7 @@
     clearGroup(modelGroup);
     clearGroup(highlightGroup);
     clearGroup(issueOverlayGroup);
+    clearGroup(occupancyFlowGroup);
     modelMeshes = [];
     objectMeshes = new Map();
     roomMeshes = new Map();
@@ -1702,6 +2084,7 @@
       reconcileOccupancyRooms();
       applyVisibility();
       updateColorMode(currentMode);
+      renderOccupancyFlowArrows();
       renderRoomList();
       fitMeshes();
       if (currentIssueMode) applyIssueMode(currentIssueMode);
@@ -1760,6 +2143,7 @@
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    clampOccupancyDetailsPosition();
   }
 
   function render() {
@@ -1794,7 +2178,8 @@
         currentOccupancy,
         occupancyEntry.source_space_name,
         occupancyTimeIndex,
-        occupancyMetric
+        occupancyMetric,
+        occupancyAgentClass
       )
       : null;
     window.parent.postMessage({
@@ -1834,7 +2219,7 @@
     if (!drag) {
       if (currentOccupancy) {
         const mesh = pickMesh(event);
-        if (mesh) renderOccupancyDetails(mesh.userData.roomKey);
+        renderOccupancyDetails(mesh ? mesh.userData.roomKey : null);
       }
       return;
     }
@@ -1864,6 +2249,9 @@
   renderer.domElement.addEventListener('pointercancel', () => {
     drag = null;
     container.classList.remove('dragging', 'panning');
+  });
+  renderer.domElement.addEventListener('pointerleave', () => {
+    if (!drag && currentOccupancy) renderOccupancyDetails(null);
   });
   renderer.domElement.addEventListener('dblclick', (event) => {
     const mesh = pickMesh(event);
@@ -1899,6 +2287,19 @@
     fitMeshes();
   });
   occupancyPlayButton.addEventListener('click', toggleOccupancyPlayback);
+  occupancyControlsToggle.addEventListener('click', () => {
+    setOccupancyControlsMinimized(!occupancyControlsMinimized);
+  });
+  occupancyDetailsToggle.addEventListener('click', () => {
+    setOccupancyDetailsDismissed(!occupancyDetailsDismissed);
+  });
+  occupancyDetailsClose.addEventListener('click', () => {
+    setOccupancyDetailsDismissed(true);
+  });
+  occupancyDetailsDragHandle.addEventListener('pointerdown', beginOccupancyDetailsDrag);
+  occupancyDetailsDragHandle.addEventListener('pointermove', moveOccupancyDetails);
+  occupancyDetailsDragHandle.addEventListener('pointerup', endOccupancyDetailsDrag);
+  occupancyDetailsDragHandle.addEventListener('pointercancel', endOccupancyDetailsDrag);
   occupancyTimeInput.addEventListener('input', () => updateOccupancyStep(occupancyTimeInput.value));
   occupancyTimeInput.addEventListener('pointerdown', (event) => {
     occupancyTimeInput.setPointerCapture?.(event.pointerId);
@@ -1914,6 +2315,28 @@
       ? occupancyMetricSelect.value
       : 'density';
     updateOccupancyStep(occupancyTimeIndex);
+  });
+  occupancyClassButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const requestedClass = button.dataset.agentClass;
+      const isKnownClass = requestedClass === 'ALL'
+        || occupancyState?.V3_AGENT_CLASSES.includes(requestedClass);
+      if (!currentOccupancy?.is_v3 || !isKnownClass) {
+        return;
+      }
+      occupancyAgentClass = requestedClass;
+      occupancyClassButtons.forEach((candidate) => {
+        const isActive = candidate.dataset.agentClass === occupancyAgentClass;
+        candidate.classList.toggle('active', isActive);
+        candidate.setAttribute('aria-pressed', String(isActive));
+      });
+      renderOccupancyTimeline();
+      updateOccupancyStep(occupancyTimeIndex);
+    });
+  });
+  occupancyFlowToggle.addEventListener('change', () => {
+    occupancyFlowVisible = occupancyFlowToggle.checked;
+    renderOccupancyFlowArrows();
   });
   legendPreviousButton.addEventListener('click', () => scrollLegend(-1));
   legendNextButton.addEventListener('click', () => scrollLegend(1));
@@ -2003,6 +2426,7 @@
     clearGroup(modelGroup);
     clearGroup(highlightGroup);
     clearGroup(issueOverlayGroup);
+    clearGroup(occupancyFlowGroup);
     materialCache.forEach((material) => material.dispose());
     errorMaterial.dispose();
     markerMaterial.dispose();

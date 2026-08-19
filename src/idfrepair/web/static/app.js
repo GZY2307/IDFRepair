@@ -1,7 +1,7 @@
 import './workflow-state.js?v=20260811v5';
 import './batch-state.js?v=20260811v5';
 import './js/batch-workbench.js?v=20260811v5';
-import './viewer-bridge.js?v=20260818occ5';
+import './viewer-bridge.js?v=20260819abmv3f';
 import './js/session-workbench.js?v=20260812v4';
 import './js/issue-navigator.js?v=20260812v4';
 import './js/inspector.js?v=20260812v4';

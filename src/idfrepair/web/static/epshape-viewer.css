@@ -115,30 +115,66 @@ button { font: inherit; }
   cursor: pointer;
 }
 .occupancy-control-row button[aria-pressed="true"] { background: #d9eee7; }
+#occupancy-details-toggle { width: auto; min-width: 42px; padding: 0 .45rem; font-size: .54rem; }
 .occupancy-time-label { flex: 1 1 auto; min-width: 86px; color: #20322d; font: 700 .64rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .occupancy-metric-control { display: flex; flex: 0 0 auto; align-items: center; gap: .3rem; color: #60706a; font-size: .56rem; }
 .occupancy-metric-control select { max-width: 145px; border: 1px solid #b8c8c2; border-radius: 7px; background: #fff; padding: .3rem .38rem; color: #23332e; font-size: .6rem; }
 .occupancy-scenario-row { display: flex; min-width: 0; align-items: center; gap: .65rem; color: #64736e; font-size: .54rem; }
 .occupancy-scenario-row strong { min-width: 0; overflow: hidden; color: #273832; text-overflow: ellipsis; white-space: nowrap; }
 .occupancy-scenario-row span { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .22rem; }
+.occupancy-filter-row { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: .45rem; }
+.occupancy-class-filters { display: flex; min-width: 0; flex: 1 1 auto; gap: .25rem; overflow-x: auto; scrollbar-width: thin; }
+.occupancy-class-filters[hidden], .occupancy-flow-toggle[hidden] { display: none; }
+.occupancy-class-filters button {
+  flex: 0 0 auto;
+  border: 1px solid #b8c8c2;
+  border-radius: 999px;
+  background: #fff;
+  padding: .22rem .42rem;
+  color: #4a5d57;
+  font-size: .52rem;
+  cursor: pointer;
+}
+.occupancy-class-filters button.active { border-color: #237f70; background: #dff1eb; color: #155f53; font-weight: 750; }
+.occupancy-flow-toggle { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .25rem; color: #4c625b; font-size: .52rem; white-space: nowrap; }
+.occupancy-flow-toggle input { accent-color: #237f70; }
+.occupancy-flow-evidence { flex: 0 1 auto; color: #61716b; font-size: .48rem; white-space: nowrap; }
+.occupancy-flow-evidence[hidden] { display: none; }
 .timeline-key { width: 13px; height: 2px; border-radius: 0; }
 .occupancy-key { background: #2878c8; }
-.load-key { background: #d94f45; }
+.heating-key { background: #d94f45; }
+.cooling-key { background: #2878c8; }
 .occupancy-chart-control { position: relative; display: block; min-width: 0; height: 42px; border-radius: 5px; cursor: ew-resize; }
 .occupancy-chart-control:focus-within { outline: 2px solid #237f70; outline-offset: 2px; }
 .occupancy-chart-control input { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; margin: 0; opacity: .001; cursor: ew-resize; }
 #occupancy-timeline-chart { display: block; width: 100%; height: 42px; border-top: 1px solid #e1e9e6; background: linear-gradient(to bottom, rgb(236 243 240 / 40%), transparent); pointer-events: none; }
 #occupancy-timeline-chart polyline { fill: none; vector-effect: non-scaling-stroke; stroke-width: 2; }
 .timeline-people { stroke: #2878c8; }
-.timeline-load { stroke: #d94f45; }
+.timeline-heating { stroke: #d94f45; }
+.timeline-cooling { stroke: #2878c8; stroke-dasharray: 5 3; }
 .timeline-cursor { stroke: #263b35; stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+.occupancy-controls.minimized { gap: .18rem; padding: .3rem .5rem; }
+.occupancy-controls.minimized .occupancy-scenario-row,
+.occupancy-controls.minimized .occupancy-filter-row,
+.occupancy-controls.minimized .occupancy-metric-control { display: none; }
+.occupancy-controls.minimized .occupancy-chart-control { height: 14px; }
+.occupancy-controls.minimized #occupancy-timeline-chart { display: none; }
+.occupancy-controls.minimized .occupancy-chart-control input {
+  position: static;
+  height: 14px;
+  opacity: 1;
+  accent-color: #237f70;
+}
 
 .occupancy-details {
   position: absolute;
   top: .75rem;
   right: .75rem;
-  z-index: 3;
+  z-index: 6;
   width: min(300px, calc(100% - 1.5rem));
+  max-height: calc(100% - 5.5rem);
+  overflow: auto;
   border: 1px solid #b9cbc4;
   border-radius: 10px;
   background: rgb(255 255 255 / 96%);
@@ -151,6 +187,21 @@ button { font: inherit; }
 .occupancy-details-heading strong { overflow: hidden; font-size: .68rem; text-overflow: ellipsis; white-space: nowrap; }
 .occupancy-details-heading span { flex: 0 0 auto; border: 1px solid #d57a69; border-radius: 999px; background: #fff0ec; padding: .15rem .32rem; color: #9a392d; font-size: .48rem; font-weight: 750; }
 .occupancy-details-heading strong { margin-right: auto; }
+.occupancy-details-heading .occupancy-details-drag-handle,
+.occupancy-details-heading .occupancy-details-close {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0;
+  color: #60716b;
+  cursor: pointer;
+}
+.occupancy-details-heading .occupancy-details-drag-handle { cursor: move; touch-action: none; }
+.occupancy-details-heading .occupancy-details-drag-handle:hover,
+.occupancy-details-heading .occupancy-details-close:hover { background: #e8f1ee; color: #175f52; }
 .occupancy-details-heading .occupancy-entrance-badge { border-color: #70aee0; background: #eaf5ff; color: #1c659d; }
 .occupancy-details dl { display: grid; gap: .24rem; margin: .48rem 0 0; }
 .occupancy-details dl > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: .45rem; border-top: 1px solid #edf1ef; padding-top: .24rem; }

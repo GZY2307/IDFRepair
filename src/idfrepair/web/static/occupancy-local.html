@@ -28,10 +28,10 @@
     <strong>Occupancy / 人员流量 · 本地私有模型</strong>
     <label>IDF geometry <input id="idf-file" type="file" accept=".idf,text/plain"></label>
     <label>Room-aware payload <input id="occupancy-file" type="file" accept=".json,application/json"></label>
-    <span id="local-status" role="status">请选择本地派生 IDF 与 payload</span>
+    <span id="local-status" role="status">请选择本地派生 IDF 与人员图层</span>
   </header>
-  <iframe id="model-viewer" title="Room-aware terminal occupancy 3D" src="/static/epshape-viewer.html?v=20260818occ5"></iframe>
-  <script src="/static/viewer-bridge.js?v=20260818occ5"></script>
+  <iframe id="model-viewer" title="Room-aware terminal occupancy 3D" src="/static/epshape-viewer.html?v=20260819abmv3f"></iframe>
+  <script src="/static/viewer-bridge.js?v=20260819abmv3f"></script>
   <script>
     'use strict';
     (() => {
@@ -43,7 +43,7 @@
         try {
           const payload = JSON.parse(await file.text());
           window.IDFRepairViewer.loadOccupancy(payload);
-          status.textContent = `${payload.space_count} Spaces · ${payload.scenario_id} · ${payload.period_id}`;
+          status.textContent = '人员图层已加载';
         } catch (_error) {
           status.textContent = 'payload 读取或验证失败';
         }
@@ -51,7 +51,7 @@
       window.addEventListener('message', (event) => {
         if (event.origin !== window.location.origin) return;
         if (event.data?.type === 'idfrepair:viewer-occupancy-ready') {
-          status.textContent = `${event.data.spaceCount} Spaces · payload ready`;
+          status.textContent = '人员图层已加载';
         }
       });
     })();
