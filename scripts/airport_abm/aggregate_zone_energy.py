@@ -324,6 +324,26 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
         writer.writerows(rows)
 
 
+def write_run_csv(path: Path, rows: list[dict[str, object]]) -> None:
+    fields = (
+        "scenario_id",
+        "seed",
+        "run_kind",
+        "period_id",
+        "scope",
+        "group",
+        "metric",
+        "value",
+        "unit",
+        "aggregation",
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def write_markdown(path: Path, effects: list[dict[str, object]]) -> None:
     fixed_seed_demo = bool(effects) and max(
         int(row["paired_seed_count"]) for row in effects
@@ -364,6 +384,7 @@ def main() -> int:
     parser.add_argument("--mapping", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--markdown-output", required=True)
+    parser.add_argument("--run-output")
     args = parser.parse_args()
     runs = aggregate_mapped_runs(
         load_zone_rows(Path(args.zone_results)),
@@ -371,6 +392,8 @@ def main() -> int:
     )
     summary = summarize_runs(runs)
     effects = maximum_timing_effects(runs)
+    if args.run_output:
+        write_run_csv(Path(args.run_output), runs)
     write_csv(Path(args.output), summary)
     write_markdown(Path(args.markdown_output), effects)
     print(

@@ -22,6 +22,10 @@ from .schedule_compiler import compile_traces
 from .simulation import SimulationResult, simulate_agents
 from .source import SourceSpace
 from .validation import validate_simulation
+from .v31 import (
+    AIRPORT_WIDE_STRESS_CONTEXT,
+    annual_cohort_weights,
+)
 
 
 class AnnualScheduleError(ValueError):
@@ -142,6 +146,7 @@ def generate_annual_timing_schedules(
     *,
     output_dir: str | Path,
     master_seed: int,
+    scale_mode: str = AIRPORT_WIDE_STRESS_CONTEXT,
 ) -> tuple[AnnualScheduleArtifact, ...]:
     """Generate 365 distinct daily realizations and stream 35040 rows per case."""
 
@@ -171,11 +176,14 @@ def generate_annual_timing_schedules(
     if raw_public <= 0 or raw_staff <= 0:
         raise AnnualScheduleError("annual raw person-hours must be positive")
     public_agents_per_day = sum(context.registry.base_counts[name] for name in PASSENGER_CLASSES)
-    cohort = CohortWeights(
-        public_weight=context.registry.public_arrivals_per_day / public_agents_per_day,
-        staff_weight=context.targets.staff_person_hours * 365 / raw_staff,
+    cohort = annual_cohort_weights(
         raw_public_person_hours=raw_public,
         raw_staff_person_hours=raw_staff,
+        calendar_days=365,
+        public_agents_per_day=public_agents_per_day,
+        targets=context.targets,
+        airport_wide_public_arrivals=context.registry.public_arrivals_per_day,
+        scale_mode=scale_mode,
     )
 
     root = Path(output_dir)
@@ -297,6 +305,7 @@ def generate_annual_timing_schedules(
             "public_cohort_weight": cohort.public_weight,
             "staff_cohort_weight": cohort.staff_weight,
             "evidence_status": "CONTROLLED_NOT_MEASURED",
+            "occupancy_scale": scale_mode,
         }
         (scenario_dir / "annual_schedule_summary.json").write_text(
             json.dumps(summary, ensure_ascii=False, indent=2) + "\n",

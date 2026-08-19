@@ -168,3 +168,90 @@ def summarize_delta_rows(
         "percent_p50": quantile(percentages, 0.50),
         "percent_p90": quantile(percentages, 0.90),
     }
+
+
+def paired_energy_statistics(
+    rows: Iterable[Mapping[str, object]],
+    *,
+    baseline_scenario: str,
+    comparison_scenario: str,
+    identity_fields: Sequence[str],
+    scenario_field: str = "scenario_id",
+    value_field: str = "value",
+) -> dict[str, object]:
+    """Return full preregistered paired statistics without dropping zero bases."""
+
+    if baseline_scenario == comparison_scenario:
+        raise ReportingError("paired scenarios must be distinct")
+    if not identity_fields:
+        raise ReportingError("paired identities require at least one field")
+    selected: dict[str, dict[tuple[object, ...], float]] = {
+        baseline_scenario: {},
+        comparison_scenario: {},
+    }
+    for row in rows:
+        scenario = str(row[scenario_field])
+        if scenario not in selected:
+            continue
+        identity = tuple(row[field] for field in identity_fields)
+        if identity in selected[scenario]:
+            raise ReportingError(f"duplicate paired identity: {scenario}:{identity}")
+        value = float(row[value_field])
+        if not math.isfinite(value):
+            raise ReportingError(f"non-finite paired value: {scenario}:{identity}")
+        selected[scenario][identity] = value
+    baseline = selected[baseline_scenario]
+    comparison = selected[comparison_scenario]
+    if not baseline or set(baseline) != set(comparison):
+        raise ReportingError("paired identities differ between scenarios")
+
+    pairs = []
+    differences = []
+    percentages = []
+    for identity in sorted(baseline, key=repr):
+        reference = baseline[identity]
+        value = comparison[identity]
+        difference = value - reference
+        percentage = (
+            difference / reference * 100.0 if abs(reference) > 1.0e-15 else None
+        )
+        pair = {field: item for field, item in zip(identity_fields, identity)}
+        pair.update(
+            {
+                "baseline_value": reference,
+                "comparison_value": value,
+                "difference": difference,
+                "percent_difference": percentage,
+            }
+        )
+        pairs.append(pair)
+        differences.append(difference)
+        if percentage is not None:
+            percentages.append(percentage)
+
+    def statistics(values: list[float], prefix: str) -> dict[str, object]:
+        if not values:
+            return {
+                f"{prefix}_mean": None,
+                f"{prefix}_median": None,
+                f"{prefix}_minimum": None,
+                f"{prefix}_maximum": None,
+                f"{prefix}_p10": None,
+                f"{prefix}_p90": None,
+            }
+        return {
+            f"{prefix}_mean": sum(values) / len(values),
+            f"{prefix}_median": quantile(values, 0.50),
+            f"{prefix}_minimum": min(values),
+            f"{prefix}_maximum": max(values),
+            f"{prefix}_p10": quantile(values, 0.10),
+            f"{prefix}_p90": quantile(values, 0.90),
+        }
+
+    return {
+        "n": len(differences),
+        "percent_n": len(percentages),
+        **statistics(differences, "difference"),
+        **statistics(percentages, "percent"),
+        "pairs": tuple(pairs),
+    }

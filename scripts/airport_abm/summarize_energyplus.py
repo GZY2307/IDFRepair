@@ -59,11 +59,13 @@ def successful_run(path: Path) -> tuple[bool, int, int, int]:
     return "EnergyPlus Completed Successfully" in text and severe == 0 and fatal == 0, warnings, severe, fatal
 
 
-def run_identity(root: Path, sql: Path) -> tuple[str, int | None, str, int]:
+def run_identity(
+    root: Path, sql: Path, *, static_scenario_id: str = "STATIC_SOURCE"
+) -> tuple[str, int | None, str, int]:
     parts = sql.relative_to(root).parts
     parent = sql.parent.name
     if parts[0] == "static_source":
-        scenario = "STATIC_SOURCE"
+        scenario = static_scenario_id
         seed = None
     elif parts[0] in {"seasonal", "annual"} and len(parts) >= 4:
         scenario = parts[1]
@@ -89,11 +91,15 @@ def run_identity(root: Path, sql: Path) -> tuple[str, int | None, str, int]:
     return scenario, seed, kind, rank
 
 
-def select_runs(root: Path) -> list[tuple[str, int | None, str, Path, int]]:
+def select_runs(
+    root: Path, *, static_scenario_id: str = "STATIC_SOURCE"
+) -> list[tuple[str, int | None, str, Path, int]]:
     selected: dict[tuple[str, int | None, str], tuple[Path, int]] = {}
     for sql in root.rglob("eplusout.sql"):
         try:
-            scenario, seed, kind, rank = run_identity(root, sql)
+            scenario, seed, kind, rank = run_identity(
+                root, sql, static_scenario_id=static_scenario_id
+            )
         except ValueError:
             continue
         passed, _, _, _ = successful_run(sql)
@@ -227,12 +233,17 @@ def main() -> int:
     parser.add_argument("--public-output", required=True)
     parser.add_argument("--private-zone-output", required=True)
     parser.add_argument("--summary-output", required=True)
+    parser.add_argument(
+        "--static-scenario-id", default="STATIC_SOURCE", choices=("STATIC_SOURCE", "SOURCE_STATIC")
+    )
     args = parser.parse_args()
     root = Path(args.energy_root)
     public: list[dict[str, object]] = []
     private: list[dict[str, object]] = []
     run_rows: list[dict[str, object]] = []
-    for scenario, seed, kind, sql, _rank in select_runs(root):
+    for scenario, seed, kind, sql, _rank in select_runs(
+        root, static_scenario_id=args.static_scenario_id
+    ):
         passed, warnings, severe, fatal = successful_run(sql)
         if not passed:
             raise SystemExit(f"selected EnergyPlus run is not successful: {sql}")

@@ -23,6 +23,10 @@ from idfrepair.analysis.airport_abm.experiment import (  # noqa: E402
 from idfrepair.analysis.airport_abm.annual_schedule import (  # noqa: E402
     generate_annual_timing_schedules,
 )
+from idfrepair.analysis.airport_abm.v31 import (  # noqa: E402
+    AIRPORT_WIDE_STRESS_CONTEXT,
+    BEM_REFERENCE_NORMALIZED,
+)
 
 
 def _json_ready(value):
@@ -116,6 +120,7 @@ def run_matrix(args: argparse.Namespace) -> int:
             selected,
             seed=seed,
             raw_output_dir=(output / "raw_agents") if args.raw_agents else None,
+            scale_mode=args.scale_mode,
         )
         for result in results:
             summary_rows.append(_flatten_summary(result.summary))
@@ -156,6 +161,7 @@ def run_matrix(args: argparse.Namespace) -> int:
         "staff_person_hours_target": context.targets.staff_person_hours,
         "flow_only_space_count": len(context.targets.flow_only_spaces),
         "raw_agents_preserved": bool(args.raw_agents),
+        "occupancy_scale": args.scale_mode,
     }
     (output / "run_manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
@@ -187,6 +193,7 @@ def run_annual_schedules(args: argparse.Namespace) -> int:
         selected,
         output_dir=args.output_dir,
         master_seed=context.registry.annual_seed,
+        scale_mode=args.scale_mode,
     )
     print(
         json.dumps(
@@ -218,6 +225,11 @@ def parser() -> argparse.ArgumentParser:
     matrix.add_argument("--seeds", default="")
     matrix.add_argument("--scenario", action="append", default=[])
     matrix.add_argument("--raw-agents", action="store_true")
+    matrix.add_argument(
+        "--scale-mode",
+        choices=(AIRPORT_WIDE_STRESS_CONTEXT, BEM_REFERENCE_NORMALIZED),
+        default=AIRPORT_WIDE_STRESS_CONTEXT,
+    )
     matrix.set_defaults(func=run_matrix)
     annual = sub.add_parser("annual-schedules")
     annual.add_argument("--mapping", required=True)
@@ -225,6 +237,11 @@ def parser() -> argparse.ArgumentParser:
     annual.add_argument("--parameter-registry", required=True)
     annual.add_argument("--output-dir", required=True)
     annual.add_argument("--scenario", action="append", default=[])
+    annual.add_argument(
+        "--scale-mode",
+        choices=(AIRPORT_WIDE_STRESS_CONTEXT, BEM_REFERENCE_NORMALIZED),
+        default=AIRPORT_WIDE_STRESS_CONTEXT,
+    )
     annual.set_defaults(func=run_annual_schedules)
     return root
 

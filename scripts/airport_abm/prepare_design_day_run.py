@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare a private weather-period IDF for an Airport ABM V3 case."""
+"""Prepare one private Airport ABM V3.1 design-period IDF."""
 
 from __future__ import annotations
 
@@ -15,10 +15,9 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from idfrepair.analysis.airport_abm.energyplus_coupling import (  # noqa: E402
-    ANNUAL_VARIABLES,
     REQUIRED_METERS,
     REQUIRED_VARIABLES,
-    prepare_weather_run_idf,
+    prepare_design_day_run_idf,
 )
 from idfrepair.knowledge.idd import parse_idd  # noqa: E402
 
@@ -28,41 +27,22 @@ def main() -> int:
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--idd", required=True)
-    parser.add_argument("--begin", required=True, help="YYYY-MM-DD")
-    parser.add_argument("--end", required=True, help="YYYY-MM-DD")
-    parser.add_argument("--weekday", required=True)
-    parser.add_argument("--annual-compact", action="store_true")
     parser.add_argument("--fixed-sizing-operation", action="store_true")
     args = parser.parse_args()
-    begin = tuple(int(part) for part in args.begin.split("-"))
-    end = tuple(int(part) for part in args.end.split("-"))
-    if len(begin) != 3 or len(end) != 3:
-        parser.error("dates must use YYYY-MM-DD")
-    variables = ANNUAL_VARIABLES if args.annual_compact else REQUIRED_VARIABLES
-    frequency = "Timestep"
-    output = prepare_weather_run_idf(
+    output = prepare_design_day_run_idf(
         args.input,
         args.output,
         idd=parse_idd(Path(args.idd).read_text(encoding="utf-8", errors="replace")),
-        begin_month=begin[1],
-        begin_day=begin[2],
-        begin_year=begin[0],
-        end_month=end[1],
-        end_day=end[2],
-        end_year=end[0],
-        day_of_week=args.weekday,
-        variables=variables,
+        variables=REQUIRED_VARIABLES,
         meters=REQUIRED_METERS,
-        reporting_frequency=frequency,
         fixed_sizing_operation=args.fixed_sizing_operation,
     )
     print(
         json.dumps(
             {
                 "status": "PASS",
-                "output": str(Path(output)),
-                "reporting_frequency": frequency,
-                "variable_count": len(variables),
+                "output": str(output),
+                "variable_count": len(REQUIRED_VARIABLES),
                 "meter_count": len(REQUIRED_METERS),
                 "fixed_sizing_operation": args.fixed_sizing_operation,
             }

@@ -41,6 +41,7 @@ def main() -> int:
     parser.add_argument("--weekday", required=True)
     parser.add_argument("--run-kind", required=True, choices=("shoulder", "annual"))
     parser.add_argument("--annual-compact", action="store_true")
+    parser.add_argument("--fixed-sizing-operation", action="store_true")
     parser.add_argument("--static-input")
     parser.add_argument("--static-output")
     args = parser.parse_args()
@@ -69,6 +70,7 @@ def main() -> int:
             variables=variables,
             meters=REQUIRED_METERS,
             reporting_frequency="Timestep",
+            fixed_sizing_operation=args.fixed_sizing_operation,
         )
         outputs.append(str(output))
     if args.static_input:
@@ -86,6 +88,7 @@ def main() -> int:
             variables=variables,
             meters=REQUIRED_METERS,
             reporting_frequency="Timestep",
+            fixed_sizing_operation=args.fixed_sizing_operation,
         )
         outputs.append(str(Path(args.static_output)))
     if not outputs:
@@ -97,6 +100,7 @@ def main() -> int:
                 "run_kind": args.run_kind,
                 "output_count": len(outputs),
                 "variable_count": len(variables),
+                "fixed_sizing_operation": args.fixed_sizing_operation,
             }
         )
     )

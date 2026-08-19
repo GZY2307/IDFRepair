@@ -1,0 +1,115 @@
+# Airport Occupancy V3.1 — AirLoop redistribution effects
+
+Status: `PASS_ALL_14_AIRLOOPS_AGGREGATED`
+
+Every row is calculated from all 14 source AirLoops. `median loop` is the median of the 14 loop-level paired medians; `maximum loop` is selected by absolute paired-median difference. Public aliases replace private system labels.
+
+| Period | Comparison | Metric | Pairs | Loops | Median loop effect | Median loop % | Maximum loop | Maximum effect | Maximum % |
+|---|---|---|---:|---:|---:|---:|---|---:|---:|
+| winter | BASELINE_SPREAD − SOURCE_STATIC | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_02 | 0.000 kWh | 0.00% |
+| winter | BASELINE_SPREAD − SOURCE_STATIC | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| winter | BASELINE_SPREAD − SOURCE_STATIC | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| winter | BASELINE_SPREAD − SOURCE_STATIC | total_heating_kwh | 5 | 14 | -658.780 kWh | 0.41% | air_loop_12 | -9,999.910 kWh | -22.57% |
+| winter | BASELINE_SPREAD − SOURCE_STATIC | total_heating_interval_peak_kw | 5 | 14 | -4.547 kW | 6.56% | air_loop_04 | -64.025 kW | -0.99% |
+| winter | BASELINE_SPREAD − SOURCE_STATIC | total_cooling_kwh | 5 | 14 | 0.000 kWh | — | air_loop_01 | 0.000 kWh | — |
+| winter | BASELINE_SPREAD − SOURCE_STATIC | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | — | air_loop_01 | 0.000 kW | — |
+| summer | BASELINE_SPREAD − SOURCE_STATIC | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_04 | -1,192.729 kWh | -25.96% |
+| summer | BASELINE_SPREAD − SOURCE_STATIC | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| summer | BASELINE_SPREAD − SOURCE_STATIC | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| summer | BASELINE_SPREAD − SOURCE_STATIC | total_heating_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_04 | -1,192.729 kWh | -25.96% |
+| summer | BASELINE_SPREAD − SOURCE_STATIC | total_heating_interval_peak_kw | 5 | 14 | 0.000 kW | 0.00% | air_loop_04 | -79.980 kW | -26.46% |
+| summer | BASELINE_SPREAD − SOURCE_STATIC | total_cooling_kwh | 5 | 14 | 5.765 kWh | 0.24% | air_loop_04 | -22,708.641 kWh | -10.83% |
+| summer | BASELINE_SPREAD − SOURCE_STATIC | total_cooling_interval_peak_kw | 5 | 14 | -0.270 kW | -0.28% | air_loop_04 | -1,046.620 kW | -10.04% |
+| shoulder | BASELINE_SPREAD − SOURCE_STATIC | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_04 | -78.862 kWh | -3.11% |
+| shoulder | BASELINE_SPREAD − SOURCE_STATIC | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | -3.906 kg/s | -1.79% |
+| shoulder | BASELINE_SPREAD − SOURCE_STATIC | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_14 | 11.254 kg/s | 19.26% |
+| shoulder | BASELINE_SPREAD − SOURCE_STATIC | total_heating_kwh | 5 | 14 | 5.631 kWh | 1.60% | air_loop_04 | 3,055.847 kWh | 23.26% |
+| shoulder | BASELINE_SPREAD − SOURCE_STATIC | total_heating_interval_peak_kw | 5 | 14 | 11.713 kW | 1.28% | air_loop_04 | 236.733 kW | 12.56% |
+| shoulder | BASELINE_SPREAD − SOURCE_STATIC | total_cooling_kwh | 5 | 14 | 0.002 kWh | 0.00% | air_loop_04 | -716.129 kWh | -3.38% |
+| shoulder | BASELINE_SPREAD − SOURCE_STATIC | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | 0.00% | air_loop_04 | -100.819 kW | -4.17% |
+| winter | MORNING_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_12 | 16.647 kWh | 1.78% |
+| winter | MORNING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| winter | MORNING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| winter | MORNING_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 9.457 kWh | 0.40% | air_loop_14 | 2,646.235 kWh | 7.92% |
+| winter | MORNING_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 5.791 kW | 0.98% | air_loop_02 | 53.258 kW | 1.89% |
+| winter | MORNING_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.000 kWh | — | air_loop_01 | 0.000 kWh | — |
+| winter | MORNING_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | — | air_loop_01 | 0.000 kW | — |
+| summer | MORNING_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | -182.542 kWh | -13.03% |
+| summer | MORNING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| summer | MORNING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| summer | MORNING_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | -182.631 kWh | -13.04% |
+| summer | MORNING_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 0.000 kW | 0.00% | air_loop_12 | 30.402 kW | 18.33% |
+| summer | MORNING_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.224 kWh | 0.01% | air_loop_14 | -1,460.698 kWh | -2.53% |
+| summer | MORNING_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.042 kW | 0.04% | air_loop_12 | 1,207.408 kW | 30.62% |
+| shoulder | MORNING_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | 225.078 kWh | 33.87% |
+| shoulder | MORNING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_12 | 5.062 kg/s | 5.79% |
+| shoulder | MORNING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_14 | 39.210 kg/s | 56.27% |
+| shoulder | MORNING_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | -0.460 kWh | -0.23% | air_loop_12 | 1,113.291 kWh | 19.30% |
+| shoulder | MORNING_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 7.817 kW | 1.77% | air_loop_04 | 75.113 kW | 3.54% |
+| shoulder | MORNING_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_12 | -340.208 kWh | -3.88% |
+| shoulder | MORNING_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | -0.476 kW | -0.05% | air_loop_14 | -90.835 kW | -14.05% |
+| winter | MIDDAY_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | 16.684 kWh | 2.80% |
+| winter | MIDDAY_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| winter | MIDDAY_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| winter | MIDDAY_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 2.618 kWh | 0.07% | air_loop_14 | 2,705.814 kWh | 8.10% |
+| winter | MIDDAY_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 5.356 kW | 0.87% | air_loop_02 | 53.014 kW | 1.88% |
+| winter | MIDDAY_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.000 kWh | — | air_loop_01 | 0.000 kWh | — |
+| winter | MIDDAY_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | — | air_loop_01 | 0.000 kW | — |
+| summer | MIDDAY_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_04 | 243.010 kWh | 7.15% |
+| summer | MIDDAY_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| summer | MIDDAY_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| summer | MIDDAY_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_04 | 243.010 kWh | 7.15% |
+| summer | MIDDAY_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 14.417 kW | 12.88% | air_loop_04 | 108.888 kW | 48.99% |
+| summer | MIDDAY_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | -1.006 kWh | -0.07% | air_loop_14 | -2,391.694 kWh | -4.13% |
+| summer | MIDDAY_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 100.759 kW | 6.51% | air_loop_04 | 1,255.773 kW | 13.41% |
+| shoulder | MIDDAY_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_12 | 334.299 kWh | 31.13% |
+| shoulder | MIDDAY_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_12 | 6.703 kg/s | 7.66% |
+| shoulder | MIDDAY_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_02 | 51.877 kg/s | 49.82% |
+| shoulder | MIDDAY_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 277.287 kWh | 7.26% | air_loop_04 | 2,420.707 kWh | 14.95% |
+| shoulder | MIDDAY_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 7.478 kW | 1.71% | air_loop_04 | 71.266 kW | 3.36% |
+| shoulder | MIDDAY_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.003 kWh | 0.00% | air_loop_12 | 1,431.554 kWh | 16.31% |
+| shoulder | MIDDAY_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | 0.00% | air_loop_12 | 515.127 kW | 49.69% |
+| winter | EVENING_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | 15.053 kWh | 2.53% |
+| winter | EVENING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| winter | EVENING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| winter | EVENING_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 7.441 kWh | 0.25% | air_loop_14 | 2,614.563 kWh | 7.81% |
+| winter | EVENING_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 5.024 kW | 0.83% | air_loop_02 | 47.260 kW | 1.67% |
+| winter | EVENING_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.000 kWh | — | air_loop_01 | 0.000 kWh | — |
+| winter | EVENING_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | — | air_loop_01 | 0.000 kW | — |
+| summer | EVENING_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | -216.318 kWh | -15.39% |
+| summer | EVENING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| summer | EVENING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| summer | EVENING_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | -0.000 kWh | -0.00% | air_loop_14 | -216.266 kWh | -15.38% |
+| summer | EVENING_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 8.843 kW | 8.69% | air_loop_04 | 82.185 kW | 36.62% |
+| summer | EVENING_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | -0.619 kWh | -0.03% | air_loop_14 | -1,949.841 kWh | -3.37% |
+| summer | EVENING_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 77.866 kW | 4.87% | air_loop_12 | 1,096.752 kW | 27.81% |
+| shoulder | EVENING_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | 285.645 kWh | 43.22% |
+| shoulder | EVENING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_02 | 6.585 kg/s | 7.21% |
+| shoulder | EVENING_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_02 | 48.715 kg/s | 47.22% |
+| shoulder | EVENING_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 197.731 kWh | 5.14% | air_loop_04 | 1,702.344 kWh | 10.51% |
+| shoulder | EVENING_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 5.880 kW | 1.37% | air_loop_02 | 58.398 kW | 7.12% |
+| shoulder | EVENING_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_02 | 1,460.544 kWh | 16.74% |
+| shoulder | EVENING_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | 0.00% | air_loop_02 | 457.581 kW | 46.74% |
+| winter | DOUBLE_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_12 | 0.203 kWh | 0.02% |
+| winter | DOUBLE_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_02 | 0.000 kg/s | 0.00% |
+| winter | DOUBLE_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| winter | DOUBLE_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 5.107 kWh | 0.25% | air_loop_12 | 658.366 kWh | 1.91% |
+| winter | DOUBLE_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 5.110 kW | 0.77% | air_loop_04 | 50.039 kW | 0.78% |
+| winter | DOUBLE_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.000 kWh | — | air_loop_01 | 0.000 kWh | — |
+| winter | DOUBLE_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | — | air_loop_01 | 0.000 kW | — |
+| summer | DOUBLE_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_02 | 67.684 kWh | 4.19% |
+| summer | DOUBLE_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_01 | 0.000 kg/s | 0.00% |
+| summer | DOUBLE_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_04 | 0.000 kg/s | 0.00% |
+| summer | DOUBLE_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_02 | 67.885 kWh | 4.20% |
+| summer | DOUBLE_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 1.306 kW | 0.78% | air_loop_02 | 30.451 kW | 26.14% |
+| summer | DOUBLE_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.005 kWh | 0.01% | air_loop_02 | 564.651 kWh | 0.66% |
+| summer | DOUBLE_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 15.135 kW | 1.08% | air_loop_12 | 386.472 kW | 10.08% |
+| shoulder | DOUBLE_BANK − BASELINE_SPREAD | fan_electricity_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | 122.157 kWh | 18.63% |
+| shoulder | DOUBLE_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_mean_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_14 | 3.598 kg/s | 6.55% |
+| shoulder | DOUBLE_BANK − BASELINE_SPREAD | outdoor_air_mass_flow_peak_kg_s | 5 | 14 | 0.000 kg/s | 0.00% | air_loop_14 | 25.729 kg/s | 36.49% |
+| shoulder | DOUBLE_BANK − BASELINE_SPREAD | total_heating_kwh | 5 | 14 | 3.832 kWh | 0.02% | air_loop_12 | 842.284 kWh | 14.59% |
+| shoulder | DOUBLE_BANK − BASELINE_SPREAD | total_heating_interval_peak_kw | 5 | 14 | 6.668 kW | 1.57% | air_loop_04 | 62.292 kW | 2.94% |
+| shoulder | DOUBLE_BANK − BASELINE_SPREAD | total_cooling_kwh | 5 | 14 | 0.000 kWh | 0.00% | air_loop_14 | 490.376 kWh | 9.03% |
+| shoulder | DOUBLE_BANK − BASELINE_SPREAD | total_cooling_interval_peak_kw | 5 | 14 | 0.000 kW | 0.00% | air_loop_14 | 232.567 kW | 36.27% |
+
+The table includes fan energy, mean/peak outdoor-air mass flow, air-system heating/cooling energy, and interval peaks. Effects are controlled model redistribution, not measurements, and remain subject to the incomplete fixed-sizing gate.

@@ -1,0 +1,222 @@
+{
+  "schema_version": "idfrepair.airport-fixed-sizing-public-audit.v31",
+  "status": "FIXED_OPERATION_INCOMPLETE",
+  "source_static_sizing": {
+    "completed": true,
+    "warning_count": 409,
+    "severe_count": 0,
+    "fatal_count": 0
+  },
+  "source_unchanged": true,
+  "protected_objects_unchanged": true,
+  "autosizable_fields_before": 3944,
+  "autosized_values_available": 3036,
+  "values_applied": 3036,
+  "autosizable_fields_unresolved": 908,
+  "unresolved_critical_fields": 908,
+  "categories": {
+    "Air terminal": {
+      "before": 74,
+      "available": 74,
+      "applied": 74,
+      "unresolved": 0
+    },
+    "AirLoop": {
+      "before": 14,
+      "available": 14,
+      "applied": 14,
+      "unresolved": 0
+    },
+    "Coil": {
+      "before": 1577,
+      "available": 1577,
+      "applied": 1577,
+      "unresolved": 0
+    },
+    "Fan": {
+      "before": 89,
+      "available": 89,
+      "applied": 89,
+      "unresolved": 0
+    },
+    "FourPipeFanCoil": {
+      "before": 375,
+      "available": 225,
+      "applied": 225,
+      "unresolved": 150
+    },
+    "HeatExchanger": {
+      "before": 7,
+      "available": 7,
+      "applied": 7,
+      "unresolved": 0
+    },
+    "Other critical HVAC": {
+      "before": 870,
+      "available": 112,
+      "applied": 112,
+      "unresolved": 758
+    },
+    "OutdoorAir": {
+      "before": 14,
+      "available": 14,
+      "applied": 14,
+      "unresolved": 0
+    },
+    "PlantLoop": {
+      "before": 4,
+      "available": 4,
+      "applied": 4,
+      "unresolved": 0
+    },
+    "Pump": {
+      "before": 4,
+      "available": 4,
+      "applied": 4,
+      "unresolved": 0
+    },
+    "VAV terminal": {
+      "before": 916,
+      "available": 916,
+      "applied": 916,
+      "unresolved": 0
+    }
+  },
+  "object_types": {
+    "OS_AirLoopHVAC": {
+      "before": 14,
+      "available": 14,
+      "applied": 14,
+      "unresolved": 0
+    },
+    "OS_AirTerminal_SingleDuct_ConstantVolume_NoReheat": {
+      "before": 74,
+      "available": 74,
+      "applied": 74,
+      "unresolved": 0
+    },
+    "OS_AirTerminal_SingleDuct_VAV_Reheat": {
+      "before": 916,
+      "available": 916,
+      "applied": 916,
+      "unresolved": 0
+    },
+    "OS_Coil_Cooling_Water": {
+      "before": 623,
+      "available": 623,
+      "applied": 623,
+      "unresolved": 0
+    },
+    "OS_Coil_Heating_Water": {
+      "before": 954,
+      "available": 954,
+      "applied": 954,
+      "unresolved": 0
+    },
+    "OS_Controller_OutdoorAir": {
+      "before": 14,
+      "available": 14,
+      "applied": 14,
+      "unresolved": 0
+    },
+    "OS_Controller_WaterCoil": {
+      "before": 814,
+      "available": 56,
+      "applied": 56,
+      "unresolved": 758
+    },
+    "OS_DistrictCooling": {
+      "before": 1,
+      "available": 1,
+      "applied": 1,
+      "unresolved": 0
+    },
+    "OS_DistrictHeating": {
+      "before": 1,
+      "available": 1,
+      "applied": 1,
+      "unresolved": 0
+    },
+    "OS_Fan_ConstantVolume": {
+      "before": 7,
+      "available": 7,
+      "applied": 7,
+      "unresolved": 0
+    },
+    "OS_Fan_OnOff": {
+      "before": 75,
+      "available": 75,
+      "applied": 75,
+      "unresolved": 0
+    },
+    "OS_Fan_VariableVolume": {
+      "before": 7,
+      "available": 7,
+      "applied": 7,
+      "unresolved": 0
+    },
+    "OS_HeatExchanger_AirToAir_SensibleAndLatent": {
+      "before": 7,
+      "available": 7,
+      "applied": 7,
+      "unresolved": 0
+    },
+    "OS_PlantLoop": {
+      "before": 2,
+      "available": 2,
+      "applied": 2,
+      "unresolved": 0
+    },
+    "OS_Pump_VariableSpeed": {
+      "before": 4,
+      "available": 4,
+      "applied": 4,
+      "unresolved": 0
+    },
+    "OS_Sizing_System": {
+      "before": 56,
+      "available": 56,
+      "applied": 56,
+      "unresolved": 0
+    },
+    "OS_ZoneHVAC_FourPipeFanCoil": {
+      "before": 375,
+      "available": 225,
+      "applied": 225,
+      "unresolved": 150
+    }
+  },
+  "unresolved_fields": [
+    {
+      "object_type": "OS_Controller_WaterCoil",
+      "category": "Other critical HVAC",
+      "field": "isControllerConvergenceToleranceAutosized",
+      "count": 379
+    },
+    {
+      "object_type": "OS_Controller_WaterCoil",
+      "category": "Other critical HVAC",
+      "field": "isMaximumActuatedFlowAutosized",
+      "count": 379
+    },
+    {
+      "object_type": "OS_ZoneHVAC_FourPipeFanCoil",
+      "category": "FourPipeFanCoil",
+      "field": "isMaximumSupplyAirTemperatureInHeatingModeAutosized",
+      "count": 75
+    },
+    {
+      "object_type": "OS_ZoneHVAC_FourPipeFanCoil",
+      "category": "FourPipeFanCoil",
+      "field": "isMinimumSupplyAirTemperatureInCoolingModeAutosized",
+      "count": 75
+    }
+  ],
+  "forward_translation_warning_count": 1,
+  "forward_translation_error_count": 0,
+  "decision_reasons": [
+    "critical_autosized_fields_unresolved"
+  ],
+  "claim_boundary": "DESIGN_SIZING_SENSITIVITY_NOT_FIXED_OPERATION",
+  "private_values_included": false
+}

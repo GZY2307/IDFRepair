@@ -1,0 +1,62 @@
+{
+  "schema_version": "idfrepair.airport-abm-normalization-audit.v31",
+  "primary_scale": "BEM_REFERENCE_NORMALIZED",
+  "secondary_scale": "AIRPORT_WIDE_STRESS_CONTEXT",
+  "source_static_public_person_hours_per_day": 585765.7513500002,
+  "source_static_staff_person_hours_per_day": 26510.855700000007,
+  "normalized_dynamic_run_count": 25,
+  "normalized_dynamic_public_person_hours_minimum": 585765.7513499865,
+  "normalized_dynamic_public_person_hours_maximum": 585765.7513499884,
+  "normalized_dynamic_staff_person_hours_minimum": 26510.855699999982,
+  "normalized_dynamic_staff_person_hours_maximum": 26510.85570000001,
+  "maximum_public_relative_error": 2.3252627218918695e-14,
+  "maximum_staff_relative_error": 9.605820324253804e-16,
+  "relative_tolerance": 1e-08,
+  "conservation_status": "PASS",
+  "historical_stress_public_person_hours_p50": 151895.5772828727,
+  "scale_comparison": [
+    {
+      "metric": "public_person_hours",
+      "BEM_REFERENCE_NORMALIZED": 585765.751349987,
+      "AIRPORT_WIDE_STRESS_CONTEXT": 151895.5772828727,
+      "bem_to_stress_ratio": 3.856371342920175
+    },
+    {
+      "metric": "whole_building_15min_peak",
+      "BEM_REFERENCE_NORMALIZED": 40643.85825924452,
+      "AIRPORT_WIDE_STRESS_CONTEXT": 12888.923772346501,
+      "bem_to_stress_ratio": 3.1533942613926307
+    },
+    {
+      "metric": "spaces_over_1_design_reference_seed40015",
+      "BEM_REFERENCE_NORMALIZED": 182.0,
+      "AIRPORT_WIDE_STRESS_CONTEXT": 132.0,
+      "bem_to_stress_ratio": 1.378787878787879
+    },
+    {
+      "metric": "maximum_design_ratio_seed40015",
+      "BEM_REFERENCE_NORMALIZED": 34.58361550138357,
+      "AIRPORT_WIDE_STRESS_CONTEXT": 8.959242406427505,
+      "bem_to_stress_ratio": 3.86010489866562
+    },
+    {
+      "metric": "domestic_waiting_peak_seed40015",
+      "BEM_REFERENCE_NORMALIZED": 27152.635868694,
+      "AIRPORT_WIDE_STRESS_CONTEXT": 7034.170464662827,
+      "bem_to_stress_ratio": 3.8601048986656203
+    },
+    {
+      "metric": "baggage_claim_peak_seed40015",
+      "BEM_REFERENCE_NORMALIZED": 4656.784172510276,
+      "AIRPORT_WIDE_STRESS_CONTEXT": 1206.3879854975066,
+      "bem_to_stress_ratio": 3.8601048986656217
+    },
+    {
+      "metric": "commercial_restaurant_restroom_peak_seed40015",
+      "BEM_REFERENCE_NORMALIZED": 1000.1475513632859,
+      "AIRPORT_WIDE_STRESS_CONTEXT": 259.0985420393683,
+      "bem_to_stress_ratio": 3.8601048986656212
+    }
+  ],
+  "claim_boundary": "CONTROLLED_NOT_MEASURED"
+}

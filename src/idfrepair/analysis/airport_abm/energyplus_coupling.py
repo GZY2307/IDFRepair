@@ -66,6 +66,7 @@ def prepare_weather_run_idf(
     meters: Iterable[str],
     reporting_frequency: str = "Timestep",
     resolution_minutes: int = 15,
+    fixed_sizing_operation: bool = False,
 ) -> Path:
     """Prepare a source-immutable weather-period derivative with a strict output set."""
 
@@ -135,9 +136,10 @@ def prepare_weather_run_idf(
             edits.append((field.start, field.end, value))
 
     replace("Timestep", "Number of Timesteps per Hour", str(60 // resolution_minutes))
-    replace("SimulationControl", "Do Zone Sizing Calculation", "Yes")
-    replace("SimulationControl", "Do System Sizing Calculation", "Yes")
-    replace("SimulationControl", "Do Plant Sizing Calculation", "Yes")
+    sizing_value = "No" if fixed_sizing_operation else "Yes"
+    replace("SimulationControl", "Do Zone Sizing Calculation", sizing_value)
+    replace("SimulationControl", "Do System Sizing Calculation", sizing_value)
+    replace("SimulationControl", "Do Plant Sizing Calculation", sizing_value)
     replace("SimulationControl", "Run Simulation for Sizing Periods", "No")
     replace("SimulationControl", "Run Simulation for Weather File Run Periods", "Yes")
     replace("RunPeriod", "Begin Month", str(begin_month))
@@ -168,6 +170,100 @@ def prepare_weather_run_idf(
     destination.write_text(derived, encoding="utf-8")
     if source.read_bytes() != source_bytes:
         raise OutputContractError("source IDF changed during weather-period preparation")
+    return destination
+
+
+def prepare_design_day_run_idf(
+    source_path: str | Path,
+    destination_path: str | Path,
+    *,
+    idd: IDDSchema,
+    variables: Iterable[str],
+    meters: Iterable[str],
+    reporting_frequency: str = "Timestep",
+    resolution_minutes: int = 15,
+    fixed_sizing_operation: bool = False,
+) -> Path:
+    """Prepare a source-immutable design-period derivative.
+
+    Fixed operation keeps the source design-day environments but disables new
+    zone, system, and plant sizing calculations.  This is deliberately separate
+    from weather-period preparation so no RunPeriod or EPW assumption is added.
+    """
+
+    source = Path(source_path)
+    destination = Path(destination_path)
+    if not source.is_file():
+        raise OutputContractError(f"source IDF not found: {source}")
+    if source.resolve() == destination.resolve():
+        raise OutputContractError("design-day IDF must not replace its source")
+    if resolution_minutes <= 0 or 60 % resolution_minutes:
+        raise OutputContractError("resolution must divide one hour")
+    frequency = reporting_frequency.strip().title()
+    if frequency not in {"Timestep", "Hourly", "Daily", "Runperiod"}:
+        raise OutputContractError("unsupported reporting frequency")
+    if frequency == "Runperiod":
+        frequency = "RunPeriod"
+
+    source_bytes = source.read_bytes()
+    text = source_bytes.decode("utf-8")
+    document = parse_idf(text)
+    if document.issues:
+        raise OutputContractError("source IDF cannot be prepared safely")
+    timesteps = document.find_objects("Timestep")
+    controls = document.find_objects("SimulationControl")
+    design_days = document.find_objects("SizingPeriod:DesignDay")
+    if len(timesteps) != 1 or len(controls) != 1 or not design_days:
+        raise OutputContractError("design-period control objects are incomplete")
+
+    objects = {"Timestep": timesteps[0], "SimulationControl": controls[0]}
+    edits: list[tuple[int, int, str]] = []
+
+    def replace(object_type: str, field_name: str, value: str) -> None:
+        position = _idd_field_position(idd, object_type, field_name)
+        obj = objects[object_type]
+        if not 1 <= position <= len(obj.fields):
+            raise OutputContractError(
+                f"design-period field missing: {object_type}:{field_name}"
+            )
+        field = obj.fields[position - 1]
+        if text[field.start : field.end] != field.value:
+            raise OutputContractError(
+                f"design-period source span mismatch: {object_type}:{field_name}"
+            )
+        if field.value != value:
+            edits.append((field.start, field.end, value))
+
+    replace("Timestep", "Number of Timesteps per Hour", str(60 // resolution_minutes))
+    sizing_value = "No" if fixed_sizing_operation else "Yes"
+    replace("SimulationControl", "Do Zone Sizing Calculation", sizing_value)
+    replace("SimulationControl", "Do System Sizing Calculation", sizing_value)
+    replace("SimulationControl", "Do Plant Sizing Calculation", sizing_value)
+    replace("SimulationControl", "Run Simulation for Sizing Periods", "Yes")
+    replace("SimulationControl", "Run Simulation for Weather File Run Periods", "No")
+
+    for object_type in ("Output:Variable", "Output:Meter"):
+        edits.extend(
+            (obj.start, obj.end, "") for obj in document.find_objects(object_type)
+        )
+    derived = text
+    for start, finish, value in sorted(edits, reverse=True):
+        derived = derived[:start] + value + derived[finish:]
+    output_rows = [
+        f"Output:Variable,*,{name},{frequency};"
+        for name in sorted({name.strip() for name in variables if name.strip()})
+    ]
+    output_rows.extend(
+        f"Output:Meter,{name},{frequency};"
+        for name in sorted({name.strip() for name in meters if name.strip()})
+    )
+    if not output_rows:
+        raise OutputContractError("design-period output contract is empty")
+    derived = derived.rstrip() + "\n\n" + "\n".join(output_rows) + "\n"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(derived, encoding="utf-8")
+    if source.read_bytes() != source_bytes:
+        raise OutputContractError("source IDF changed during design-period preparation")
     return destination
 
 

@@ -14,7 +14,6 @@ from .model import AgentClass, PASSENGER_CLASSES
 from .normalization import (
     CohortWeights,
     PersonHourTargets,
-    derive_throughput_cohort_weights,
     source_person_hour_targets,
     weights_by_agent,
 )
@@ -22,6 +21,7 @@ from .schedule_compiler import CompiledSchedule, compile_traces
 from .simulation import SimulationResult, simulate_agents
 from .source import SourceSpace, load_space_mapping
 from .validation import SimulationValidationReport, validate_simulation
+from .v31 import AIRPORT_WIDE_STRESS_CONTEXT, select_cohort_weights
 
 
 class ExperimentError(ValueError):
@@ -271,6 +271,7 @@ def run_seed_matrix(
     *,
     seed: int,
     raw_output_dir: str | Path | None = None,
+    scale_mode: str = AIRPORT_WIDE_STRESS_CONTEXT,
 ) -> tuple[ScenarioSeedResult, ...]:
     if seed not in context.registry.monte_carlo_seeds:
         raise ExperimentError(f"seed is not pre-registered: {seed}")
@@ -285,9 +286,10 @@ def run_seed_matrix(
     base_result = simulate_agents(base_plans, seed=seed)
     _require_valid(context, base_result)
     supported = {space.name for space in context.spaces if space.bem_people_supported}
-    cohort = derive_throughput_cohort_weights(
+    cohort = select_cohort_weights(
         base_result,
-        target_public_arrivals=context.registry.public_arrivals_per_day,
+        scale_mode=scale_mode,
+        airport_wide_public_arrivals=context.registry.public_arrivals_per_day,
         targets=context.targets,
         physical_locations=supported,
     )
@@ -324,7 +326,15 @@ def run_seed_matrix(
             periodic=True,
         )
         summary, functions, regions, systems, flows = _summarize(
-            context, scenario, seed, result, validation, cohort, compiled, weights
+            context,
+            scenario,
+            seed,
+            result,
+            validation,
+            cohort,
+            compiled,
+            weights,
+            scale_mode,
         )
         if raw_output_dir is not None:
             destination = (
@@ -385,6 +395,7 @@ def _summarize(
     cohort: CohortWeights,
     compiled: CompiledSchedule,
     weights: Mapping[str, float],
+    scale_mode: str,
 ):
     interval_count = len(compiled.interval_labels)
     spaces_by_name = {space.name: space for space in context.spaces}
@@ -492,6 +503,7 @@ def _summarize(
         "family": scenario.family,
         "seed": seed,
         "evidence_status": scenario.evidence_status,
+        "occupancy_scale": scale_mode,
         "simulated_agents": len(result.traces),
         "simulated_agents_by_class": simulated_by_class,
         "equivalent_arrivals_by_class": equivalent_by_class,
